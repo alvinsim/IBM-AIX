@@ -203,7 +203,7 @@ no -o "ipforwarding=1"
 - =/etc/rc.tcpip= :: Start all =TCP/IP= daemons. Do not use =startsrc -g tcpip= as this will start all =TCP/IP= daemons including =routed= & =gated=
 
 * N.F.S.
-
+** TODO org mode formatting for "N.F.S"
 exportfs                        Lists all exported filesystems
 
 exportfs -a                     Exports all fs's in /etc/exports file
@@ -227,7 +227,7 @@ nfso -o nfs_use_reserved_port=1
 --------------------------------------------------------------------------------
                                 BACKUPS
 --------------------------------------------------------------------------------
-
+** TODO Org mode formatting for "BACKUPS"
 MKSYSB
 ------
 
@@ -343,7 +343,7 @@ Same as above but using tar instead of cpio.
 --------------------------------------------------------------------------------
                         Copying diskettes and tape
 --------------------------------------------------------------------------------
-
+** TODO Org mode formatting for "Copying diskettes and tape"
 COPYING DISKETTES
 -----------------
 
@@ -360,7 +360,7 @@ dd if=(filename) of=/dev/rmt0        or tcopy
 --------------------------------------------------------------------------------
                                 VI Commands
 --------------------------------------------------------------------------------
-
+** TODO Org mode formattign for "VI Commands"
 :g/xxx/s//yyy/   global change where xxx is to be changed by yyy
 
 sed 's(ctrl v ctrl m)g//g' old.filename > new.filename
@@ -371,7 +371,7 @@ ctrl character you need.
 --------------------------------------------------------------------------------
                                 DEVICES
 --------------------------------------------------------------------------------
-
+** TODO Org mode formatting for "DEVICS"
 lscfg                          lists all installed devices
 lscfg -v                       lists all installed devices in detail
 lscfg -vl (device name)        lists device details
@@ -438,7 +438,7 @@ mkdev -l pmc0        Configure Power Management
 --------------------------------------------------------------------------------
                                 TAPE DRIVES
 --------------------------------------------------------------------------------
-
+** TODO Org mode formatting for "TAPE DRIVES"
 rmt0.x where x = A + B + C
 
 A = density        0 = high      4 = low
@@ -471,7 +471,7 @@ tapechk (No of files)           Checks Number of files on tape.
 --------------------------------------------------------------------------------
                         PRINTERS / PRINT QUEUES
 --------------------------------------------------------------------------------
-
+** TODO Org mode formatting for "PRINTERS / PRINT QUEUES"
 splp (device)                   Displays/changes printer driver settings
 splp /dev/lp0
 
@@ -511,7 +511,7 @@ stop -s qdaemon                Stop qdaemon sub-system
 --------------------------------------------------------------------------------
                                 FILE SYSTEMS
 --------------------------------------------------------------------------------
-
+** TODO Org mode formatting for "FILE SYSTEMS"
 Physical Volumes (PV's)
 -----------------------
 
@@ -716,7 +716,7 @@ offline backup.
 --------------------------------------------------------------------------------
                    BOOT LOGICAL VOLUME (BLV) / PROCESSORS / KERNEL
 --------------------------------------------------------------------------------
-
+** TODO Org mode formatting for "BOOT LOGICAL VOLUME (BLV) / PROCSSORS / KERNEL"
 Mirroring does not work with the BLV as it is not a true logical volume,
 bosboot must be run against the other disk after mirroring the rootvg.
 
@@ -745,7 +745,7 @@ lsattr -EHl proc0            Displays attributes of processor 0. AIX 5.1L will
 --------------------------------------------------------------------------------
                                 SYSTEM DUMP
 --------------------------------------------------------------------------------
-
+** TODO Org mode formatting for "SYSTEM DUMP"
 1, AIX 4.2.1 and greater supports system dump to paging space.
 2, AIX 4.3.3 and greater supports system dump to mirrored paging space.
 3, Primary dump device must be in the rootvg
@@ -771,7 +771,7 @@ snap -gfkD -o /dev/rmt0     Copy dump to tape to send to IBM support, uses tar.
 --------------------------------------------------------------------------------
                                 PAGING SPACE (PS's)
 --------------------------------------------------------------------------------
-
+** TODO Org mode formatting for "PAGING SPAC (PS's)"
 lsps -a                        Lists out all paging space
 lsps -s                        Displays total paging and total useage
 lsps (ps)
@@ -805,7 +805,7 @@ Note : Need to change the swapon entry in /sbin/rc.boot script if you are
 --------------------------------------------------------------------------------
                                 SCHEDULING
 --------------------------------------------------------------------------------
-
+** TODO Org mode formatting for "SCHEDULING"
 crontab -l                        List out crontab entrys
 crontab -e                        Edit crontab entrys
 crontab -l > (filename)           Output crontab entrys to a file
@@ -837,7 +837,7 @@ atrm  (at job No)        Removes an at job scheduled to run.
 --------------------------------------------------------------------------------
                                 SECURITY
 --------------------------------------------------------------------------------
-
+** TODO Org mode formatting for "SECURITY"
 nulladm /var/adm/wtmp      To recreate/clear down the wtmp file.
 
 groups           Lists out the groups that the user is a member of
@@ -892,7 +892,7 @@ rmgroup (group)                  Removes a group
 --------------------------------------------------------------------------------
                            USERS / ENVIRONMENT
 --------------------------------------------------------------------------------
-
+** TODO Org mode formattign for "USERS / ENVIRONMENT"
 passwd -f                        Change current users gecos (user description)
 passwd -s                        Change current users shell
 
@@ -948,7 +948,7 @@ su (user)        Switch to new user, current environment is propated to the
 --------------------------------------------------------------------------------
                              REMOTE USERS
 --------------------------------------------------------------------------------
-
+** TODO Org mode formatting for "REMOTE USERS"
 ruser -a -f (user)       Adds entry into /etc/ftpusers file
 ruser -a -p (host)       Adds entry into /etc/host.lpd file
 ruser -a -r (host)       Adds entry into /etc/hosts.equiv file
@@ -968,7 +968,7 @@ ruser -X -R              Deletes all entries in /etc/hosts.equiv file
 --------------------------------------------------------------------------------
                                 INITTAB
 --------------------------------------------------------------------------------
-
+** TODO Org mode formatting for "INITTAB"
 telinit S                Switches to single user mode.
 telinit 2                Switches to multi user mode.
 telinit q                Re-examines /etc/inittab
@@ -986,7 +986,7 @@ chitab "tty1:2:respawn:/usr/bin/getty /dev/tty1"
 --------------------------------------------------------------------------------
                                 ODM
 --------------------------------------------------------------------------------
-
+** TODO Org mode formatting for "ODM"
 odmget -q "name=lp1" CuDv |more     Gets lp1 info from pre-defined database.
 
 odmget -q "name-lp1" CuAt |more     Gets lp1 info from customised database.
@@ -1004,7 +1004,7 @@ odmdrop
 --------------------------------------------------------------------------------
                         ERROR LOGGING / LOGS
 --------------------------------------------------------------------------------
-
+** TODO Org mode formatting for "ERROR LOADING / LOGS"
 /usr/lib/errdemon -l         Displays errorlog attributes.
 /usr/lib/errdemon            Starts error logging.
 /usr/lib/errstop             Stops error logging.
@@ -1034,7 +1034,7 @@ cat /tmp/boot.log | alot -q -t (type)    Copies contects of a file to a log
 --------------------------------------------------------------------------------
                     PERFORMANCE MONITORING / TUNING
 --------------------------------------------------------------------------------
-
+** TODO Org mode formatting for "PERFORMACNE MONITORING / TUNING"
 vmstat (drive) (interval) (count)         Reports virtual memory statistics.
 vmstat hdisk0 5 20
 
@@ -1052,10 +1052,13 @@ sar -u -P ALL 10 10         Displays %usr %sys %wio %idle for all processors
 
 /usr/samples/kernel/vmtune  Displays "Virtual Memory Manager" settings
 
+** TODO Org mode formatting for "VMM Tuning"
+*** TODO copy from bitbucket repo
+
 --------------------------------------------------------------------------------
                                       DOS DISKETTES
 --------------------------------------------------------------------------------
-
+** TODO Org mode formating for "DOS DISKETTES"
 dosdir                    Reads directory listing of a diskette
 dosdir (directory)        Reads directory listing of a named directory
 
@@ -1073,7 +1076,7 @@ dosformat                                       Formats the diskette
 --------------------------------------------------------------------------------
                                       SENDMAIL
 --------------------------------------------------------------------------------
-
+** TODO Org mode formattign for "SENDMAIL"
 sendmail -bi       Creates new aliase db from /etc/aliase file.
 newaliases
 
@@ -1090,3 +1093,4 @@ kill -l (sendmail PID)
 
 stopsrc -s sendmail                 Stops the sendmail daemon
 startsrc -s sendmail "-bd -q30"     Starts the sendmail daemon
+** TODO Sync command crib with points from "IBM AIX Cheats" in bitbucket repo
