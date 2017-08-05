@@ -203,33 +203,25 @@ no -o "ipforwarding=1"
 - =/etc/rc.tcpip= :: Start all =TCP/IP= daemons. Do not use =startsrc -g tcpip= as this will start all =TCP/IP= daemons including =routed= & =gated=
 
 * N.F.S.
-** TODO org mode formatting for "N.F.S"
-exportfs                        Lists all exported filesystems
 
-exportfs -a                     Exports all fs's in /etc/exports file
+- =exportfs= :: Lists all exported filesystems
+- =exportfs -a= :: Exports all filesystems in =/etc/exports= file
+- =exportfs -u (filesystem)= :: Un-exports a filesystem
+- =mknfs= :: Configures and starts NFS services
+- =rmnfs= :: Stops and un-configures NFS services
+- =mknfsexp -d /directory= :: Creates an NFS export directory
+- =mknfsmnt= :: Creates an NFS mount directory
+- =mount hostname:/filesystem /mount-point= :: Mount an NFS filesystem
+- =nfso -a= :: Display NFS Options
+- =nfso -o option=value= :: Set an NFS Option
 
-exportfs -u (filesystem)        Un-exports a filesystem
-
-mknfs                           Configures and starts NFS services
-
-rmnfs                           Stops and un-configures NFS services
-
-mknfsexp -d /directory          Creates an NFS export directory
-
-mknfsmnt                        Creates an NFS mount directory
-
-mount hostname:/filesystem /mount-point    Mount an NFS filesystem
-
-nfso -a                                    Display NFS Options
-nfso -o option=value                       Set an NFS Option
+#+BEGIN_EXAMPLE
 nfso -o nfs_use_reserved_port=1
+#+END_EXAMPLE
 
---------------------------------------------------------------------------------
-                                BACKUPS
---------------------------------------------------------------------------------
+* BACKUPS
 ** TODO Org mode formatting for "BACKUPS"
-MKSYSB
-------
+** MKSYSB
 
 mkszfile -f                 Creates /image.data file (4.x onwards)
 mkszfile -X                 Creates /fs.size file    (3.x)
@@ -239,8 +231,7 @@ mksysb -i (device of file)  Creates a mksysb image
 mksysb does not save any raw data and will not backup a filesystem that
 is not mounted.
 
-SAVEVG
-------
+** SAVEVG
 
 savevg -if (device or file) (vg)   Creates a savevg image
 
@@ -249,15 +240,13 @@ restvg -q -f (device or file)      Restore from a savevg image
 
 mkvgdata (vg)                      Creates new vgname.data file
 
-CPIO ARCHIVE
-------------
+** CPIO ARCHIVE
 
 find (filesystem) -print | cpio -ocv > (filename or device)
 
 eg find ./usr/ -print | cpio -ocv > /dev/rmt0
 
-CPIO RESTORE
-------------
+** CPIO RESTORE
 
 cpio -ict < (filename or device) | more        Lists archive
 cpio -icdv < (filename or device)
@@ -266,15 +255,13 @@ cpio -icdv < (filename or device) ("files or directories to restore")
 eg cpio -icdv < /dev/rmt0 "tcpip/*"             Restore directory and contents
    cpio -icdv < /dev/rmt0 "*resolve.conf"       Restore a named file
 
-TAR ARCHIVE
------------
+** TAR ARCHIVE
 
 tar -cvf (filename or device) ("files or directories to archive")
 
 eg tar -cvf /dev/rmt0 "/usr/*"
 
-TAR RESTORE
------------
+** TAR RESTORE
 
 tar -tvf (filename or device)                        Lists archive
 
@@ -285,8 +272,7 @@ use -p option for restoring with orginal permissions
 eg tar -xvf /dev/rmt0 "tcpip"                   Restore directory and contents
    tar -xvf /dev/rmt0 "tcpip/resolve.conf"      Restore a named file
 
-AIX ARCHIVE
------------
+** AIX ARCHIVE
 
 find (filesystem) -print | backup -iqvf (filename or device)
 Backup by filename.
@@ -298,8 +284,7 @@ Backup by inode.
 
 eg backup -0 -f /dev/rmt0 "/usr"        -u option updates /etc/dumpdates file
 
-AIX RESTORE
------------
+** AIX RESTORE
 
 restore -qTvf (filename or device)                        Lists archive
 
@@ -312,8 +297,7 @@ restore -qvxf /dev/rmt0.1 "./etc/passwd"     Restore /etc/passwd file
 restore -s4 -qTvf /dev/rmt0.1                Lists contents of a mksysb tape
 
 
-BACKUPS ACROSS A NETWORK
-------------------------
+** BACKUPS ACROSS A NETWORK
 
 To run the backup on a local machine (cpio) and backup on the remote
 machine's (remhost) tape drive (/dev/rmt0)
@@ -340,26 +324,20 @@ rsh remhost "find /data -print | cpio -ocv | dd ibs=32k" \
 tar cBf - .  | rsh remhost "dd ibs=512 obs=512 of=/dev/rmt0"
 Same as above but using tar instead of cpio.
 
---------------------------------------------------------------------------------
-                        Copying diskettes and tape
---------------------------------------------------------------------------------
+* Copying diskettes and tape
 ** TODO Org mode formatting for "Copying diskettes and tape"
-COPYING DISKETTES
------------------
+** COPYING DISKETTES
 
 dd if=/dev/fd0 of=(filename) bs=36b
 dd if=(filename) of=/dev/fd0 bs=36b conv=sync         or flcopy
 
 
-COPYING TAPES
--------------
+** COPYING TAPES
 
 dd if=/dev/rmt0 of=(filename)
 dd if=(filename) of=/dev/rmt0        or tcopy
 
---------------------------------------------------------------------------------
-                                VI Commands
---------------------------------------------------------------------------------
+* VI Commands
 ** TODO Org mode formattign for "VI Commands"
 :g/xxx/s//yyy/   global change where xxx is to be changed by yyy
 
@@ -368,9 +346,7 @@ Strips out ^M characters from ascii files that have been transferred as binary.
 To enter crontrol characters type ctrl v then ctrl ? where ? is whatever
 ctrl character you need.
 
---------------------------------------------------------------------------------
-                                DEVICES
---------------------------------------------------------------------------------
+* DEVICES
 ** TODO Org mode formatting for "DEVICS"
 lscfg                          lists all installed devices
 lscfg -v                       lists all installed devices in detail
@@ -427,17 +403,14 @@ drslot			              Reconfgiures PCI hot-plug slots
 drslot -i -c pci -s U0.1-P1-I3        Display a slot, flashes the LED next to
                                       the slot so that it can be identified.
 
-Power Management (PCI machines)
--------------------------------
+** Power Management (PCI machines)
 
 pmctrl -a            Displays the Power Management state
 
 rmdev -l pmc0        Unconfigure Power Management
 mkdev -l pmc0        Configure Power Management
 
---------------------------------------------------------------------------------
-                                TAPE DRIVES
---------------------------------------------------------------------------------
+* TAPE DRIVES
 ** TODO Org mode formatting for "TAPE DRIVES"
 rmt0.x where x = A + B + C
 
@@ -467,10 +440,7 @@ tapechk (No of files)           Checks Number of files on tape.
 
 < /dev/rmt0                     Rewinds the tape !!!
 
-
---------------------------------------------------------------------------------
-                        PRINTERS / PRINT QUEUES
---------------------------------------------------------------------------------
+* PRINTERS / PRINT QUEUES
 ** TODO Org mode formatting for "PRINTERS / PRINT QUEUES"
 splp (device)                   Displays/changes printer driver settings
 splp /dev/lp0
@@ -507,13 +477,9 @@ startsrc -s qdaemon            Start qdaemon sub-system
 lssrc -s qdaemon               List status of qdaemon sub-system
 stop -s qdaemon                Stop qdaemon sub-system
 
-
---------------------------------------------------------------------------------
-                                FILE SYSTEMS
---------------------------------------------------------------------------------
+* FILE SYSTEMS
 ** TODO Org mode formatting for "FILE SYSTEMS"
-Physical Volumes (PV's)
------------------------
+** Physical Volumes (PV's)
 
 lspv                        Lists all physical volumes (hard disks)
 lspv (pv)                   Lists the physical volume details
@@ -538,9 +504,7 @@ Migratepv cannot migrate striped logical volumes, use cplv and rmlv.
 
 replacepv (old pv) (new pv)     (4.3.3 onwards)
 
-
-Volume Groups (VG's)
---------------------
+** Volume Groups (VG's)
 
 lsvg              Lists all volume groups
 lsvg (vg)         Lists the volume group details
@@ -597,10 +561,7 @@ reorgvg (vg) (lv)        Reorganised a fragmented LV, must state an LV at the
                          command line else the first LV in the VG is picked.
                          Does not reorg the PP's of striped LV's.
 
-
-
-Logical Volumes (LV's)
-----------------------
+** Logical Volumes (LV's)
 
 lslv (lv)                   Lists the logical volume details
 lslv -l (lv)                Lists the physical volume which the LV is on
@@ -643,8 +604,7 @@ logform (/dev/lv)       Initialises an LV for use as an JFSlog
 
 getlvcb -AT (lv)        Displays Logical Volume Control Block information
 
-File Systems (FS's)
--------------------
+** File Systems (FS's)
 
 lsfs            Lists all filesystems
 lsfs -q (fs)    Lists the file system details
@@ -688,8 +648,7 @@ fsck -p (fs)         Will restore primary superblock from backup copy if the
                      superblock is corrupt.
               ( or dd count=1 bs=4k skip=31 seek=1 if=/dev/lv00 of=/dev/lv00 )
 
-Mirroring
----------
+** Mirroring
 
 mklv -y (lv) -c(copies 2 or 3) (vg) (No of PP's) (PV Name optional)
 Creates a mirrored named logical volume.
@@ -713,9 +672,7 @@ chfs -a splitcopy=/backup -a copy=2 /data1
 Splits off a copy of a 3 way mirror and mount read only for use as an
 offline backup.
 
---------------------------------------------------------------------------------
-                   BOOT LOGICAL VOLUME (BLV) / PROCESSORS / KERNEL
---------------------------------------------------------------------------------
+* BOOT LOGICAL VOLUME (BLV) / PROCESSORS / KERNEL
 ** TODO Org mode formatting for "BOOT LOGICAL VOLUME (BLV) / PROCSSORS / KERNEL"
 Mirroring does not work with the BLV as it is not a true logical volume,
 bosboot must be run against the other disk after mirroring the rootvg.
@@ -742,9 +699,7 @@ lsdev -Cc processor          Lists all processors
 lsattr -EHl proc0            Displays attributes of processor 0. AIX 5.1L will
                              display processor clock frequency.
 
---------------------------------------------------------------------------------
-                                SYSTEM DUMP
---------------------------------------------------------------------------------
+* SYSTEM DUMP
 ** TODO Org mode formatting for "SYSTEM DUMP"
 1, AIX 4.2.1 and greater supports system dump to paging space.
 2, AIX 4.3.3 and greater supports system dump to mirrored paging space.
@@ -768,9 +723,7 @@ echo "stat\n status\n t -m" | crash /var/adm/ras/vmcore.0
 
 snap -gfkD -o /dev/rmt0     Copy dump to tape to send to IBM support, uses tar.
 
---------------------------------------------------------------------------------
-                                PAGING SPACE (PS's)
---------------------------------------------------------------------------------
+* PAGING SPACE (PS's)
 ** TODO Org mode formatting for "PAGING SPAC (PS's)"
 lsps -a                        Lists out all paging space
 lsps -s                        Displays total paging and total useage
@@ -802,9 +755,7 @@ Note : Need to change the swapon entry in /sbin/rc.boot script if you are
 /etc/swapspaces               File that lists all paging space devices that are
                               activated/swapon during reboot.
 
---------------------------------------------------------------------------------
-                                SCHEDULING
---------------------------------------------------------------------------------
+* SCHEDULING
 ** TODO Org mode formatting for "SCHEDULING"
 crontab -l                        List out crontab entrys
 crontab -e                        Edit crontab entrys
@@ -834,9 +785,7 @@ atrm  (at job No)        Removes an at job scheduled to run.
 /var/adm/cron/at.deny    File containing users denied at use.
 /var/adm/cron/atjobs     Directory containing users at entries.
 
---------------------------------------------------------------------------------
-                                SECURITY
---------------------------------------------------------------------------------
+* SECURITY
 ** TODO Org mode formatting for "SECURITY"
 nulladm /var/adm/wtmp      To recreate/clear down the wtmp file.
 
@@ -889,9 +838,7 @@ mkgroup (new group)              Creates a group
 chgroup (attribute) (group)      Change a group attribute
 rmgroup (group)                  Removes a group
 
---------------------------------------------------------------------------------
-                           USERS / ENVIRONMENT
---------------------------------------------------------------------------------
+* USERS / ENVIRONMENT
 ** TODO Org mode formattign for "USERS / ENVIRONMENT"
 passwd -f                        Change current users gecos (user description)
 passwd -s                        Change current users shell
@@ -945,9 +892,7 @@ su - (user)      Switch to new user and change to the new users environment.
 su (user)        Switch to new user, current environment is propated to the
                  new shell.
 
---------------------------------------------------------------------------------
-                             REMOTE USERS
---------------------------------------------------------------------------------
+* REMOTE USERS
 ** TODO Org mode formatting for "REMOTE USERS"
 ruser -a -f (user)       Adds entry into /etc/ftpusers file
 ruser -a -p (host)       Adds entry into /etc/host.lpd file
@@ -965,9 +910,7 @@ ruser -X -F              Deletes all entries in /etc/ftpusers file
 ruser -X -P              Deletes all entries in /etc/host.lpd file
 ruser -X -R              Deletes all entries in /etc/hosts.equiv file
 
---------------------------------------------------------------------------------
-                                INITTAB
---------------------------------------------------------------------------------
+* INITTAB
 ** TODO Org mode formatting for "INITTAB"
 telinit S                Switches to single user mode.
 telinit 2                Switches to multi user mode.
@@ -983,9 +926,7 @@ rmitab (ident eg tty1)   Removes an inittab entry.
 
 chitab "tty1:2:respawn:/usr/bin/getty /dev/tty1"
 
---------------------------------------------------------------------------------
-                                ODM
---------------------------------------------------------------------------------
+* ODM
 ** TODO Org mode formatting for "ODM"
 odmget -q "name=lp1" CuDv |more     Gets lp1 info from pre-defined database.
 
@@ -1001,9 +942,7 @@ odmshow CuAt         Displays fields and record structures of CuAt
 odmchange
 odmdrop
 
---------------------------------------------------------------------------------
-                        ERROR LOGGING / LOGS
---------------------------------------------------------------------------------
+* ERROR LOGGING / LOGS
 ** TODO Org mode formatting for "ERROR LOADING / LOGS"
 /usr/lib/errdemon -l         Displays errorlog attributes.
 /usr/lib/errdemon            Starts error logging.
@@ -1031,9 +970,7 @@ alog -o -t boot
 
 cat /tmp/boot.log | alot -q -t (type)    Copies contects of a file to a log
 
---------------------------------------------------------------------------------
-                    PERFORMANCE MONITORING / TUNING
---------------------------------------------------------------------------------
+* PERFORMANCE MONITORING / TUNING
 ** TODO Org mode formatting for "PERFORMACNE MONITORING / TUNING"
 vmstat (drive) (interval) (count)         Reports virtual memory statistics.
 vmstat hdisk0 5 20
@@ -1052,12 +989,11 @@ sar -u -P ALL 10 10         Displays %usr %sys %wio %idle for all processors
 
 /usr/samples/kernel/vmtune  Displays "Virtual Memory Manager" settings
 
+* VMM Tuning
 ** TODO Org mode formatting for "VMM Tuning"
 *** TODO copy from bitbucket repo
 
---------------------------------------------------------------------------------
-                                      DOS DISKETTES
---------------------------------------------------------------------------------
+* DOS DISKETTES
 ** TODO Org mode formating for "DOS DISKETTES"
 dosdir                    Reads directory listing of a diskette
 dosdir (directory)        Reads directory listing of a named directory
@@ -1073,9 +1009,7 @@ dosdel (dosfile)                                Deletes a dos file on diskette
 
 dosformat                                       Formats the diskette
 
---------------------------------------------------------------------------------
-                                      SENDMAIL
---------------------------------------------------------------------------------
+* SENDMAIL
 ** TODO Org mode formattign for "SENDMAIL"
 sendmail -bi       Creates new aliase db from /etc/aliase file.
 newaliases
