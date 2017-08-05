@@ -3,7 +3,7 @@
 #+EMAIL: 		sim.alvin@gmail.com
 #+LANGUAGE: en
 #+STARTUP: 	align fold nodlechek hidestarts oddeven intestate
-#+SEQ_TODO: TODO(t) INPROGRESS(i) WAITING(w@) | DONE(D) CANCLED(c@)
+#+SEQ_TODO: TODO(t) | DONE(D)
 #+OPTION: 	H:3 num:nil toc:t \n:nil ::t |:t ^:t -:t f:t *:t d:(HIDE) showall
 
 * MISCELLENEOUS
