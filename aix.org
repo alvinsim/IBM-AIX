@@ -9,124 +9,124 @@
 * MISCELLENEOUS
 
 - http://www.rs6000.ibm.com/cgi-bin/ds_form :: Web based man pages
-- ~compress -c file.txt > file.Z~ :: Create a compressed file.
-- ~uuencode (infile) (extract-file-name) > (output file)~ :: Converts a binary file to an ASCII file for transfer by modem or email
-- ~uudecode (encoded file)~ :: Extracts a binary file from encoded file and calls it the extract-file-name
+- =compress -c file.txt > file.Z= :: Create a compressed file.
+- =uuencode (infile) (extract-file-name) > (output file)= :: Converts a binary file to an ASCII file for transfer by modem or email
+- =uudecode (encoded file)= :: Extracts a binary file from encoded file and calls it the extract-file-name
 
 examples :-
 
-#+begin_src sh
+#+BEGIN_EXAMPLE
 uuencode maymap maymap > maymap.enc
 uudecode maymap.enc
-#+end_src
+#+END_EXAMPLE
 
-- ~od -c /tmp~ :: Displays contents of the ~/tmp~ directory file
-- ~ls -i~ :: Lists files with their inode numbers
-- ~echo *~ :: Lists files, can be used if ls is corrupt/missing
+- =od -c /tmp= :: Displays contents of the =/tmp= directory file
+- =ls -i= :: Lists files with their inode numbers
+- =echo *= :: Lists files, can be used if ls is corrupt/missing
 
-- ~chtz (timezone eg GMT0BST)~ :: Changes the timezone in ~/etc/environment~ file
-- ~chlang (language eg En_GB)~ :: Changes the language in ~/etc/environment~ file
+- =chtz (timezone eg GMT0BST)= :: Changes the timezone in =/etc/environment= file
+- =chlang (language eg En_GB)= :: Changes the language in =/etc/environment= file
 
-- ~ar -v -t (archive file)~ :: List contents of an archive
-- ~ar -v -x (archive file)~ :: Extracts the archive
-- ~ar -v -t /usr/lib/libC-r.a~ :: Lists contents of the ~libC_r.a~ library
+- =ar -v -t (archive file)= :: List contents of an archive
+- =ar -v -x (archive file)= :: Extracts the archive
+- =ar -v -t /usr/lib/libC-r.a= :: Lists contents of the =libC_r.a= library
 
-- ~find /source -print | cpio -pdm /target~ :: Copying directories using cpio, creates ~/target/source~ directory.
+- =find /source -print | cpio -pdm /target= :: Copying directories using =cpio=, creates ~/target/source~ directory.
 
-- ~dump -nTv (binary executable)~ :: Displays the contents of an executable file
+- =dump -nTv (binary executable)= :: Displays the contents of an executable file
 
-- ~dump -c~ :: Displays string information
-- ~dump -o~ :: Displays object file headers
-- ~dump -l~ :: Displays line numbers
-- ~dump -s~ :: Displays the text section
+- =dump -c= :: Displays string information
+- =dump -o= :: Displays object file headers
+- =dump -l= :: Displays line numbers
+- =dump -s= :: Displays the text section
 
-- ~snap -ao /dev/rmt0~ :: Create a snapshot onto tape
-- ~snap -ad (directory)~ :: Create a snapshot into a named directory other than the default (~/tmp/ibmsupt~)
+- =snap -ao /dev/rmt0= :: Create a snapshot onto tape
+- =snap -ad (directory)= :: Create a snapshot into a named directory other than the default (=/tmp/ibmsupt=)
 
-- ~/usr/dt/bin/dtconfig -d~ :: Disables desktop logins
-- ~/usr/dt/bin/dtconfig -e~ :: Enables desktop logins
-- ~/var/dt/Xpid~ :: PID of the dtlogin process
+- =/usr/dt/bin/dtconfig -d= :: Disables desktop logins
+- =/usr/dt/bin/dtconfig -e= :: Enables desktop logins
+- =/var/dt/Xpid= :: PID of the dtlogin process
 
 * LICENSES / SOFTWARE INSTALLATION
 
-- ~lslicense~ :: Displays number of current user licenses
-- ~chlicense -u (number)~ :: Changes the number of user licenses (~ftp~, ~rexec~ and ~rsh~ (without ~-i~ flag) do not need an AIX user license to be able to access the system.)
+- =lslicense= :: Displays number of current user licenses
+- =chlicense -u (number)= :: Changes the number of user licenses (=ftp=, =rexec= and =rsh= (without =-i= flag) do not need an AIX user license to be able to access the system.)
 
-- ~oslevel~ :: Returns operating system level
+- =oslevel= :: Returns operating system level
 
-#+begin_example
+#+BEGIN_EXAMPLE
      4 . 3 . 3 . 0 <--------- Preventive Maintenance Level
      |   |   |
      |   |   +--------------- Modification
      |   +------------------- Release
      +----------------------- Version
-#+end_example
+#+END_EXAMPLE
 
-- ~oslevel -l 4.3.3.0~ :: Displays all filesets that are "downlevel"
+- =oslevel -l 4.3.3.0= :: Displays all filesets that are "downlevel"
 
-- ~whence (program)~ :: Returns full path of program
-- ~whereis (program)~ :: Returms full path of program
+- =whence (program)= :: Returns full path of program
+- =whereis (program)= :: Returms full path of program
 
-- ~what (program)~ :: Displays identifying info from the executable like version number, when compiled.
+- =what (program)= :: Displays identifying info from the executable like version number, when compiled.
 
-- ~lslpp -L all~ :: list all installed software
-- ~lslpp -L (program set name)~ :: Check if software installed
-- ~lslpp -f~ :: Lists filesets vs packages
-- ~lslpp -ha~ :: Lists installation history of filesets
-- ~lslpp -w /usr/bin/swapon~ :: Lists the fileset that the file belongs to
+- =lslpp -L all= :: list all installed software
+- =lslpp -L (program set name)= :: Check if software installed
+- =lslpp -f= :: Lists filesets vs packages
+- =lslpp -ha= :: Lists installation history of filesets
+- =lslpp -w /usr/bin/swapon= :: Lists the fileset that the file belongs to
 
-- ~lppchk -c~ :: Checks file checksums against ~SWVPD~
-- ~lppchk -l~ :: Checks symbolic links against ~SWVPD~
+- =lppchk -c= :: Checks file checksums against =SWVPD=
+- =lppchk -l= :: Checks symbolic links against =SWVPD=
 
-- ~instfix -ik (fix number eg IX66617)~ :: Checks id fix is installed
+- =instfix -ik (fix number eg IX66617)= :: Checks id fix is installed
 
 example :-
 
-#+begin_src sh
+#+BEGIN_EXAMPLE
 instfix -ik 4330-02_AIX_ML
-#+end_src
+#+END_EXAMPLE
 
-- ~instfix -i | grep ML~ :: Displays all ML's installed
+- =instfix -i | grep ML= :: Displays all ML's installed
 
-- ~instfix -k IX38794 -d /dev/cd0~ :: Installs a fix from cdrom
+- =instfix -k IX38794 -d /dev/cd0= :: Installs a fix from cdrom
 
-- ~/usr/sbin/install_assist~ :: ~Smitty~ Installation Assistant
+- =/usr/sbin/install_assist= :: ~Smitty~ Installation Assistant
 
-- ~/usr/sys/inst.images/sys.bundles~ :: Software bundle files
+- =/usr/sys/inst.images/sys.bundles= :: Software bundle files
 
-- ~alt_disk_install -c hdisk1~ :: Clones a running ~rootvg~ onto ~hdisk1~
-- ~alt_disk_install -w~ :: Wakes up ~alt vg~
-- ~alt_disk_install -s~ :: Sends ~alt vg~ to sleep!
-- ~alt_disk_install -x~ :: Removes ~alt vg~ from disk
+- =alt_disk_install -c hdisk1= :: Clones a running =rootvg= onto =hdisk1=
+- =alt_disk_install -w= :: Wakes up =alt vg=
+- =alt_disk_install -s= :: Sends =alt vg= to sleep!
+- =alt_disk_install -x= :: Removes =alt vg= from disk
 
-- ~/usr/lpp/bosinst/blvset -d /dev/hdisk0 -p 4.2~ :: Resets the pad string in the BLV to the correct AIX version. Needed if the migration option is missing when installing.
+- =/usr/lpp/bosinst/blvset -d /dev/hdisk0 -p 4.2= :: Resets the pad string in the BLV to the correct AIX version. Needed if the migration option is missing when installing.
 
-- ~installp -ad (device) (fileset) (level)~ :: Install apply and commit fileset
-- ~installp -pad (device) (fileset) (level)~ :: Preview install
-- ~installp -u (fileset)~ :: Remove fileset
-- ~installp -ld (device)~ :: List all software on device
+- =installp -ad (device) (fileset) (level)= :: Install apply and commit fileset
+- =installp -pad (device) (fileset) (level)= :: Preview install
+- =installp -u (fileset)= :: Remove fileset
+- =installp -ld (device)= :: List all software on device
 
 example:-
 
-#+begin_src sh
+#+BEGIN_EXAMPLE
 installp -pad /dev/rmt0 X11.base 4.3.3.0
-#+end_src
+#+END_EXAMPLE
 
-- ~installp -C~ :: Cleans up after a premature cancel or interrupted installation.
+- =installp -C= :: Cleans up after a premature cancel or interrupted installation.
 
 * TERMINALS / DISPLAYS
 
-- ~/usr/share/lib/terminfo~ :: Directory with all support terminal info files.
-- ~tty~ :: Displays what the tty/pty number of the terminal is.
-- ~termdef~ :: reports the ~termtype~ setup in ~smit~ for the ~tty~ port that ~termdef~ is run on.
-- ~chdev -l (device eg tty1) -a term=vt100~ :: Sets ~tty~ to a ~vt100~ terminal type
-- ~penable tty0~ :: adds ~getty~ line into ~/etc/inittab~ for ~tty0~ and starts ~getty ~pdisable~ ~tty0~ disables the ~getty~ line and disables ~getty penable / pdisable -a~ option is for all
-- ~stty erase ^?~ :: Set backspace key for ~vt100~ terminals
-- ~stty erase ^H~ :: Set backspace key for ~wyse50~ terminals
-- ~lscons~ :: Displays the console device
-- ~chcons -a login=enable (device eg /dev/tty1)~ :: Changes the console device
-- ~lsdisp~ :: Display adapter device information
-- ~chdisp~ :: Change default display used by LFT subsystem
+- =/usr/share/lib/terminfo= :: Directory with all support terminal info files.
+- =tty= :: Displays what the tty/pty number of the terminal is.
+- =termdef= :: reports the =termtype= setup in =smit= for the =tty= port that =termdef= is run on.
+- =chdev -l (device eg tty1) -a term=vt100= :: Sets =tty= to a =vt100= terminal type
+- =penable tty0= :: adds ~getty~ line into =/etc/inittab= for =tty0= and starts =getty pdisable tty0= disables the ~getty~ line and disables =getty penable / pdisable -a= option is for all
+- =stty erase ^?= :: Set backspace key for =vt100= terminals
+- =stty erase ^H= :: Set backspace key for =wyse50= terminals
+- =lscons= :: Displays the console device
+- =chcons -a login=enable (device eg /dev/tty1)= :: Changes the console device
+- =lsdisp= :: Display adapter device information
+- =chdisp= :: Change default display used by LFT subsystem
 
 #+BEGIN_EXAMPLE
 # Create ttys on ports 0 to 7 on adapter sa2 :-
@@ -137,22 +137,22 @@ do
 done
 #+END_EXAMPLE
 
-- ~portmir -t /dev/tty0~ :: Mirror current terminal onto ~/dev/tty0~
-- ~portmir -o~ :: Turns off port
+- =portmir -t /dev/tty0= :: Mirror current terminal onto =/dev/tty0=
+- =portmir -o= :: Turns off port
 
 * NETWORK
 
-host (ip or hostname)      Resolves a hostname / ip address
+- =host (ip or hostname)= :: Resolves a ~hostname~ / ip address
+- =hostname= :: Displays ~hostname~
+- =hostname (hostname)= :: Sets the hostname until next reboot
+- =lsdev -Cc if= :: Lists all available/defined network interfaces
+- =chdev -l (device name) -a hostname=(hostname)= :: Changes hostname permanently
 
-hostname                   Displays hostname
-hostname (hostname)        Sets the hostname until next reboot
-
-lsdev -Cc if               Lists all available/defined network interfaces
-
-chdev -l (device name) -a hostname=(hostname)    Changes hostname permanently
+#+BEGIN_EXAMPLE
 chdev -l inet0 -a hostname=thomas
+#+END_EXAMPLE
 
-ifconfig (device name)              Displays network card settings
+- =ifconfig (device name)= :: Displays network card settings
 ifconfig (device name) up           Turns on network card
 chdev -l (device name) -a state=up  Turns on network card
 ifconfig (device name) down         Turns off network card
