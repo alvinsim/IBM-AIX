@@ -153,58 +153,56 @@ chdev -l inet0 -a hostname=thomas
 #+END_EXAMPLE
 
 - =ifconfig (device name)= :: Displays network card settings
-ifconfig (device name) up           Turns on network card
-chdev -l (device name) -a state=up  Turns on network card
-ifconfig (device name) down         Turns off network card
-ifconfig (device name) detach       Removes the network card from the
-                                    network interface list
+- =ifconfig (device name) up= :: Turns on network card
+- =chdev -l (device name) -a state=up= :: Turns on network card
+- =ifconfig (device name) down= :: Turns off network card
+- =ifconfig (device name) detach= :: Removes the network card from the network interface list
+
+#+BEGIN_EXAMPLE
 ifconfig en0 inet 194.35.52.1 netmask 255.255.255.0 up
+#+END_EXAMPLE
 
-ifconfig lo0 alias 195.60.60.1      Create alias ip address for loopback
+- =ifconfig lo0 alias 195.60.60.1= :: Create alias ip address for loopback
 
-route (add/delete) (-net/-host) (destination) (gateway)
-Adds or deletes routes to other networks or hosts, does not update
-the ODM database and will be lost at reboot.
+- =route (add/delete) (-net/-host) (destination) (gateway)= :: Adds or deletes routes to other networks or hosts, does not update the =ODM= database and will be lost at reboot.
+
+#+BEGIN_EXAMPLE
 route add -net 194.60.89.0 194.60.90.4
+#+END_EXAMPLE
 
-chdev -l inet0 -a "net,-hopcount,1,-netmask,255.255.255.0,207.156.168.0,10.0.15.254"
-                                                          (destination) ( gateway )
-Adds route and adds entry into ODM, route survives a reboot,
+- =chdev -l inet0 -a "net,-hopcount,1,-netmask,255.255.255.0,207.156.168.0,10.0.15.254" (destination) ( gateway )= :: Adds route and adds entry into =ODM=, route survives a reboot,
 
-route -rn				Display route table
-odmget -q "attribute=route" CuAt	Displays routes in the ODM.
+- =route -rn= :: Display route table
+- =odmget -q "attribute=route" CuAt= ::	Displays routes in the =ODM=.
 
-lsattr -EHl inet0                  Displays routes set in ODM and hostname
-odmget -q "name=inet0" CuAt        Displays routes set in ODM and hostname
+- =lsattr -EHl inet0= :: Displays routes set in =ODM= and =hostname=
+- =odmget -q "name=inet0" CuAt= :: Displays routes set in =ODM= and =hostname=
 
-refresh -s inetd           Refresh inetd after changes to inetd.conf
-kill -1 (inetd PID)        Refresh inetd after changes to inted.conf
+- =refresh -s inetd= :: Refresh =inetd= after changes to =inetd.conf=
+- =kill -1 (inetd PID)= :: Refresh =inetd= after changes to =inted.conf=
 
-netstat -i                             Displays interface statistics
-entstat -d (ethernet adapter eg en0)   Displays ethernet statistics
+- =netstat -i= :: Displays interface statistics
+- =entstat -d (ethernet adapter eg en0)= :: Displays ethernet statistics
 
-arp -a         Displays ip to mac address table from arp cache
+- =arp -a= :: Displays ip to mac address table from =arp= cache
 
-no -a          Displays network options use -o to set individual options or
-               -d to set individual options to default.
-               no -o option=value (this value is reset at reboot)
-               no -o "ipforwarding=1"
+- =no -a= :: Displays network options use =-o= to set individual options or =-d= to set individual options to default.
 
-traceroute (name or ipaddress)        Displays all the hops from source to
-                                      destination supplied.
+#+BEGIN_EXAMPLE
+no -o option=value (this value is reset at reboot)
+no -o "ipforwarding=1"
+#+END_EXAMPLE
 
-ping -R (hostname or ipaddress)       Same as traceroute except repeats.
-spray (hostname or ipaddress)         Send a stream of packets to a host
+- =traceroute (name or ipaddress)= :: Displays all the hops from source to destination supplied.
 
-stopsrc -g tcpip            Stops all running TCP/IP daemons
-/etc/tcp.clean              Stops all running TCP/IP daemons and removes all
-                            lock files
-/etc/rc.tcpip               Start all TCP/IP daemons.
-                            Do not use startsrc -g tcpip as this will start all
-                            TCP/IP daemons including routed & gated
---------------------------------------------------------------------------------
-                                N.F.S.
---------------------------------------------------------------------------------
+- =ping -R (hostname or ipaddress)= :: Same as =traceroute= except repeats.
+- =spray (hostname or ipaddress)= :: Send a stream of packets to a host
+
+- =stopsrc -g tcpip= :: Stops all running =TCP/IP= daemons
+- =/etc/tcp.clean= :: Stops all running =TCP/IP= daemons and removes all lock files
+- =/etc/rc.tcpip= :: Start all =TCP/IP= daemons. Do not use =startsrc -g tcpip= as this will start all =TCP/IP= daemons including =routed= & =gated=
+
+* N.F.S.
 
 exportfs                        Lists all exported filesystems
 
