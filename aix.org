@@ -220,109 +220,102 @@ nfso -o nfs_use_reserved_port=1
 #+END_EXAMPLE
 
 * BACKUPS
-** TODO Org mode formatting for "BACKUPS"
 ** MKSYSB
+- =mkszfile -f= :: Creates =/image.data= file (4.x onwards)
+- =mkszfile -X= :: Creates =/fs.size= file (3.x)
+- =mksysb -i (device of file)= :: Creates a =mksysb= image
 
-mkszfile -f                 Creates /image.data file (4.x onwards)
-mkszfile -X                 Creates /fs.size file    (3.x)
-
-mksysb -i (device of file)  Creates a mksysb image
-
-mksysb does not save any raw data and will not backup a filesystem that
-is not mounted.
+=mksysb= does not save any raw data and will not backup a filesystem that is not mounted.
 
 ** SAVEVG
-
-savevg -if (device or file) (vg)   Creates a savevg image
-
-restvg -q -f (device or file)      Restore from a savevg image
-                                   Ensure that the restvg command is run from /
-
-mkvgdata (vg)                      Creates new vgname.data file
+- =savevg -if (device or file) (vg)= :: Creates a =savevg= image
+- =restvg -q -f (device or file)= :: Restore from a =savevg= image. Ensure that the =restvg= command is run from =/=.
+- =mkvgdata (vg)= :: Creates new =vgname.data= file
 
 ** CPIO ARCHIVE
+- =find (filesystem) -print | cpio -ocv > (filename or device)=
 
-find (filesystem) -print | cpio -ocv > (filename or device)
-
-eg find ./usr/ -print | cpio -ocv > /dev/rmt0
+#+BEGIN_EXAMPLE
+find ./usr/ -print | cpio -ocv > /dev/rmt0
+#+END_EXAMPLE
 
 ** CPIO RESTORE
+- =cpio -ict < (filename or device) | more= :: Lists archive
+- =cpio -icdv < (filename or device)=
+- =cpio -icdv < (filename or device) ("files or directories to restore")=
 
-cpio -ict < (filename or device) | more        Lists archive
-cpio -icdv < (filename or device)
-cpio -icdv < (filename or device) ("files or directories to restore")
-
-eg cpio -icdv < /dev/rmt0 "tcpip/*"             Restore directory and contents
-   cpio -icdv < /dev/rmt0 "*resolve.conf"       Restore a named file
+#+BEGIN_EXAMPLE
+cpio -icdv < /dev/rmt0 "tcpip/*"             # Restore directory and contents
+cpio -icdv < /dev/rmt0 "*resolve.conf"       # Restore a named file
+#+END_EXAMPLE
 
 ** TAR ARCHIVE
+- =tar -cvf (filename or device) ("files or directories to archive")=
 
-tar -cvf (filename or device) ("files or directories to archive")
-
-eg tar -cvf /dev/rmt0 "/usr/*"
+#+BEGIN_EXAMPLE
+tar -cvf /dev/rmt0 "/usr/*"
+#+END_EXAMPLE
 
 ** TAR RESTORE
+- =tar -tvf (filename or device)= :: Lists archive
+- =tar -xvf (filename or device)= :: Restore all
+- =tar -xvf (filename or device) ("files or directories to restore")= :: use =-p= option for restoring with orginal permissions
 
-tar -tvf (filename or device)                        Lists archive
-
-tar -xvf (filename or device)                        Restore all
-tar -xvf (filename or device) ("files or directories to restore")
-use -p option for restoring with orginal permissions
-
-eg tar -xvf /dev/rmt0 "tcpip"                   Restore directory and contents
-   tar -xvf /dev/rmt0 "tcpip/resolve.conf"      Restore a named file
+#+BEGIN_EXAMPLE
+tar -xvf /dev/rmt0 "tcpip"                   # Restore directory and contents
+tar -xvf /dev/rmt0 "tcpip/resolve.conf"      # Restore a named file
+#+END_EXAMPLE
 
 ** AIX ARCHIVE
+- =find (filesystem) -print | backup -iqvf (filename or device)= :: Backup by filename.
 
-find (filesystem) -print | backup -iqvf (filename or device)
-Backup by filename.
+#+BEGIN_EXAMPLE
+find /usr/ -print | backup -iqvf /dev/rmt0
+#+END_EXAMPLE
 
-eg find /usr/ -print | backup -iqvf /dev/rmt0
+- =backup -(backup level 0 to 9) -f (filename or device) ("filesystem")= :: Backup by =inode=.
 
-backup -(backup level 0 to 9) -f (filename or device) ("filesystem")
-Backup by inode.
-
-eg backup -0 -f /dev/rmt0 "/usr"        -u option updates /etc/dumpdates file
+#+BEGIN_EXAMPLE
+backup -0 -f /dev/rmt0 "/usr"        # -u option updates /etc/dumpdates file
+#+END_EXAMPLE
 
 ** AIX RESTORE
-
-restore -qTvf (filename or device)                        Lists archive
-
-restore -qvxf (filename or device)                        Restores all
-restore -qvxf (filename or device) ("files or directories to restore")
-        (use -d for restore directories)
-
-restore -qvxf /dev/rmt0.1 "./etc/passwd"     Restore /etc/passwd file
-
-restore -s4 -qTvf /dev/rmt0.1                Lists contents of a mksysb tape
-
+- =restore -qTvf (filename or device)= :: Lists archive
+- =restore -qvxf (filename or device)= :: Restores all
+- =restore -qvxf (filename or device) ("files or directories to restore")= :: (use =-d= for restore directories)
+- =restore -qvxf /dev/rmt0.1 \quot{}./etc/passwd\quot{}= :: Restore =/etc/passwd= file
+- =restore -s4 -qTvf /dev/rmt0.1= :: Lists contents of a =mksysb= tape
 
 ** BACKUPS ACROSS A NETWORK
 
-To run the backup on a local machine (cpio) and backup on the remote
-machine's (remhost) tape drive (/dev/rmt0)
+To run the backup on a local machine (=cpio=) and backup on the remote machine's (=remhost=) tape drive (=/dev/rmt0=)
 
-find /data -print | cpio -ocv | dd obs=32k | rsh remhost \
-"dd ibs=32k obs=64k of=/dev/rmt0"
+#+BEGIN_EXAMPLE
+find /data -print | cpio -ocv | dd obs=32k | rsh remhost \ "dd ibs=32k obs=64k of=/dev/rmt0"
+#+END_EXAMPLE
 
-To restore/read the backup (cpio) on the remote machine
+To restore/read the backup (=cpio=) on the remote machine
 
+#+BEGIN_EXAMPLE
 dd ibs=64k if=/dev/rmt0 | cpio -icvt
+#+END_EXAMPLE
 
-To restore/read the backup (cpio) on the local machine from the remote
-machine's (remhost) tape drive (/dev/rmt0)
+To restore/read the backup (=cpio=) on the local machine from the remote machine's (=remhost=) tape drive (=/dev/rmt0=)
 
-rsh remhost "dd ibs=64k obs=32k if=/dev/rmt0" | dd ibs=32k \
-| cpio -icvt |
+#+BEGIN_EXAMPLE
+rsh remhost "dd ibs=64k obs=32k if=/dev/rmt0" | dd ibs=32k \ | cpio -icvt |
+#+END_EXAMPLE
 
-To run the backup (cpio) on a remote machine (remhost) and backup to
-the local machines tape drive (/dev/rmt0)
+To run the backup (=cpio=) on a remote machine (=remhost=) and backup to the local machines tape drive (=/dev/rmt0=)
 
-rsh remhost "find /data -print | cpio -ocv | dd ibs=32k" \
-| dd ibs=32k obs=64k of=/dev/rmt0 |
+#+BEGIN_EXAMPLE
+rsh remhost "find /data -print | cpio -ocv | dd ibs=32k" \ | dd ibs=32k obs=64k of=/dev/rmt0 |
+#+END_EXAMPLE
 
+#+BEGIN_EXAMPLE
 tar cBf - .  | rsh remhost "dd ibs=512 obs=512 of=/dev/rmt0"
-Same as above but using tar instead of cpio.
+#+END_EXAMPLE
+Same as above but using =tar= instead of =cpio=.
 
 * Copying diskettes and tape
 ** TODO Org mode formatting for "Copying diskettes and tape"
