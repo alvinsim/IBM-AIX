@@ -318,17 +318,19 @@ tar cBf - .  | rsh remhost "dd ibs=512 obs=512 of=/dev/rmt0"
 Same as above but using =tar= instead of =cpio=.
 
 * Copying diskettes and tape
-** TODO Org mode formatting for "Copying diskettes and tape"
 ** COPYING DISKETTES
+- =dd if\equiv{}/dev/fd0 of\equiv{}(filename) bs\equiv{}36b=
 
-dd if=/dev/fd0 of=(filename) bs=36b
-dd if=(filename) of=/dev/fd0 bs=36b conv=sync         or flcopy
-
+#+BEGIN_EXAMPLE
+dd if=(filename) of=/dev/fd0 bs=36b conv=sync         # or flcopy
+#+END_EXAMPLE
 
 ** COPYING TAPES
+- =dd if\equiv{}/dev/rmt0 of\equiv{}(filename)=
 
-dd if=/dev/rmt0 of=(filename)
-dd if=(filename) of=/dev/rmt0        or tcopy
+#+BEGIN_EXAMPLE
+dd if=(filename) of=/dev/rmt0        # or tcopy
+#+END_EXAMPLE
 
 * VI Commands
 ** TODO Org mode formattign for "VI Commands"
