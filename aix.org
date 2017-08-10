@@ -333,13 +333,8 @@ dd if=(filename) of=/dev/rmt0        # or tcopy
 #+END_EXAMPLE
 
 * VI Commands
-** TODO Org mode formattign for "VI Commands"
-:g/xxx/s//yyy/   global change where xxx is to be changed by yyy
-
-sed 's(ctrl v ctrl m)g//g' old.filename > new.filename
-Strips out ^M characters from ascii files that have been transferred as binary.
-To enter crontrol characters type ctrl v then ctrl ? where ? is whatever
-ctrl character you need.
+- =:g/xxx/s//yyy/= :: global change where xxx is to be changed by yyy
+- =sed 's(ctrl v ctrl m)g//g' old.filename > new.filename= :: Strips out =^M= characters from ascii files that have been transferred as binary. To enter crontrol characters type =ctrl-v= then =ctrl-?= where ? is whatever =ctrl= character you need.
 
 * DEVICES
 ** TODO Org mode formatting for "DEVICS"
