@@ -220,6 +220,7 @@ nfso -o nfs_use_reserved_port=1
 #+END_EXAMPLE
 
 * BACKUPS
+
 ** MKSYSB
 - =mkszfile -f= :: Creates =/image.data= file (4.x onwards)
 - =mkszfile -X= :: Creates =/fs.size= file (3.x)
@@ -228,11 +229,13 @@ nfso -o nfs_use_reserved_port=1
 =mksysb= does not save any raw data and will not backup a filesystem that is not mounted.
 
 ** SAVEVG
+
 - =savevg -if (device or file) (vg)= :: Creates a =savevg= image
 - =restvg -q -f (device or file)= :: Restore from a =savevg= image. Ensure that the =restvg= command is run from =/=.
 - =mkvgdata (vg)= :: Creates new =vgname.data= file
 
 ** CPIO ARCHIVE
+
 - =find (filesystem) -print | cpio -ocv > (filename or device)=
 
 #+BEGIN_EXAMPLE
@@ -240,6 +243,7 @@ find ./usr/ -print | cpio -ocv > /dev/rmt0
 #+END_EXAMPLE
 
 ** CPIO RESTORE
+
 - =cpio -ict < (filename or device) | more= :: Lists archive
 - =cpio -icdv < (filename or device)= ::
 - =cpio -icdv < (filename or device) ("files or directories to restore")= ::
@@ -250,6 +254,7 @@ cpio -icdv < /dev/rmt0 "*resolve.conf"       # Restore a named file
 #+END_EXAMPLE
 
 ** TAR ARCHIVE
+
 - =tar -cvf (filename or device) ("files or directories to archive")=
 
 #+BEGIN_EXAMPLE
@@ -257,6 +262,7 @@ tar -cvf /dev/rmt0 "/usr/*"
 #+END_EXAMPLE
 
 ** TAR RESTORE
+
 - =tar -tvf (filename or device)= :: Lists archive
 - =tar -xvf (filename or device)= :: Restore all
 - =tar -xvf (filename or device) ("files or directories to restore")= :: use =-p= option for restoring with orginal permissions
@@ -267,6 +273,7 @@ tar -xvf /dev/rmt0 "tcpip/resolve.conf"      # Restore a named file
 #+END_EXAMPLE
 
 ** AIX ARCHIVE
+
 - =find (filesystem) -print | backup -iqvf (filename or device)= :: Backup by filename.
 
 #+BEGIN_EXAMPLE
@@ -280,6 +287,7 @@ backup -0 -f /dev/rmt0 "/usr"        # -u option updates /etc/dumpdates file
 #+END_EXAMPLE
 
 ** AIX RESTORE
+
 - =restore -qTvf (filename or device)= :: Lists archive
 - =restore -qvxf (filename or device)= :: Restores all
 - =restore -qvxf (filename or device) ("files or directories to restore")= :: (use =-d= for restore directories)
@@ -318,7 +326,9 @@ tar cBf - .  | rsh remhost "dd ibs=512 obs=512 of=/dev/rmt0"
 Same as above but using =tar= instead of =cpio=.
 
 * Copying diskettes and tape
+
 ** COPYING DISKETTES
+
 - =dd if=/dev/fd0 of=filename) bs=36b=
 
 #+BEGIN_EXAMPLE
@@ -326,6 +336,7 @@ dd if=(filename) of=/dev/fd0 bs=36b conv=sync         # or flcopy
 #+END_EXAMPLE
 
 ** COPYING TAPES
+
 - =dd if=/dev/rmt0 of=filename)=
 
 #+BEGIN_EXAMPLE
@@ -333,10 +344,12 @@ dd if=(filename) of=/dev/rmt0        # or tcopy
 #+END_EXAMPLE
 
 * VI Commands
+
 - =:g/xxx/s//yyy/= :: global change where xxx is to be changed by yyy
 - =sed 's(ctrl v ctrl m)g//g' old.filename > new.filename= :: Strips out =^M= characters from ascii files that have been transferred as binary. To enter crontrol characters type =ctrl-v= then =ctrl-?= where ? is whatever =ctrl= character you need.
 
 * DEVICES
+
 - =lscfg= :: lists all installed devices
 - =lscfg -v= :: lists all installed devices in detail
 - =lscfg -vl (device name)= :: lists device details
@@ -390,7 +403,6 @@ rmdev -l pmc0        Unconfigure Power Management
 mkdev -l pmc0        Configure Power Management
 
 * TAPE DRIVES
-** TODO Org mode formatting for "TAPE DRIVES"
 
 #+BEGIN_EXAMPLE
 rmt0.x where x = A + B + C
@@ -418,41 +430,32 @@ diag -c -d rmt0
 - =< /dev/rmt0= :: Rewinds the tape
 
 * PRINTERS / PRINT QUEUES
-** TODO Org mode formatting for "PRINTERS / PRINT QUEUES"
-splp (device)                   Displays/changes printer driver settings
+- =splp (device)= :: Displays/changes printer driver settings
+
+#+BEGIN_EXAMPLE
 splp /dev/lp0
+#+END_EXAMPLE
 
-export $LPDEST="pqname"         Set default printer queue for login session
-
-lsvirprt                        Lists/changes virtual printer attributes.
-
-lsallq                          Displays all queues
-
-rmvirprt -q queuename -d queuedevice        Removes a virtual printer
-
-qpri -#(job No) -a(new priority)            Change a queue job priority.
-
-qhld -#(job No)                Put a hold on hold
-qhld -r #(job No)              Release a held job
-
-qchk -A                        Status of jobs in queues
-lpstat
-lpstat -p(queue)               Status of jobs in a named queue
-
-qcan -x (job No)               Cancel a job from a queue
-cancel (job No)
-
-enq -U -P(queue)               Enable a queue
-enable (queue)
-
-enq -D -P(queue)               Disable a queue
-disable (queue)
-
-qmov -m(new queue) -#(job No)  Move a job to another queue
-
-startsrc -s qdaemon            Start qdaemon sub-system
-lssrc -s qdaemon               List status of qdaemon sub-system
-stop -s qdaemon                Stop qdaemon sub-system
+- ~export $LPDEST=pqname~ :: Set default printer queue for login session
+- =lsvirprt= :: Lists/changes virtual printer attributes.
+- =lsallq= :: Displays all queues
+- =rmvirprt -q queuename -d queuedevice= :: Removes a virtual printer
+- =qpri -#(job No) -a(new priority)= :: Change a queue job priority.
+- =qhld -#(job No)= :: Put a hold on hold
+- =qhld -r #(job No)= :: Release a held job
+- =qchk -A= :: Status of jobs in queues
+- =lpstat= ::
+- =lpstat -p(queue)= :: Status of jobs in a named queue
+- =qcan -x (job No)= :: Cancel a job from a queue
+- =cancel (job No)= ::
+- =enq -U -P(queue)= :: Enable a queue
+- =enable (queue)= ::
+- =enq -D -P(queue)= :: Disable a queue
+- =disable (queue)= ::
+- =qmov -m(new queue) -#(job No)= :: Move a job to another queue
+- =startsrc -s qdaemon= :: Start qdaemon sub-system
+- =lssrc -s qdaemon= :: List status of qdaemon sub-system
+- =stop -s qdaemon= :: Stop qdaemon sub-system
 
 * FILE SYSTEMS
 ** TODO Org mode formatting for "FILE SYSTEMS"
