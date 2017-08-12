@@ -241,8 +241,8 @@ find ./usr/ -print | cpio -ocv > /dev/rmt0
 
 ** CPIO RESTORE
 - =cpio -ict < (filename or device) | more= :: Lists archive
-- =cpio -icdv < (filename or device)=
-- =cpio -icdv < (filename or device) ("files or directories to restore")=
+- =cpio -icdv < (filename or device)= ::
+- =cpio -icdv < (filename or device) ("files or directories to restore")= ::
 
 #+BEGIN_EXAMPLE
 cpio -icdv < /dev/rmt0 "tcpip/*"             # Restore directory and contents
@@ -283,7 +283,7 @@ backup -0 -f /dev/rmt0 "/usr"        # -u option updates /etc/dumpdates file
 - =restore -qTvf (filename or device)= :: Lists archive
 - =restore -qvxf (filename or device)= :: Restores all
 - =restore -qvxf (filename or device) ("files or directories to restore")= :: (use =-d= for restore directories)
-- =restore -qvxf /dev/rmt0.1 \quot{}./etc/passwd\quot{}= :: Restore =/etc/passwd= file
+- =restore -qvxf /dev/rmt0.1 /etc/passwd= :: Restore =/etc/passwd= file
 - =restore -s4 -qTvf /dev/rmt0.1= :: Lists contents of a =mksysb= tape
 
 ** BACKUPS ACROSS A NETWORK
@@ -319,14 +319,14 @@ Same as above but using =tar= instead of =cpio=.
 
 * Copying diskettes and tape
 ** COPYING DISKETTES
-- =dd if\equiv{}/dev/fd0 of\equiv{}(filename) bs\equiv{}36b=
+- =dd if=/dev/fd0 of=filename) bs=36b=
 
 #+BEGIN_EXAMPLE
 dd if=(filename) of=/dev/fd0 bs=36b conv=sync         # or flcopy
 #+END_EXAMPLE
 
 ** COPYING TAPES
-- =dd if\equiv{}/dev/rmt0 of\equiv{}(filename)=
+- =dd if=/dev/rmt0 of=filename)=
 
 #+BEGIN_EXAMPLE
 dd if=(filename) of=/dev/rmt0        # or tcopy
@@ -337,61 +337,50 @@ dd if=(filename) of=/dev/rmt0        # or tcopy
 - =sed 's(ctrl v ctrl m)g//g' old.filename > new.filename= :: Strips out =^M= characters from ascii files that have been transferred as binary. To enter crontrol characters type =ctrl-v= then =ctrl-?= where ? is whatever =ctrl= character you need.
 
 * DEVICES
-** TODO Org mode formatting for "DEVICS"
-lscfg                          lists all installed devices
-lscfg -v                       lists all installed devices in detail
-lscfg -vl (device name)        lists device details
+- =lscfg= :: lists all installed devices
+- =lscfg -v= :: lists all installed devices in detail
+- =lscfg -vl (device name)= :: lists device details
+- =bootinfo -b= :: reports last device the system booted from =bootinfo -k= reports keyswitch position 1=secure, 2=service, 3=normal
+- =bootinfo -r= :: reports amount of memory (/ by 1024)
+- =bootinfo -s (disk device)= :: reports size of disk drive
+- =bootinfo -T= :: reports type of machine ie rspc,rs6ksmp,rspc or chrp
+- =lsattr -El sys0 -a realmem= :: reports amount of useable memory
+- =mknod (device) c (major no) (minor no)= :: Creates a =/dev/= device file.
 
-bootinfo -b                    reports last device the system booted from
-bootinfo -k                    reports keyswitch position
-                               1=secure, 2=service, 3=normal
-
-bootinfo -r                    reports amount of memory (/ by 1024)
-bootinfo -s (disk device)      reports size of disk drive
-bootinfo -T                    reports type of machine
-                               ie rspc,rs6ksmp,rspc or chrp
-
-lsattr -El sys0 -a realmem     reports amount of useable memory
-
-mknod (device) c (major no) (minor no)        Creates a /dev/ device file.
+#+BEGIN_EXAMPLE
 mknod /dev/null1 c 2 3
+#+END_EXAMPLE
 
-lsdev -C        lists all customised devices ie installed
-lsdev -P        lists all pre-defined devices ie supported
-lsdev -(C or P) -c (class) -t (type) -s (subtype)
+- =lsdev -C= :: lists all customised devices ie installed
+- =lsdev -P= :: lists all pre-defined devices ie supported
+- =chdev -l (device) -a (attribute)=(new value)= :: Change a device attribute
 
-chdev -l (device) -a (attribute)=(new value)         Change a device attribute
+#+BEGIN_EXAMPLE
 chdev -l sys0 -a maxuproc=80
+#+END_EXAMPLE
 
-lsattr -EH -l (device) -D         Lists the defaults in the pre-defined db
+- =lsattr -EH -l (device) -D= :: Lists the defaults in the pre-defined db
+
+#+BEGIN_EXAMPLE
 lsattr -EH -l sys0 -a modelname
+#+END_EXAMPLE
 
-rmdev -l (device)           Change device state from available to defined
-rmdev -l (device) -d        Delete the device
-rmdev -l (device) -SR       S stops device, R unconfigures child devices
-
-lsresource -l (device)  Displays bus resource attributes of a device.
-
-cfgmgr                  Configures devices
-cfgmgr -i /dev/cd0      Configure devices and install drivers from /dev/cd0
-                        if required
-cfgmgr -S               Run in serial, used with a larger number of disks
-cfgmgr -l scsi0         Configure devices on adapter scsi0 only
-
-diag		        Run hardware diagnostic menu
-smitty diag             Run hardware diagnostic menu
-( 7020-40P and 7248-43P machines cannot run diagnostics, use diagnostics
-  in the SMS menus instead )
-
-diag -d (device)        Run diagnostics against a device.
-
-lsslot			Displays all hot swap slots
-lsslot -c pci           Lists all pci hot swap slots
-lsslot -c pci -a        Lists all available pci hot swap slots
-
-drslot			              Reconfgiures PCI hot-plug slots
-drslot -i -c pci -s U0.1-P1-I3        Display a slot, flashes the LED next to
-                                      the slot so that it can be identified.
+- =rmdev -l (device)= :: Change device state from available to defined
+- =rmdev -l (device) -d= :: Delete the device
+- =rmdev -l (device) -SR= :: S stops device, R unconfigures child devices
+- =lsresource -l (device)= :: Displays bus resource attributes of a device.
+- =cfgmgr= :: Configures devices
+- =cfgmgr -i /dev/cd0= :: Configure devices and install drivers from =/dev/cd0= if required
+- =cfgmgr -S= :: Run in serial, used with a larger number of disks
+- =cfgmgr -l scsi0= :: Configure devices on adapter =scsi0= only
+- =diag= :: Run hardware diagnostic menu
+- =smitty diag= :: Run hardware diagnostic menu (7020-40P and 7248-43P machines cannot run diagnostics, use diagnostics in the SMS menus instead)
+- =diag -d (device)= :: Run diagnostics against a device.
+- =lsslot= :: Displays all hot swap slots
+- =lsslot -c pci= :: Lists all pci hot swap slots
+- =lsslot -c pci -a= :: Lists all available pci hot swap slots
+- =drslot= :: Reconfgiures PCI hot-plug slots
+- =drslot -i -c pci -s U0.1-P1-I3= :: Display a slot, flashes the LED next to the slot so that it can be identified.
 
 ** Power Management (PCI machines)
 
@@ -402,33 +391,31 @@ mkdev -l pmc0        Configure Power Management
 
 * TAPE DRIVES
 ** TODO Org mode formatting for "TAPE DRIVES"
+
+#+BEGIN_EXAMPLE
 rmt0.x where x = A + B + C
 
 A = density        0 = high      4 = low
 B = retension      0 = no        2 = yes
 C = rewind         0 = yes       1 = no
+#+END_EXAMPLE
 
-tctl -f (tape device) fsf (No)        Skips forward (No) tape markers
-tctl -f (tape device) bsf (No)        Skips back (No) tape markers
-tctl -f (tape device) rewind          Rewind the tape
-tctl -f (tape device) offline         Eject the tape
-tctl -f (tape device) status          Show status of tape drive
+- =tctl -f (tape device) fsf (No)= :: Skips forward (No) tape markers
+- =tctl -f (tape device) bsf (No)= :: Skips back (No) tape markers
+- =tctl -f (tape device) rewind= :: Rewind the tape
+- =tctl -f (tape device) offline= :: Eject the tape
+- =tctl -f (tape device) status= :: Show status of tape drive
+- =chdev -l rmt0 -a block_size=512= :: changes block size to 512 bytes (4mm=1024, 8mm=variable but 1024 recommended)
+- =dd if=/dev/rmt0 bs=128k count=1 | wc -c= :: Displays the block size of an unknow tape. Set block size to 0 first.
+- =bootinfo -e= :: answer of =1 = machine= can boot from a tape drive; answer of =0 = machine= CANNOT boot from tape drive
+- =diag -c -d (tape device)= :: Hardware reset a tape drive.
 
-chdev -l rmt0 -a block_size=512        changes block size to 512 bytes
-                                       (4mm = 1024, 8mm = variable but
-                                        1024 recommended)
-dd if=/dev/rmt0 bs=128k count=1 | wc -c
-Displays the block size of an unknow tape. Set block size to 0 first.
-
-bootinfo -e             answer of 1 = machine can boot from a tape drive
-                        answer of 0 = machine CANNOT boot from tape drive
-
-diag -c -d (tape device)        Hardware reset a tape drive.
+#+BEGIN_EXAMPLE
 diag -c -d rmt0
+#+END_EXAMPLE
 
-tapechk (No of files)           Checks Number of files on tape.
-
-< /dev/rmt0                     Rewinds the tape !!!
+- =tapechk (No of files)= :: Checks Number of files on tape.
+- =< /dev/rmt0= :: Rewinds the tape
 
 * PRINTERS / PRINT QUEUES
 ** TODO Org mode formatting for "PRINTERS / PRINT QUEUES"
