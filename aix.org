@@ -461,28 +461,25 @@ splp /dev/lp0
 ** TODO Org mode formatting for "FILE SYSTEMS"
 ** Physical Volumes (PV's)
 
-lspv                        Lists all physical volumes (hard disks)
-lspv (pv)                   Lists the physical volume details
-lspv -l (pv)                Lists the logical volumes on the physical volume
-lspv -p (pv)                Lists the physical partition usage for that PV
-lspv -M (pv)                Lists the PP allocation table for that PV.
+- =lspv= :: Lists all physical volumes (hard disks)
+- =lspv (pv)= :: Lists the physical volume details
+- =lspv -l (pv)= :: Lists the logical volumes on the physical volume
+- =lspv -p (pv)= :: Lists the physical partition usage for that =PV=
+- =lspv -M (pv)= :: Lists the PP allocation table for that =PV=.
 
-If the PV state is "missing" but the disk is okay, use "varyonvg vg" to change
-the state of the PV to "active".
+If the =PV= state is "missing" but the disk is okay, use =varyonvg vg= to change
+the state of the =PV= to "active".
 
-chdev -l (pv) -a pv=yes     Makes a new hdisk a pysical volume.
+- =chdev -l (pv) -a pv=yes= :: Makes a new hdisk a pysical volume.
+- =chpv -v r (pv)= :: Removes a disk from the system.
+- =chpv -v a (pv)= :: Adds the removed disk back into the system.
+- =chpv -a y (pv)= :: Changes pv allocatable state to =YES=
+- =chpv -a n (pv)= :: Changes pv allocatable state to =NO=
+- =migratepv (old pv) (new pv)= :: Moves all =LV='s from one =PV= to another =PV=, both =PV='s must be in the same volume group.
 
-chpv -v r (pv)              Removes a disk from the system.
-chpv -v a (pv)              Adds the removed disk back into the system.
-chpv -a y (pv)              Changes pv allocatable state to YES
-chpv -a n (pv)              Changes pv allocatable state to NO
+=migratepv= cannot migrate striped logical volumes, use =cplv= and =rmlv=.
 
-migratepv (old pv) (new pv)     Moves all LV's from one PV to another PV, both
-                                PV's must be in the same volume group.
-
-Migratepv cannot migrate striped logical volumes, use cplv and rmlv.
-
-replacepv (old pv) (new pv)     (4.3.3 onwards)
+- =replacepv (old pv) (new pv)= :: (4.3.3 onwards)
 
 ** Volume Groups (VG's)
 
