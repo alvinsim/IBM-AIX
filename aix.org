@@ -483,60 +483,50 @@ the state of the =PV= to "active".
 
 ** Volume Groups (VG's)
 
-lsvg              Lists all volume groups
-lsvg (vg)         Lists the volume group details
-lsvg -l (vg)      Lists all logical volumes in the volume group
-lsvg -p (vg)      Lists all physical volumes in the volume group
-lsvg -o           Lists all varied on volume groups
+- =lsvg= :: Lists all volume groups
+- =lsvg (vg)= :: Lists the volume group details
+- =lsvg -l (vg)= :: Lists all logical volumes in the volume group
+- =lsvg -p (vg)= :: Lists all physical volumes in the volume group
+- =lsvg -o= :: Lists all varied on volume groups
 
-varyonvg (vg)           Vary On a volume group
-varyonvg -f (vg)        Forces the varyon process
-varyonvg -s (vg)        Vary on a VG in maintenance mode. LV commands can be
-                        used on VG, but LV,s cannot be opened for I/O.
-varyoffvg (vg)          Vary Off a volume group
+- =varyonvg (vg)= :: Vary On a volume group
+- =varyonvg -f (vg)= :: Forces the varyon process
+- =varyonvg -s (vg)= :: Vary on a =VG= in maintenance mode. =LV= commands can be used on =VG=, but =LV=,s cannot be opened for I/O.
+- =varyoffvg (vg)= :: Vary Off a volume group
 
-synclvodm (vg)          Tries to resync VGDA, LV control blocks and ODM.
-synclvodm -v (vg)       Rebuilds the LVCB.
-(the vg needs to be varied on before running synclvodm)
+- =synclvodm (vg)= :: Tries to resync =VGDA=, =LV= control blocks and =ODM=.
+- =synclvodm -v (vg)= :: Rebuilds the =LVCB=. (the =vg= needs to be varied on before running =synclvodm=)
 
+- =mkvg -y(vg) -s(PP size) (pv)= :: Create a volume group
 
-mkvg -y(vg) -s(PP size) (pv)    Create a volume group
+#+BEGIN_EXAMPLE
 mkvg -y datavg -s 4 hdisk1
+#+END_EXAMPLE
 
-reducevg (vg) (pv)       Removes a volume group
-reducevg -d (vg) (pv)    Removes a volume group and delete all LV's on the PV
-reducevg (vg) (PVID)     Removes the PVID disk reference from the VGDA when a
-                         disk has vanished without the reducevg (vg) (pv)
-                         command being run first.
-reducevg -df (vg) (pv)   Deletes all LV's from the VG and removes the VG
-                         from the disk. If the last disk in the VG then
-                         the VG is deleted.
+- =reducevg (vg) (pv)= :: Removes a volume group
+- =reducevg -d (vg) (pv)= :: Removes a volume group and delete all =LV='s on the =PV=
+- =reducevg (vg) (PVID)= :: Removes the =PVID= disk reference from the =VGDA= when a disk has vanished without the =reducevg (vg) (pv)= command being run first.
+- =reducevg -df (vg) (pv)= :: Deletes all =LV='s from the =VG= and removes the =VG= from the disk. If the last disk in the =VG= then the =VG= is deleted.
 
-extendvg (vg) (new pv)   Adds another PV into a VG.
+- =extendvg (vg) (new pv)= :: Adds another =PV= into a =VG=.
 
-exportvg (vg)            Exports the volume group, removes the VG entries and
-                         removes all FS entries from /etc/filesystems but
-                         leaves the mount points.
+- =exportvg (vg)= :: Exports the volume group, removes the =VG= entries and removes all FS entries from =/etc/filesystems= but leaves the mount points.
 
-Note : Cannot export a VG if it has active paging space, turn off paging,
-       reboot before exporting VG. Exporting removes entries from filesystems
-       file but does not remove the mount points.
+Note : Cannot export a =VG= if it has active paging space, turn off paging, reboot before exporting =VG=. Exporting removes entries from filesystems file but does not remove the mount points.
 
-chvg -a y (vg)                  Auto Vary On a volume group at system start.
-chvg -u (vg)                    Unlocks a locked volume group.
+- =chvg -a y (vg)= :: Auto Vary On a volume group at system start.
+- =chvg -u (vg)= :: Unlocks a locked volume group.
 
-lqueryvg -Atp (pv)              Details volume group info for the hard disk.
+- =lqueryvg -Atp (pv)= :: Details volume group info for the hard disk.
 
-importvg -y (vg name) (pv)      Import a volume group from a disk.
-importvg (pv)                   Same as above but VG will be called vg00 etc.
+- =importvg -y (vg name) (pv)= :: Import a volume group from a disk.
+- =importvg (pv)= :: Same as above but =VG= will be called =vg00= etc.
 
-4.3 onwards, importvg will automatically varyon the VG.
+4.3 onwards, =importvg= will automatically =varyon= the =VG=.
 
-chvg -Q (y/n) (vg name)         Turns on/off Quorum checking on a VG.
+- =chvg -Q (y/n) (vg name)= :: Turns on/off Quorum checking on a =VG=.
 
-reorgvg (vg) (lv)        Reorganised a fragmented LV, must state an LV at the
-                         command line else the first LV in the VG is picked.
-                         Does not reorg the PP's of striped LV's.
+- =reorgvg (vg) (lv)= :: Reorganised a fragmented =LV=, must state an =LV= at the command line else the first =LV= in the =VG= is picked. Does not reorg the =PP='s of striped =LV='s.
 
 ** Logical Volumes (LV's)
 
