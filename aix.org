@@ -530,46 +530,45 @@ Note : Cannot export a =VG= if it has active paging space, turn off paging, rebo
 
 ** Logical Volumes (LV's)
 
-lslv (lv)                   Lists the logical volume details
-lslv -l (lv)                Lists the physical volume which the LV is on
-lsattr -EHl (lv)            Displays more logical volume details
+- =lslv (lv)= :: Lists the logical volume details
+- =lslv -l (lv)= :: Lists the physical volume which the =LV= is on
+- =lsattr -EHl (lv)= :: Displays more logical volume details
 
-mklv (vg) (No of PP's) (pv Name optional)       Create a logical volume
-mklv -y (lv) (PP's) (pv name optional)          Creates a named logical volume
-( use -t jfs2 when creating an LV for a JFS2 filesystem )
+- =mklv (vg) (No of PP's) (pv Name optional)= :: Create a logical volume
+- =mklv -y (lv) (PP's) (pv name optional)= :: Creates a named logical volume (use =-t jfs2= when creating an =LV= for a =JFS2= filesystem)
 
 
-chlv -n (new lv) (old lv)                       Rename a logical volume
-chlv -x (number) (lv)                           Change max no of PP's
-chlv -s n (lv)                                  Turns of strickness on the LV
-extendlv (lv) (extra No of PP's)                Increase the size of an LV
-rmlv (lv)                                       Remove a logical volume
+- =chlv -n (new lv) (old lv)= :: Rename a logical volume
+- =chlv -x (number) (lv)= :: Change max no of =PP='s
+- =chlv -s n (lv)= :: Turns of strickness on the =LV=
+- =extendlv (lv) (extra No of PP's)= :: Increase the size of an =LV=
+- =rmlv (lv)= :: Remove a logical volume
 
-cplv -v (vg to copy to) -y (new lv) (lv)        Copy an LV to a new LV
+- =cplv -v (vg to copy to) -y (new lv) (lv)= :: Copy an =LV= to a new =LV=
 
-If copying a filesystem LV, umount the filesystem before copying, otherwise you
-will have to fsck the the new LV before the filesystem can be mounted.
-If copying a striped LV to an LV that is already created, and the stripe
-size is different ( or not even striped ), then these new parameters are
-maintained when the data is copied to the new LV.
+If copying a filesystem =LV=, umount the filesystem before copying, otherwise you will have to =fsck= the the new =LV= before the filesystem can be mounted.
 
-cplv -e (new lv) (old lv)			Copy to an existing LV
-( new lv must have type as copy use chlv -t copy (new lv) to change )
+If copying a striped =LV= to an =LV= that is already created, and the stripe size is different (or not even striped), then these new parameters are maintained when the data is copied to the new =LV=.
 
-mklv/extendlv -a = PP alocation policy
--am = middle   -ac = center   -ae = edge
--aie = inner edge    -aim = inner middle
+- =cplv -e (new lv) (old lv)= :: Copy to an existing =LV= (new =LV= must have type as copy use =chlv -t copy (new lv)= to change)
 
-migratepv -l (lv) (old pv) (new pv)
-Move a logical volume between physical volumes. Both physical volumes
-must be in the same volume group !
+- =mklv/extendlv= ::
+#+BEGIN_EXAMPLE
+-a = PP alocation policy
+-am = middle
+-ac = center
+-ae = edge
+-aie = inner edge
+-aim = inner middle
+#+END_EXAMPLE
 
-mklv -y (lv) -t jfslog (vg) (No of PP's) (pv Name optional)
-Creates a JFSlog logical volume.
+- =migratepv -l (lv) (old pv) (new pv)= :: Move a logical volume between physical volumes. Both physical volumes must be in the same volume group!
 
-logform (/dev/lv)       Initialises an LV for use as an JFSlog
+- =mklv -y (lv) -t jfslog (vg) (No of PP's) (pv Name optional)= :: Creates a =JFSlog= logical volume.
 
-getlvcb -AT (lv)        Displays Logical Volume Control Block information
+- =logform (/dev/lv)= :: Initialises an =LV= for use as an =JFSlog=
+
+- =getlvcb -AT (lv)= :: Displays Logical Volume Control Block information
 
 ** File Systems (FS's)
 
