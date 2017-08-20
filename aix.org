@@ -6,6 +6,9 @@
 #+SEQ_TODO: TODO(t) | DONE(D)
 #+OPTION: 	H:3 num:nil toc:t \n:nil ::t |:t ^:t -:t f:t *:t d:(HIDE) showall
 
+* Backlog [0%]
+** TODO Sync with command crib website - [[http://www.unixguide.net/ibm/ibmcribsheet.shtml]]
+** TODO Sync with my own aix cheat sheet - [[https://bitbucket.org/alvinsim/ibm-aix-cheats]]
 * MISCELLENEOUS
 
 - http://www.rs6000.ibm.com/cgi-bin/ds_form :: Web based man pages
@@ -572,47 +575,38 @@ If copying a striped =LV= to an =LV= that is already created, and the stripe siz
 
 ** File Systems (FS's)
 
-lsfs            Lists all filesystems
-lsfs -q (fs)    Lists the file system details
-lsjfs           Displays data about all filesystems in CSV style format
+- =lsfs= :: Lists all filesystems
+- =lsfs -q (fs)= :: Lists the file system details
+- =lsjfs= :: Displays data about all filesystems in =CSV= style format
 
-mount               Lists all the mounted filesystems
-mount (fs or lv)    Mounts a named filesystem
-mount -a            Mounts all filesystems
-mount all
+- =mount= :: Lists all the mounted filesystems
+- =mount (fs or lv)= :: Mounts a named filesystem
+- =mount -a= :: Mounts all filesystems
+- =mount all= ::
 
-mount -r -v cdrfs /dev/cd0 /cdrom        mounts cd0 drive over /cdrom
+- =mount -r -v cdrfs /dev/cd0 /cdrom= :: mounts =cd0= drive over =/cdrom=
 
-crfs -v jfs -d(lv) -m(mount point) -A yes
-Will create a file system on the whole of the logical volume, adds entry into
-/etc/filesystems and will create mount point directory if it does not exist.
-( use -v jfs2 for JFS2 filesystems )
+- =crfs -v jfs -d(lv) -m(mount point) -A yes= :: Will create a file system on the whole of the logical volume, adds entry into =/etc/filesystems= and will create mount point directory if it does not exist. (use =-v jfs2= for =JFS2= filesystems)
 
-crfs -v jfs -g(vg) -m(mount point) -a size=(size of fs) -A yes
-Will create a logical volume on the volume group and create the file system on
-the logical volume. All at the size stated. Will add entry into
-/etc/filesystems and will create the mount point directory if it does not exist.
+- =crfs -v jfs -g(vg) -m(mount point) -a size=(size of fs) -A yes= :: Will create a logical volume on the volume group and create the file system on the logical volume. All at the size stated. Will add entry into =/etc/filesystems= and will create the mount point directory if it does not exist.
 
-Use attribute "-a log=/dev/log01" to specify a jfslog devices
-Use attrubute "-a bf=true" for a large file enabled filesystem
+Use attribute "-a log=/dev/log01" to specify a =jfslog= devices.
 
-chfs -A yes (fs)                 Change file system to Auto mount in
-                                 /etc/filesystems
-chfs -a size=(new fs size)(fs)   Change file system size
-chfs -m (new-mount-point) (fs)   Change the file system mount point.
+Use attrubute "-a bf=true" for a large file enabled filesystem.
 
-rmfs (fs)            Removes the file system and will also remove the
-                     LV if there are no onther file systems on it.
+- =chfs -A yes (fs)= :: Change file system to Auto mount in =/etc/filesystems=
+- =chfs -a size=(new fs size)(fs)= :: Change file system size
+- =chfs -m (new-mount-point) (fs)= :: Change the file system mount point.
 
-defrag -q (fs)       Reports the fragment status of the file system.
-defragfs -r (fs)     Runs in report only defrag mode (no action).
-defragfs (fs)        Defragments a file system.
+- =rmfs (fs)= :: Removes the file system and will also remove the =LV= if there are no onther file systems on it.
 
-fsck (fs)            Verify a file system, the file system must be unmounted!
-fsck (-y or -n) (fs) Pre-answer questions either yes or no !
-fsck -p (fs)         Will restore primary superblock from backup copy if the
-                     superblock is corrupt.
-              ( or dd count=1 bs=4k skip=31 seek=1 if=/dev/lv00 of=/dev/lv00 )
+- =defrag -q (fs)= :: Reports the fragment status of the file system.
+- =defragfs -r (fs)= :: Runs in report only defrag mode (no action).
+- =defragfs (fs)= :: Defragments a file system.
+
+- =fsck (fs)= :: Verify a file system, the file system must be unmounted!
+- =fsck (-y or -n) (fs)= :: Pre-answer questions either =yes= or =no=!
+- =fsck -p (fs)= :: Will restore primary superblock from backup copy if the =superblock= is corrupt. (or ~dd count=1 bs=4k skip=31 seek=1 if=/dev/lv00 of=/dev/lv00~)
 
 ** Mirroring
 
