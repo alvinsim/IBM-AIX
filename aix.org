@@ -461,7 +461,6 @@ splp /dev/lp0
 - =stop -s qdaemon= :: Stop qdaemon sub-system
 
 * FILE SYSTEMS
-** TODO Org mode formatting for "FILE SYSTEMS"
 ** Physical Volumes (PV's)
 
 - =lspv= :: Lists all physical volumes (hard disks)
@@ -610,27 +609,20 @@ Use attrubute "-a bf=true" for a large file enabled filesystem.
 
 ** Mirroring
 
-mklv -y (lv) -c(copies 2 or 3) (vg) (No of PP's) (PV Name optional)
-Creates a mirrored named logical volume.
+- =mklv -y (lv) -c(copies 2 or 3) (vg) (No of PP's) (PV Name optional)= :: Creates a mirrored named logical volume.
 
-mklvcopy -s n (lv) (copies 2 or 3) (pv)
-Creates a copy of a logical volume onto another physical volume. The physical
-volume MUST be in the same volume group as the orginal logical volume !
+- =mklvcopy -s n (lv) (copies 2 or 3) (pv)= :: Creates a copy of a logical volume onto another physical volume. The physical volume *MUST* be in the same volume group as the orginal logical volume!
 
-rmlvcopy (lv) (copies 1 or 2)             Removes logical volume copies.
-rmlvcopy (lv) (copies 1 or 2) (pv)        From this pv only!
+- =rmlvcopy (lv) (copies 1 or 2)= :: Removes logical volume copies.
+- =rmlvcopy (lv) (copies 1 or 2) (pv)= :: From this =pv= only!
 
-syncvg -p (pv)                            Synchronize logical partion copies
-syncvg -l (lv)
-syncvg -v (vg)
+- =syncvg -p (pv)= :: Synchronize logical partion copies
+- =syncvg -l (lv)= ::
+- =syncvg -v (vg)= ::
 
-mirrorvg (vg) (pv)
-Mirrors the all the logical volumes in a volume group onto a new physical
-volume. New physical volume must already be part of the volume group.
+- =mirrorvg (vg) (pv)= :: Mirrors the all the logical volumes in a volume group onto a new physical volume. New physical volume must already be part of the volume group.
 
-chfs -a splitcopy=/backup -a copy=2 /data1
-Splits off a copy of a 3 way mirror and mount read only for use as an
-offline backup.
+- ~chfs -a splitcopy=/backup -a copy=2 /data1~ :: Splits off a copy of a 3 way mirror and mount read only for use as an offline backup.
 
 * BOOT LOGICAL VOLUME (BLV) / PROCESSORS / KERNEL
 ** TODO Org mode formatting for "BOOT LOGICAL VOLUME (BLV) / PROCSSORS / KERNEL"
