@@ -625,31 +625,29 @@ Use attrubute "-a bf=true" for a large file enabled filesystem.
 - ~chfs -a splitcopy=/backup -a copy=2 /data1~ :: Splits off a copy of a 3 way mirror and mount read only for use as an offline backup.
 
 * BOOT LOGICAL VOLUME (BLV) / PROCESSORS / KERNEL
-** TODO Org mode formatting for "BOOT LOGICAL VOLUME (BLV) / PROCSSORS / KERNEL"
-Mirroring does not work with the BLV as it is not a true logical volume,
-bosboot must be run against the other disk after mirroring the rootvg.
 
-bootlist -m (normal or service) -o                       displays bootlist
-bootlist -m (normal or service) (list of devices)        change bootlist
+Mirroring does not work with the =BLV= as it is not a true logical volume, =bosboot= must be run against the other disk after mirroring the =rootvg=.
 
-bootinfo -b                  Identifies the bootable disk
-bootinfo -t                  Specifies type of boot
+- =bootlist -m (normal or service) -o= ::  displays =bootlist=
+- =bootlist -m (normal or service) (list of devices)= :: change =bootlist=
 
-bosboot -a -d (/dev/pv)      Creates a complete boot image on a physical volume.
+- =bootinfo -b= :: Identifies the bootable disk
+- =bootinfo -t= :: Specifies type of boot
 
-mkboot -c -d (/dev/pv)       Zero's out the boot records on the physical volume.
+- =bosboot -a -d (/dev/pv)= :: Creates a complete boot image on a physical volume.
 
-savebase -d (/dev/pv)        Saves customised ODM info onto the boot device.
+- =mkboot -c -d (/dev/pv)= :: Zero's out the boot records on the physical volume.
 
-lslv -m hd5                  Find out which disk the BLV is on.
+- =savebase -d (/dev/pv)= :: Saves customised =ODM= info onto the boot device.
 
-bootinfo -y                  Displays which kernel can be used, 32 or 64 bit
+- =lslv -m hd5= :: Find out which disk the =BLV= is on.
 
-genkex                       Reports all loaded kernel extensions.
+- =bootinfo -y= :: Displays which kernel can be used, 32 or 64 bit
 
-lsdev -Cc processor          Lists all processors
-lsattr -EHl proc0            Displays attributes of processor 0. AIX 5.1L will
-                             display processor clock frequency.
+- =genkex= :: Reports all loaded kernel extensions.
+
+- =lsdev -Cc processor= :: Lists all processors
+- =lsattr -EHl proc0= :: Displays attributes of processor 0. =AIX 5.1L= will display processor clock frequency.
 
 * SYSTEM DUMP
 ** TODO Org mode formatting for "SYSTEM DUMP"
