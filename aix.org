@@ -650,28 +650,31 @@ Mirroring does not work with the =BLV= as it is not a true logical volume, =bosb
 - =lsattr -EHl proc0= :: Displays attributes of processor 0. =AIX 5.1L= will display processor clock frequency.
 
 * SYSTEM DUMP
-** TODO Org mode formatting for "SYSTEM DUMP"
-1, AIX 4.2.1 and greater supports system dump to paging space.
-2, AIX 4.3.3 and greater supports system dump to mirrored paging space.
-3, Primary dump device must be in the rootvg
-4, Secondary dump device can be outside rootvg unless it is a paging device.
 
-sysdumpdev -l        Lists current dump destination.
-sysdumpdev -e        Estimates dumpsize of the current system in bytes.
-sysdumpdev -L        Displays information about the previous dump.
+1. AIX 4.2.1 and greater supports system dump to paging space.
+2. AIX 4.3.3 and greater supports system dump to mirrored paging space.
+3. Primary dump device must be in the =rootvg=
+4. Secondary dump device can be outside =rootvg= unless it is a paging device.
 
-sysdumpstart -p      Starts a dump and writes to the primary dump device.
-sysdumpstart -s      Starts a dump and writes to the secondary dump device.
 
-(MCA machine can also dump if key is in service position and the reset
- button is pressed)
+- =sysdumpdev -l= :: Lists current dump destination.
+- =sysdumpdev -e= :: Estimates dumpsize of the current system in bytes.
+- =sysdumpdev -L= :: Displays information about the previous dump.
 
-sysdumpdev -p (dump device) -P        Sets the default dump device, permanently
+- =sysdumpstart -p= :: Starts a dump and writes to the primary dump device.
+- =sysdumpstart -s= :: Starts a dump and writes to the secondary dump device.
+
+(MCA machine can also dump if key is in service position and the reset button is pressed)
+
+- =sysdumpdev -p (dump device) -P= :: Sets the default dump device, permanently
 
 Analyse dump file :-
-echo "stat\n status\n t -m" | crash /var/adm/ras/vmcore.0
 
-snap -gfkD -o /dev/rmt0     Copy dump to tape to send to IBM support, uses tar.
+#+BEGIN_EXAMPLE
+echo "stat\n status\n t -m" | crash /var/adm/ras/vmcore.0
+#+END_EXAMPLE
+
+- =snap -gfkD -o /dev/rmt0= :: Copy dump to tape to send to IBM support, uses =tar=.
 
 * PAGING SPACE (PS's)
 ** TODO Org mode formatting for "PAGING SPAC (PS's)"
