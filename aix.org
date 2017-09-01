@@ -678,35 +678,38 @@ echo "stat\n status\n t -m" | crash /var/adm/ras/vmcore.0
 
 * PAGING SPACE (PS's)
 ** TODO Org mode formatting for "PAGING SPAC (PS's)"
-lsps -a                        Lists out all paging space
-lsps -s                        Displays total paging and total useage
-lsps (ps)
+- =lsps -a= :: Lists out all paging space
+- =lsps -s= :: Displays total paging and total useage
+- =lsps (ps)= ::
 
-swappon /dev/ps                Activates a paging device eg /dev/paging00
-swappoff /dev/ps               Deactivates a paging device ( AIX 5.x only )
 
+- =swappon /dev/ps= :: Activates a paging device eg =/dev/paging00=
+- =swappoff /dev/ps= :: Deactivates a paging device (AIX 5.x only)
+
+#+BEGIN_EXAMPLE
 mkps -s(No of PP's) -n -a (vg)
 mkps -s(No of PP's) -n -a (vg) (pv)
--n = don't activate/swapon now                -a = activate/swapon at reboot
+# -n = don't activate/swapon now
+# -a = activate/swapon at reboot
+#+END_EXAMPLE
 
-mklv -b n -t paging -y hd6 (vg) (No of PP's) (pv)
-Creates paging space using the mklv command.
 
-chps -a n (ps)                  Turns off paging space.
-chps -s(No of PP's) (ps)        Increases paging space.
-chps -d(No of PP's) (ps)        Decreases paging space ( AIX 5.x only )
+- =mklv -b n -t paging -y hd6 (vg) (No of PP's) (pv)= :: Creates paging space using the =mklv= command.
 
-chlv -n (new name) (old name)        Change paging space name
 
-rmps (ps)               Remove paging space. PS must have been turned off
-                        and then the system rebooted before it can be removed.
+- =chps -a n (ps)= :: Turns off paging space.
+- =chps -s(No of PP's) (ps)= :: Increases paging space.
+- =chps -d(No of PP's) (ps)= :: Decreases paging space (AIX 5.x only)
 
-Note : Need to change the swapon entry in /sbin/rc.boot script if you are
-       changing the default paging space from /dev/hd6. You also need to
-       do a "bosboot -a -d /dev/hdiskx" before the reboot.
 
-/etc/swapspaces               File that lists all paging space devices that are
-                              activated/swapon during reboot.
+- =chlv -n (new name) (old name)= :: Change paging space name
+
+
+- =rmps (ps)= :: Remove paging space. PS must have been turned off and then the system rebooted before it can be removed.
+
+Note : Need to change the swapon entry in =/sbin/rc.boot= script if you are changing the default paging space from =/dev/hd6=. You also need to do a =bosboot -a -d /dev/hdiskx= before the reboot.
+
+- =/etc/swapspaces= :: File that lists all paging space devices that are =activated= / =swapon= during reboot.
 
 * SCHEDULING
 ** TODO Org mode formatting for "SCHEDULING"
