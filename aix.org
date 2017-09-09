@@ -677,7 +677,7 @@ echo "stat\n status\n t -m" | crash /var/adm/ras/vmcore.0
 - =snap -gfkD -o /dev/rmt0= :: Copy dump to tape to send to IBM support, uses =tar=.
 
 * PAGING SPACE (PS's)
-** TODO Org mode formatting for "PAGING SPAC (PS's)"
+
 - =lsps -a= :: Lists out all paging space
 - =lsps -s= :: Displays total paging and total useage
 - =lsps (ps)= ::
@@ -712,34 +712,38 @@ Note : Need to change the swapon entry in =/sbin/rc.boot= script if you are chan
 - =/etc/swapspaces= :: File that lists all paging space devices that are =activated= / =swapon= during reboot.
 
 * SCHEDULING
-** TODO Org mode formatting for "SCHEDULING"
-crontab -l                        List out crontab entrys
-crontab -e                        Edit crontab entrys
-crontab -l > (filename)           Output crontab entrys to a file
-crontab (filename)                Enter a crontab from a file
-crontab -r                        Removes all crontab entrys
-crontab -v                        Displays crontab submission time.
 
-/var/adm/cron/cron.allow        File containing users allowed crontab use.
-/var/adm/cron/cron.deny         File containing users denied crontab use.
-/var/adm/cron/crontab           Directory containing users crontab entries.
-/var/adm/cron/log               Cron log file.
+- =crontab -l= :: List out =crontab= entrys
+- =crontab -e= :: Edit =crontab= entrys
+- =crontab -l > (filename)= :: Output =crontab= entrys to a file
+- =crontab (filename)= :: Enter a =crontab= from a file
+- =crontab -r= :: Removes all =crontab= entrys
+- =crontab -v= :: Displays =crontab= submission time.
 
-at (now + 2 minutes, 13:05, etc) {return}        Schedule a job using at
-Command or schell script {return}
-{CTRL D}
 
-echo "shutdown -Fr" | at now + 1 minute
+- =/var/adm/cron/cron.allow= :: File containing users allowed =crontab= use.
+- =/var/adm/cron/cron.deny= :: File containing users denied =crontab= use.
+- =/var/adm/cron/crontab= :: Directory containing users =crontab= entries.
+- =/var/adm/cron/log= :: Cron log file.
 
-at -l
-atq                      Lists out jobs scheduled to run via at command
 
-at -r (at job No)
-atrm  (at job No)        Removes an at job scheduled to run.
+- =at (now + 2 minutes, 13:05, etc) {return}= :: Schedule a job using at Command or schell script ={return} {CTRL D}=
 
-/var/adm/cron/at.allow   File containing users allowed at use.
-/var/adm/cron/at.deny    File containing users denied at use.
-/var/adm/cron/atjobs     Directory containing users at entries.
+
+- =echo "shutdown -Fr" | at now + 1 minute= ::
+
+
+- =at -l= ::
+- =atq= :: Lists out jobs scheduled to run via at command
+
+
+- =at -r (at job No)= ::
+- =atrm  (at job No)= :: Removes an at job scheduled to run.
+
+
+- =/var/adm/cron/at.allow= :: File containing users allowed at use.
+- =/var/adm/cron/at.deny= :: File containing users denied at use.
+- =/var/adm/cron/atjobs= :: Directory containing users at entries.
 
 * SECURITY
 ** TODO Org mode formatting for "SECURITY"
