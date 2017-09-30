@@ -746,37 +746,46 @@ Note : Need to change the swapon entry in =/sbin/rc.boot= script if you are chan
 - =/var/adm/cron/atjobs= :: Directory containing users at entries.
 
 * SECURITY
-** TODO Org mode formatting for "SECURITY"
-nulladm /var/adm/wtmp      To recreate/clear down the wtmp file.
+- =nulladm /var/adm/wtmp= :: recreate/clear down the =wtmp= file.
 
-groups           Lists out the groups that the user is a member of
-setgroups        Shows user and process groups
 
-chmod abcd (filename)        Changes files/directory permissions
+- =groups= :: Lists out the groups that the =user= is a member of
+- =setgroups= :: Shows =user= and process =groups=
 
+
+- =chmod abcd (filename)= :: Changes files/directory permissions
+
+
+#+BEGIN_EXAMPLE
 Where a is  (4 SUID) + (2 SGID)  + (1 SVTX)
       b is  (4 read) + (2 write) + (1 execute)  permissions for owner
       c is  (4 read) + (2 write) + (1 execute)  permissions for group
       d is  (4 read) + (2 write) + (1 execute)  permissions for others
+#+END_EXAMPLE
 
 
+#+BEGIN_EXAMPLE
  -rwxrwxrwx   -rwxrwxrwx   -rwxrwxrwx
-  |   |   |   |   |   |   |   |   |
+  |||             |||             |||
    -               -               -
-   |   |   |
+   |               |               |
  Owner           Group           Others
 
  -rwSrwxrwx = SUID   -rwxrwSrwx = SGID   drwxrwxrwt = SVTX
+#+END_EXAMPLE
 
 
-chown (new owner) (filename)        Changes file/directory owners
-chgrp (new group) (filename)        Changes file/directory groups
+- =chown (new owner) (filename)= :: Changes file/directory owners
+- =chgrp (new group) (filename)= :: Changes file/directory groups
 
-chown (new owner).(new group) (filename)        Do both !!!
 
-umask                            Displays umask settings
-umask abc                        Changes users umask settings
+- =chown (new owner).(new group) (filename)= :: Do both
 
+
+- =umask= :: Displays =umask= settings
+- =umask abc= :: Changes users =umask= settings
+
+#+BEGIN_EXAMPLE
 where ( 7 - a = new file read permissions)
       ( 7 - b = new file write permissions)
       ( 7 - c = new file execute permissions)
@@ -784,19 +793,25 @@ where ( 7 - a = new file read permissions)
 eg umask 022 = new file permissions of 755 = read write and execute for owner
                                              read ----- and execute for group
                                              read ----- and execute for other
+#+END_EXAMPLE
 
-mrgpwd > file.txt      Creates a standard password file in file.txt
 
-passwd                 Change current user password
+- =mrgpwd > file.txt= :: Creates a standard password file in =file.txt=
 
-pwdadm (username)      Change a users password
 
-pwdck -t ALL           Verifies the correctness of local authentication
+- =passwd= :: Change current user password
 
-lsgroup ALL                      Lists all groups on the system
-mkgroup (new group)              Creates a group
-chgroup (attribute) (group)      Change a group attribute
-rmgroup (group)                  Removes a group
+
+- =pwdadm (username)= :: Change a users password
+
+
+- =pwdck -t ALL= :: Verifies the correctness of local authentication
+
+
+- =lsgroup ALL= :: Lists all groups on the system
+- =mkgroup (new group)= :: Creates a group
+- =chgroup (attribute) (group)= :: Change a group attribute
+- =rmgroup (group)= :: Removes a group
 
 * USERS / ENVIRONMENT
 ** TODO Org mode formattign for "USERS / ENVIRONMENT"
