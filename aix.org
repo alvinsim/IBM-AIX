@@ -746,15 +746,14 @@ Note : Need to change the swapon entry in =/sbin/rc.boot= script if you are chan
 - =/var/adm/cron/atjobs= :: Directory containing users at entries.
 
 * SECURITY
-- =nulladm /var/adm/wtmp= :: recreate/clear down the =wtmp= file.
+- =nulladm /var/adm/wtmp= :: To recreate/clear down the =wtmp= file.
 
 
-- =groups= :: Lists out the groups that the =user= is a member of
+- =groups= :: Lists out the groups that the user is a member of
 - =setgroups= :: Shows =user= and process =groups=
 
 
 - =chmod abcd (filename)= :: Changes files/directory permissions
-
 
 #+BEGIN_EXAMPLE
 Where a is  (4 SUID) + (2 SGID)  + (1 SVTX)
@@ -779,22 +778,22 @@ Where a is  (4 SUID) + (2 SGID)  + (1 SVTX)
 - =chgrp (new group) (filename)= :: Changes file/directory groups
 
 
-- =chown (new owner).(new group) (filename)= :: Do both
+- =chown (new owner).(new group) (filename)= :: Does both
 
 
 - =umask= :: Displays =umask= settings
 - =umask abc= :: Changes users =umask= settings
 
+
 #+BEGIN_EXAMPLE
-where ( 7 - a = new file read permissions)
-      ( 7 - b = new file write permissions)
-      ( 7 - c = new file execute permissions)
+where (7 - a = new file read permissions)
+      (7 - b = new file write permissions)
+      (7 - c = new file execute permissions)
 
 eg umask 022 = new file permissions of 755 = read write and execute for owner
                                              read ----- and execute for group
                                              read ----- and execute for other
 #+END_EXAMPLE
-
 
 - =mrgpwd > file.txt= :: Creates a standard password file in =file.txt=
 
