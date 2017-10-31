@@ -813,58 +813,72 @@ eg umask 022 = new file permissions of 755 = read write and execute for owner
 - =rmgroup (group)= :: Removes a group
 
 * USERS / ENVIRONMENT
-** TODO Org mode formattign for "USERS / ENVIRONMENT"
-passwd -f                        Change current users gecos (user description)
-passwd -s                        Change current users shell
+- =passwd -f= :: Change current users gecos (user description)
+- =passwd -s= :: Change current users shell
 
-chfn (username)                  Changes users gecos
-chsh (username) (shell)          Changes users shell
 
-env              Displays values of environment variables
-printenv
+- =chfn (username)= :: Changes users gecos
+- =chsh (username) (shell) :: Changes users shell
 
-id               Displays current user's uid and gid details
-id (user)        Displays user uid and gid details
 
-whoami           Displays current user details
-who am i         (or who -m)
+- =env= :: Displays values of environment variables
+- =printenv= ::
 
-who              Displays details of all users currently logged in.
-w
-who -b           Displays system reboot time
 
-uptime           Displays number of users logged in, time since last
-                 reboot, and the machine load averages.
+- =id= :: Displays current user's =uid= and =gid= details
+- =id (user)= :: Displays user =uid= and =gid= details
 
-lsuser ALL                              Lists all users details
-lsuser (username)                       Lists details for user
-lsuser -a(attribute) (username or ALL)  Lists user attributes
-lsuser -a home ALL
 
-mkuser -a(attributes) (newuser)         Add a new user
+- =whoami= :: Displays current user details
+- =who am i= :: (or =who -m=)
 
-chuser (attributes) (user)              Change a user
-chuser login=false (user)               Lock a user account
 
-rmuser -p (user)              Removes a user and all entries in security files
+- =who= :: Displays details of all users currently logged in.
+- =w= ::
+- =who -b= :: Displays system reboot time
 
-usrck -t ALL                  Checks all the user entires are okay.
 
-fuser -u (logical volume)     Displays processes using the files in that LV
-fuser -k /dev/lv02            Will send a kill signal to all processes using
-                              /dev/lv02
+- =uptime= :: Displays number of users logged in, time since last reboot, and the machine load averages.
 
-lsattr -D -l sys0 -a maxuproc        Displays max number of processes per user
-chdev -l sys0 -a maxuproc=(number)   Changes max number of processes per user
 
-chlang (language)             Changes the language settings for system or user.
+- =lsuser ALL= :: Lists all users details
+- =lsuser (username)= :: Lists details for user
+- =lsuser -a(attribute) (username or ALL)= :: Lists user attributes
+- =lsuser -a home ALL= ::
+
+
+- =mkuser -a(attributes) (newuser)= :: Add a new user
+
+
+- =chuser (attributes) (user)= :: Change a user
+- =chuser login=false (user)= :: Lock a user account
+
+
+- =rmuser -p (user)= :: Removes a user and all entries in security files
+
+
+- =usrck -t ALL= :: Checks all the user entires are okay.
+
+
+- =fuser -u (logical volume)= :: Displays processes using the files in that =LV=
+- =fuser -k /dev/lv02= :: Will send a kill signal to all processes using =/dev/lv02=
+
+
+- =lsattr -D -l sys0 -a maxuproc= :: Displays max number of processes per user
+- =chdev -l sys0 -a maxuproc=(number)= :: Changes max number of processes per user
+
+
+- =chlang (language)= :: Changes the language settings for system or user.
+
+#+BEGIN_EXAMPLE
          En_GB   = PC850 code pages
          en_GB   = ISO8859 code pages (Great Britain)
            C     = posix
+#+END_EXAMPLE
 
-su - (user)      Switch to new user and change to the new users environment.
-su (user)        Switch to new user, current environment is propated to the
-                 new shell.
+
+- =su - (user)= :: Switch to new user and change to the new users environment.
+- =su (user)= :: Switch to new user, current environment is propated to the new shell.
 
 * REMOTE USERS
 ** TODO Org mode formatting for "REMOTE USERS"
