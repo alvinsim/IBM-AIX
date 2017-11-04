@@ -818,7 +818,7 @@ eg umask 022 = new file permissions of 755 = read write and execute for owner
 
 
 - =chfn (username)= :: Changes users gecos
-- =chsh (username) (shell) :: Changes users shell
+- =chsh (username) (shell)= :: Changes users shell
 
 
 - =env= :: Displays values of environment variables
@@ -876,27 +876,28 @@ eg umask 022 = new file permissions of 755 = read write and execute for owner
            C     = posix
 #+END_EXAMPLE
 
-
 - =su - (user)= :: Switch to new user and change to the new users environment.
 - =su (user)= :: Switch to new user, current environment is propated to the new shell.
 
 * REMOTE USERS
-** TODO Org mode formatting for "REMOTE USERS"
-ruser -a -f (user)       Adds entry into /etc/ftpusers file
-ruser -a -p (host)       Adds entry into /etc/host.lpd file
-ruser -a -r (host)       Adds entry into /etc/hosts.equiv file
+- =ruser -a -f (user)= :: Adds entry into =/etc/ftpusers= file
+- =ruser -a -p (host)= :: Adds entry into =/etc/host.lpd= file
+- =ruser -a -r (host)= :: Adds entry into =/etc/hosts.equiv= file
 
-ruser -d -f (user)       Deletes entry in /etc/ftpusers file
-ruser -d -p (host)       Deletes entry in /etc/host.lpd file
-ruser -d -r (host)       Deletes entry in /etc/hosts.equiv file
 
-ruser -s -F              Shows all entries in /etc/ftpusers file
-ruser -s -P              Shows all entries in /etc/host.lpd file
-ruser -s -R              Shows all entries in /etc/hosts.equiv file
+- =ruser -d -f (user)= :: Deletes entry in =/etc/ftpusers= file
+- =ruser -d -p (host)= :: Deletes entry in =/etc/host.lpd= file
+- =ruser -d -r (host)= :: Deletes entry in =/etc/hosts.equiv= file
 
-ruser -X -F              Deletes all entries in /etc/ftpusers file
-ruser -X -P              Deletes all entries in /etc/host.lpd file
-ruser -X -R              Deletes all entries in /etc/hosts.equiv file
+
+- =ruser -s -F= :: Shows all entries in =/etc/ftpusers= file
+- =ruser -s -P= :: Shows all entries in =/etc/host.lpd= file
+- =ruser -s -R= :: Shows all entries in =/etc/hosts.equiv= file
+
+
+- =ruser -X -F= :: Deletes all entries in =/etc/ftpusers= file
+- =ruser -X -P= :: Deletes all entries in =/etc/host.lpd= file
+- =ruser -X -R= :: Deletes all entries in =/etc/hosts.equiv= file
 
 * INITTAB
 ** TODO Org mode formatting for "INITTAB"
