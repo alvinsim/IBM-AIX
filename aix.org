@@ -901,19 +901,24 @@ eg umask 022 = new file permissions of 755 = read write and execute for owner
 
 * INITTAB
 ** TODO Org mode formatting for "INITTAB"
-telinit S                Switches to single user mode.
-telinit 2                Switches to multi user mode.
-telinit q                Re-examines /etc/inittab
+- =telinit S= :: Switches to single user mode.
+- =telinit 2= :: Switches to multi user mode.
+- =telinit q= :: Re-examines =/etc/inittab=
 
-lsitab -a                Lists all entries in inittab
-lsitab (ident eg tty1)   Lists the tty1 entry in inittab
 
-mkitab ("details")       Creates a new inittab entry
-chitab ("details")       Ammends an existing inittab entry
+- =lsitab -a= :: Lists all entries in =inittab=
+- =lsitab (ident eg tty1)= :: Lists the =tty1= entry in =inittab=
 
-rmitab (ident eg tty1)   Removes an inittab entry.
 
+- =mkitab ("details")= :: Creates a new =inittab= entry
+- =chitab ("details")= :: Ammends an existing =inittab= entry
+
+
+- =rmitab (ident eg tty1)= :: Removes an =inittab= entry.
+
+#+BEGIN_EXAMPLE
 chitab "tty1:2:respawn:/usr/bin/getty /dev/tty1"
+#+END_EXAMPLE
 
 * ODM
 ** TODO Org mode formatting for "ODM"
