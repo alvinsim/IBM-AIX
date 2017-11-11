@@ -4,7 +4,7 @@
 #+LANGUAGE: en
 #+STARTUP: 	align fold nodlechek hidestarts oddeven intestate
 #+SEQ_TODO: TODO(t) | DONE(D)
-#+OPTION: 	H:3 num:nil toc:t \n:nil ::t |:t ^:t -:t f:t *:t d:(HIDE) showall
+#+OPTION: 	H:3 num:nil toc:t \n:nil ::t |:t ^:t -:t f:t *:t d:(HIDE) showall tasks:todo
 
 * Backlog [0%]
 ** TODO Sync with command crib website - [[http://www.unixguide.net/ibm/ibmcribsheet.shtml]]
@@ -900,7 +900,6 @@ eg umask 022 = new file permissions of 755 = read write and execute for owner
 - =ruser -X -R= :: Deletes all entries in =/etc/hosts.equiv= file
 
 * INITTAB
-** TODO Org mode formatting for "INITTAB"
 - =telinit S= :: Switches to single user mode.
 - =telinit 2= :: Switches to multi user mode.
 - =telinit q= :: Re-examines =/etc/inittab=
@@ -921,20 +920,24 @@ chitab "tty1:2:respawn:/usr/bin/getty /dev/tty1"
 #+END_EXAMPLE
 
 * ODM
-** TODO Org mode formatting for "ODM"
-odmget -q "name=lp1" CuDv |more     Gets lp1 info from pre-defined database.
+- =odmget -q "name=lp1" CuDv |more= :: Gets =lp1= info from pre-defined database.
 
-odmget -q "name-lp1" CuAt |more     Gets lp1 info from customised database.
 
-odmdelete -o CuAt -q "name=lp1"     Deletes lp1 info from customised db.
+- =odmget -q "name=lp1" CuAt |more= :: Gets =lp1= info from customised database.
 
-odmget -q "name=lp1" CuAt > lp1.CuAt     Export ODM info to text file.
-odmadd lp1.CuAt                          Import ODM info from text file.
 
-odmshow CuAt         Displays fields and record structures of CuAt
+- =odmdelete -o CuAt -q \quot{}name=lp1\quot{}= :: Deletes lp1 info from customised db.
 
-odmchange
-odmdrop
+
+- =odmget -q "name=lp1" CuAt > lp1.CuAt= :: Export =ODM= info to text file.
+- =odmadd lp1.CuAt= :: Import =ODM= info from text file.
+
+
+- =odmshow CuAt= :: Displays fields and record structures of =CuAt=
+
+
+- =odmchange= ::
+- =odmdrop= ::
 
 * ERROR LOGGING / LOGS
 ** TODO Org mode formatting for "ERROR LOADING / LOGS"
