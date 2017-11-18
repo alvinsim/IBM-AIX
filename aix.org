@@ -962,7 +962,7 @@ Note: The =errclear= command will delete all entries older than the numbers of d
 
 
 ** TODO to fix special characters when exporting
-- =errlogger message up to 230 chrs= :: Enters an operator notifaction message into the =errorlog=.
+- =errlogger "message up to 230 chrs"= :: Enters an operator notifaction message into the =errorlog=.
 
 
 - =alog -L= :: Lists all logs define in the =alog= db
