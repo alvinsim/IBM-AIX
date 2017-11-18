@@ -4,7 +4,7 @@
 #+LANGUAGE: en
 #+STARTUP: 	align fold nodlechek hidestarts oddeven intestate
 #+SEQ_TODO: TODO(t) | DONE(D)
-#+OPTION: 	H:3 num:nil toc:t \n:nil ::t |:t ^:t -:t f:t *:t d:(HIDE) showall tasks:todo
+#+OPTION: 	H:3 num:nil toc:t \n:nil ::t |:t ^:t -:t f:t ^:{} _:{} *:t d:(HIDE) showall tasks:todo
 
 * Backlog [0%]
 ** TODO Sync with command crib website - [[http://www.unixguide.net/ibm/ibmcribsheet.shtml]]
@@ -925,8 +925,8 @@ chitab "tty1:2:respawn:/usr/bin/getty /dev/tty1"
 
 - =odmget -q "name=lp1" CuAt |more= :: Gets =lp1= info from customised database.
 
-
-- =odmdelete -o CuAt -q \quot{}name=lp1\quot{}= :: Deletes lp1 info from customised db.
+** TODO to fix special characters when exporting
+- =odmdelete -o CuAt -q "name=lp"= :: Deletes lp1 info from customised db.
 
 
 - =odmget -q "name=lp1" CuAt > lp1.CuAt= :: Export =ODM= info to text file.
@@ -940,32 +940,39 @@ chitab "tty1:2:respawn:/usr/bin/getty /dev/tty1"
 - =odmdrop= ::
 
 * ERROR LOGGING / LOGS
-** TODO Org mode formatting for "ERROR LOADING / LOGS"
-/usr/lib/errdemon -l         Displays errorlog attributes.
-/usr/lib/errdemon            Starts error logging.
-/usr/lib/errstop             Stops error logging.
+** DONE Org mode formatting for "ERROR LOADING / LOGS"
+- =/usr/lib/errdemon -l= :: Displays =errorlog= attributes.
+- =/usr/lib/errdemon= :: Starts error logging.
+- =/usr/lib/errstop= :: Stops error logging.
 
-errpt                        Displays summary errorlog report.
-errpt -a                     Displays detailed errorlog report.
-errpt -j (identifier)        Displays singe errorlog report.
 
-Note : errorlog classes are H=Hardware S=Software O=Information V=Undetermined
+- =errpt= :: Displays summary =errorlog= report.
+- =errpt -a= :: Displays detailed =errorlog= report.
+- =errpt -j (identifier)= :: Displays singe =errorlog= report.
 
-errclear (days)              Deletes all error classes in the errorlog.
-errclear -d (class) (days)   Deletes all error class entries in errlog.
 
-Note : The errclear command will delete all entries older than the numbers of
-       days specified in the days paramenter. To delete ALL entries used 0.
+Note: =errorlog= classes are ~H=Hardware S=Software O=Information V=Undetermined~
 
-errlogger "message up to 230 chrs"
-Enters an operator notifaction message into the errorlog.
 
-alog -L                      Lists all logs define in the alog db
+- =errclear (days)= :: Deletes all error classes in the =errorlog=.
+- =errclear -d (class) (days)= :: Deletes all error class entries in =errlog=.
 
-alog -o -t (type)            Display contents of log (type)
-alog -o -t boot
 
-cat /tmp/boot.log | alot -q -t (type)    Copies contects of a file to a log
+Note: The =errclear= command will delete all entries older than the numbers of days specified in the days paramenter. To delete ALL entries used =0=.
+
+
+** TODO to fix special characters when exporting
+- =errlogger message up to 230 chrs= :: Enters an operator notifaction message into the =errorlog=.
+
+
+- =alog -L= :: Lists all logs define in the =alog= db
+
+
+- =alog -o -t (type)= :: Display contents of log (type)
+- =alog -o -t boot= ::
+
+
+- =cat /tmp/boot.log | alot -q -t (type)= :: Copies contects of a file to a log
 
 * PERFORMANCE MONITORING / TUNING
 ** TODO Org mode formatting for "PERFORMACNE MONITORING / TUNING"
