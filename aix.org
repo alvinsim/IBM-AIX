@@ -3,12 +3,13 @@
 #+EMAIL: 		sim.alvin@gmail.com
 #+LANGUAGE: en
 #+STARTUP: 	align fold nodlechek hidestarts oddeven intestate
-#+SEQ_TODO: TODO(t) | DONE(D)
+#+SEQ_TODO: TODO(t) | DONE(d)
 #+OPTION: 	H:3 num:nil toc:t \n:nil ::t |:t ^:t -:t f:t ^:{} _:{} *:t d:(HIDE) showall tasks:todo
 
 * Backlog [0%]
 ** TODO Sync with command crib website - [[http://www.unixguide.net/ibm/ibmcribsheet.shtml]]
 ** TODO Sync with my own aix cheat sheet - [[https://bitbucket.org/alvinsim/ibm-aix-cheats]]
+** TODO look-up how examples are to be displayed
 * MISCELLENEOUS
 
 - http://www.rs6000.ibm.com/cgi-bin/ds_form :: Web based man pages
@@ -940,7 +941,6 @@ chitab "tty1:2:respawn:/usr/bin/getty /dev/tty1"
 - =odmdrop= ::
 
 * ERROR LOGGING / LOGS
-** DONE Org mode formatting for "ERROR LOADING / LOGS"
 - =/usr/lib/errdemon -l= :: Displays =errorlog= attributes.
 - =/usr/lib/errdemon= :: Starts error logging.
 - =/usr/lib/errstop= :: Stops error logging.
@@ -975,23 +975,31 @@ Note: The =errclear= command will delete all entries older than the numbers of d
 - =cat /tmp/boot.log | alot -q -t (type)= :: Copies contects of a file to a log
 
 * PERFORMANCE MONITORING / TUNING
-** TODO Org mode formatting for "PERFORMACNE MONITORING / TUNING"
-vmstat (drive) (interval) (count)         Reports virtual memory statistics.
+- =vmstat (drive) (interval) (count)= :: Reports virtual memory statistics.
+#+BEGIN_EXAMPLE
 vmstat hdisk0 5 20
+#+END_EXAMPLE
 
-vmstat -s              Diplays number of paging events since system start.
-vmstat -f              Diplays number of forks since system start.
-vmstat -i              Diplays number of interupts by device since system start.
 
-iostat (drive) (interval) (count)         Reports i/o and cpu statistics.
+- =vmstat -s= :: Diplays number of paging events since system start.
+- =vmstat -f= :: Diplays number of forks since system start.
+- =vmstat -i= :: Diplays number of interupts by device since system start.
+
+
+- =iostat (drive) (interval) (count)= :: Reports i/o and cpu statistics.
+#+BEGIN_EXAMPLE
 iostat hdisk0 5 20
+#+END_EXAMPLE
 
-iostat -d (drive) (interval) (count)      Limits report to drive statistics.
-iostat -t (interval) (count)              Limits report to tty statistics.
 
-sar -u -P ALL 10 10         Displays %usr %sys %wio %idle for all processors
+- =iostat -d (drive) (interval) (count)= :: Limits report to drive statistics.
+- =iostat -t (interval) (count)= :: Limits report to =tty= statistics.
 
-/usr/samples/kernel/vmtune  Displays "Virtual Memory Manager" settings
+
+- =sar -u -P ALL 10 10= :: Displays =%usr= =%sys= =%wio= =%idle= for all processors
+
+
+- =/usr/samples/kernel/vmtune= :: Displays "Virtual Memory Manager" settings
 
 * VMM Tuning
 ** TODO Org mode formatting for "VMM Tuning"
