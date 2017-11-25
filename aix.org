@@ -1006,20 +1006,23 @@ iostat hdisk0 5 20
 *** TODO copy from bitbucket repo
 
 * DOS DISKETTES
-** TODO Org mode formating for "DOS DISKETTES"
-dosdir                    Reads directory listing of a diskette
-dosdir (directory)        Reads directory listing of a named directory
+- =dosdir= :: Reads directory listing of a diskette
+- =dosdir (directory)= :: Reads directory listing of a named directory
 
-dosread -D/dev/fd0 C41.TXT c41.txt        Gets C41.TXT from diskette drive fd0
 
-dosread -D/dev/fd0 DIRECTORY/C41.TXT c41.txt
-(-D option can be dropped if using fd0)
+- =dosread -D/dev/fd0 C41.TXT c41.txt= :: Gets =C41.TXT= from diskette drive =fd0=
 
-doswrite -D/dev/fd0 (unixfile) (dosfile)        Writes a file to diskette
 
-dosdel (dosfile)                                Deletes a dos file on diskette
+- =dosread -D/dev/fd0 DIRECTORY/C41.TXT c41.txt= :: (-D option can be dropped if using =fd0=)
 
-dosformat                                       Formats the diskette
+
+- =doswrite -D/dev/fd0 (unixfile) (dosfile)= :: Writes a file to diskette
+
+
+- =dosdel (dosfile)= :: Deletes a dos file on diskette
+
+
+- =dosformat= :: Formats the diskette
 
 * SENDMAIL
 ** TODO Org mode formattign for "SENDMAIL"
