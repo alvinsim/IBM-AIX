@@ -1026,20 +1026,24 @@ iostat hdisk0 5 20
 
 * SENDMAIL
 ** TODO Org mode formattign for "SENDMAIL"
-sendmail -bi       Creates new aliase db from /etc/aliase file.
-newaliases
+- =sendmail -bi= :: Creates new aliase db from =/etc/aliase= file.
+- =newaliases= ::
 
-sendmail -bp       Displays the contents of the mail queue
-mailq
 
-sendmail -q        Processe the sendmail queue NOW
+- =sendmail -bp= :: Displays the contents of the mail queue
+- =mailq= ::
 
-sendmail -bt -d0.4 < /dev/null
-Prints out sendmail version, compile defines and system information
 
-refresh -s sendmail      Restart sendmail, will re-read /etc/sendmail.cf
-kill -l (sendmail PID)
+- =sendmail -q= :: Processe the =sendmail= queue NOW
 
-stopsrc -s sendmail                 Stops the sendmail daemon
-startsrc -s sendmail "-bd -q30"     Starts the sendmail daemon
-** TODO Sync command crib with points from "IBM AIX Cheats" in bitbucket repo
+
+- =sendmail -bt -d0.4 < /dev/null= :: Prints out =sendmail= version, compile defines and system information
+
+
+- =refresh -s sendmail= :: Restart =sendmail=, will re-read =/etc/sendmail.cf=
+- =kill -l (sendmail PID)= ::
+
+
+** TODO to fix special characters when exporting
+- =stopsrc -s sendmail= :: Stops the =sendmail= daemon
+- =startsrc -s sendmail "-bd -q30"= :: Starts the =sendmail= daemon
