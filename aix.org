@@ -13,6 +13,7 @@
 * MISCELLENEOUS
 
 - http://www.rs6000.ibm.com/cgi-bin/ds_form :: Web based man pages
+
 - =compress -c file.txt > file.Z= :: Create a compressed file.
 - =uuencode (infile) (extract-file-name) > (output file)= :: Converts a binary file to an ASCII file for transfer by modem or email
 - =uudecode (encoded file)= :: Extracts a binary file from encoded file and calls it the extract-file-name
