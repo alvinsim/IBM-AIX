@@ -122,12 +122,20 @@ installp -pad /dev/rmt0 X11.base 4.3.3.0
 * TERMINALS / DISPLAYS
 
 - =/usr/share/lib/terminfo= :: Directory with all support terminal info files.
+
 - =tty= :: Displays what the tty/pty number of the terminal is.
+
 - =termdef= :: reports the =termtype= setup in =smit= for the =tty= port that =termdef= is run on.
+
 - =chdev -l (device eg tty1) -a term=vt100= :: Sets =tty= to a =vt100= terminal type
-- =penable tty0= :: adds ~getty~ line into =/etc/inittab= for =tty0= and starts =getty pdisable tty0= disables the ~getty~ line and disables =getty penable / pdisable -a= option is for all
+
+- =penable tty0= :: adds ~getty~ line into =/etc/inittab= for =tty0= and starts =getty
+- =pdisable tty0= :: disables the ~getty~ line and disables =getty
+- =penable / pdisable -a= :: option is for all
+
 - =stty erase ^?= :: Set backspace key for =vt100= terminals
 - =stty erase ^H= :: Set backspace key for =wyse50= terminals
+
 - =lscons= :: Displays the console device
 - =chcons -a login=enable (device eg /dev/tty1)= :: Changes the console device
 - =lsdisp= :: Display adapter device information
@@ -148,8 +156,10 @@ done
 * NETWORK
 
 - =host (ip or hostname)= :: Resolves a ~hostname~ / ip address
+
 - =hostname= :: Displays ~hostname~
 - =hostname (hostname)= :: Sets the hostname until next reboot
+
 - =lsdev -Cc if= :: Lists all available/defined network interfaces
 - =chdev -l (device name) -a hostname=(hostname)= :: Changes hostname permanently
 
