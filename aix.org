@@ -9,7 +9,10 @@
 * Backlog [0%]
 ** TODO Sync with command crib website - [[http://www.unixguide.net/ibm/ibmcribsheet.shtml]]
 ** TODO Sync with my own aix cheat sheet - [[https://bitbucket.org/alvinsim/ibm-aix-cheats]]
+	 - Start from VMM Tuning
 ** TODO look-up how examples are to be displayed
+** TODO Add additional spacing in between lists
+
 * MISCELLENEOUS
 
 - http://www.rs6000.ibm.com/cgi-bin/ds_form :: Web based man pages
@@ -131,13 +134,16 @@ installp -pad /dev/rmt0 X11.base 4.3.3.0
 
 - =penable tty0= :: adds ~getty~ line into =/etc/inittab= for =tty0= and starts =getty
 - =pdisable tty0= :: disables the ~getty~ line and disables =getty
+
 - =penable / pdisable -a= :: option is for all
 
 - =stty erase ^?= :: Set backspace key for =vt100= terminals
 - =stty erase ^H= :: Set backspace key for =wyse50= terminals
 
 - =lscons= :: Displays the console device
+
 - =chcons -a login=enable (device eg /dev/tty1)= :: Changes the console device
+
 - =lsdisp= :: Display adapter device information
 - =chdisp= :: Change default display used by LFT subsystem
 
@@ -222,7 +228,9 @@ no -o "ipforwarding=1"
 - =exportfs= :: Lists all exported filesystems
 - =exportfs -a= :: Exports all filesystems in =/etc/exports= file
 - =exportfs -u (filesystem)= :: Un-exports a filesystem
+
 - =mknfs= :: Configures and starts NFS services
+
 - =rmnfs= :: Stops and un-configures NFS services
 - =mknfsexp -d /directory= :: Creates an NFS export directory
 - =mknfsmnt= :: Creates an NFS mount directory
@@ -232,6 +240,29 @@ no -o "ipforwarding=1"
 
 #+BEGIN_EXAMPLE
 nfso -o nfs_use_reserved_port=1
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+# 1. Create directory to be exported
+mkdir -p /storage/enduser
+
+# 2. Export created directory
+mknfsexp -d /storage/enduser -t rw -r (nfs client ipaddress)	# Export directory with read-write and root
+
+cat /etc/exports	# Check expoeted directory properties
+
+# 3. Setu NFS Service
+mknfs
+
+# 4. Check if export was successful and share is visible
+exportfs	# Displays the exported directory properties
+showmoutn -e localhost	# Displays export list for localhost (everyone)
+
+# 5. Import directory on Linux
+mount -t nfs (nfs server ip address):/storage/enduser /mnt/remote_storage/
+
+# 6. Check if mount is successful
+mount 	# Display the mount points on Linux
 #+END_EXAMPLE
 
 * BACKUPS
@@ -368,11 +399,14 @@ dd if=(filename) of=/dev/rmt0        # or tcopy
 - =lscfg= :: lists all installed devices
 - =lscfg -v= :: lists all installed devices in detail
 - =lscfg -vl (device name)= :: lists device details
+
 - =bootinfo -b= :: reports last device the system booted from =bootinfo -k= reports keyswitch position 1=secure, 2=service, 3=normal
 - =bootinfo -r= :: reports amount of memory (/ by 1024)
 - =bootinfo -s (disk device)= :: reports size of disk drive
 - =bootinfo -T= :: reports type of machine ie rspc,rs6ksmp,rspc or chrp
+
 - =lsattr -El sys0 -a realmem= :: reports amount of useable memory
+
 - =mknod (device) c (major no) (minor no)= :: Creates a =/dev/= device file.
 
 #+BEGIN_EXAMPLE
@@ -396,14 +430,18 @@ lsattr -EH -l sys0 -a modelname
 - =rmdev -l (device)= :: Change device state from available to defined
 - =rmdev -l (device) -d= :: Delete the device
 - =rmdev -l (device) -SR= :: S stops device, R unconfigures child devices
+
 - =lsresource -l (device)= :: Displays bus resource attributes of a device.
+
 - =cfgmgr= :: Configures devices
 - =cfgmgr -i /dev/cd0= :: Configure devices and install drivers from =/dev/cd0= if required
 - =cfgmgr -S= :: Run in serial, used with a larger number of disks
 - =cfgmgr -l scsi0= :: Configure devices on adapter =scsi0= only
+
 - =diag= :: Run hardware diagnostic menu
 - =smitty diag= :: Run hardware diagnostic menu (7020-40P and 7248-43P machines cannot run diagnostics, use diagnostics in the SMS menus instead)
 - =diag -d (device)= :: Run diagnostics against a device.
+
 - =lsslot= :: Displays all hot swap slots
 - =lsslot -c pci= :: Lists all pci hot swap slots
 - =lsslot -c pci -a= :: Lists all available pci hot swap slots
@@ -432,9 +470,12 @@ C = rewind         0 = yes       1 = no
 - =tctl -f (tape device) rewind= :: Rewind the tape
 - =tctl -f (tape device) offline= :: Eject the tape
 - =tctl -f (tape device) status= :: Show status of tape drive
+
 - =chdev -l rmt0 -a block_size=512= :: changes block size to 512 bytes (4mm=1024, 8mm=variable but 1024 recommended)
 - =dd if=/dev/rmt0 bs=128k count=1 | wc -c= :: Displays the block size of an unknow tape. Set block size to 0 first.
+
 - =bootinfo -e= :: answer of =1 = machine= can boot from a tape drive; answer of =0 = machine= CANNOT boot from tape drive
+
 - =diag -c -d (tape device)= :: Hardware reset a tape drive.
 
 #+BEGIN_EXAMPLE
@@ -452,22 +493,32 @@ splp /dev/lp0
 #+END_EXAMPLE
 
 - ~export $LPDEST=pqname~ :: Set default printer queue for login session
+
 - =lsvirprt= :: Lists/changes virtual printer attributes.
+
 - =lsallq= :: Displays all queues
+
 - =rmvirprt -q queuename -d queuedevice= :: Removes a virtual printer
+
 - =qpri -#(job No) -a(new priority)= :: Change a queue job priority.
 - =qhld -#(job No)= :: Put a hold on hold
 - =qhld -r #(job No)= :: Release a held job
+
 - =qchk -A= :: Status of jobs in queues
 - =lpstat= ::
 - =lpstat -p(queue)= :: Status of jobs in a named queue
+
 - =qcan -x (job No)= :: Cancel a job from a queue
 - =cancel (job No)= ::
+
 - =enq -U -P(queue)= :: Enable a queue
 - =enable (queue)= ::
+
 - =enq -D -P(queue)= :: Disable a queue
 - =disable (queue)= ::
+
 - =qmov -m(new queue) -#(job No)= :: Move a job to another queue
+
 - =startsrc -s qdaemon= :: Start qdaemon sub-system
 - =lssrc -s qdaemon= :: List status of qdaemon sub-system
 - =stop -s qdaemon= :: Stop qdaemon sub-system
@@ -489,6 +540,7 @@ the state of the =PV= to "active".
 - =chpv -v a (pv)= :: Adds the removed disk back into the system.
 - =chpv -a y (pv)= :: Changes pv allocatable state to =YES=
 - =chpv -a n (pv)= :: Changes pv allocatable state to =NO=
+
 - =migratepv (old pv) (new pv)= :: Moves all =LV='s from one =PV= to another =PV=, both =PV='s must be in the same volume group.
 
 =migratepv= cannot migrate striped logical volumes, use =cplv= and =rmlv=.
@@ -811,6 +863,8 @@ eg umask 022 = new file permissions of 755 = read write and execute for owner
 
 
 - =passwd= :: Change current user password
+- passwd -f :: Change current users gecos (user description)
+- passwd -s :: Change current users shell
 
 
 - =pwdadm (username)= :: Change a users password
@@ -853,6 +907,10 @@ eg umask 022 = new file permissions of 755 = read write and execute for owner
 - =uptime= :: Displays number of users logged in, time since last reboot, and the machine load averages.
 
 
+- lslicense :: Displays number of current user licensese
+- chlicense -u (number) :: Changes the number of user licenses
+
+
 - =lsuser ALL= :: Lists all users details
 - =lsuser (username)= :: Lists details for user
 - =lsuser -a(attribute) (username or ALL)= :: Lists user attributes
@@ -873,6 +931,7 @@ eg umask 022 = new file permissions of 755 = read write and execute for owner
 
 
 - =fuser -u (logical volume)= :: Displays processes using the files in that =LV=
+- fuser -v /dev/lvo2 :: Displays processes using the file system and the output is similar to the standard ps command
 - =fuser -k /dev/lv02= :: Will send a kill signal to all processes using =/dev/lv02=
 
 
@@ -996,6 +1055,18 @@ vmstat hdisk0 5 20
 - =vmstat -f= :: Diplays number of forks since system start.
 - =vmstat -i= :: Diplays number of interupts by device since system start.
 
+#+BEGIN_EXAMPLE
+avm - amount of active virtual memory (in 4k pages) excluding file pages
+fre - size of memory in the free list
+pi  - pages paged in from paging space
+po  - pages paged out of paging space
+r   - average number of runnable kernel threads over the timing interval specified
+b   - average number of kernel threads that are in the virtual memory waiting quever over the timing
+us  - User time
+sy  - System time
+id  - Idle time
+wa  - Waiting on I/O
+#+END_EXAMPLE
 
 - =iostat (drive) (interval) (count)= :: Reports i/o and cpu statistics.
 #+BEGIN_EXAMPLE
@@ -1008,6 +1079,25 @@ iostat hdisk0 5 20
 
 
 - =sar -u -P ALL 10 10= :: Displays =%usr= =%sys= =%wio= =%idle= for all processors
+
+#+BEGIN_EXAMPLE
+cycle/s - The number of page replacement cycles per second
+fault/s - The number of page faults per second
+slot/s  - The number of free pages on the paging spaces
+odio/s  - The number of non-paging disk I/O per second
+#+END_EXAMPLE
+
+
+- svmon -G ::
+
+#+BEGIN_EXAMPLE
+inuse    - Pages in RAM Used by processes plus the number of persistent pages that belonged to a terminal process and is still resident in RAM
+free     - The amount of pages on the free list
+pin      - The number of pages pinned in physical memory (RAM) which cannot be paged out
+pg space - The actual use of paging space (4k pages)
+#+END_EXAMPLE
+
+- svmon -P | grep -p <pid> ::
 
 
 - =/usr/samples/kernel/vmtune= :: Displays "Virtual Memory Manager" settings
