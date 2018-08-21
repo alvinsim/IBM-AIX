@@ -13,16 +13,19 @@
 ** TODO look-up how examples are to be displayed
 ** TODO Add additional spacing in between lists
 
-* MISCELLENEOUS
+* MISCELLANEOUS
 
 - http://www.rs6000.ibm.com/cgi-bin/ds_form :: Web based man pages
 
+
 - =compress -c file.txt > file.Z= :: Create a compressed file.
+
+
 - =uuencode (infile) (extract-file-name) > (output file)= :: Converts a binary file to an ASCII file for transfer by modem or email
 - =uudecode (encoded file)= :: Extracts a binary file from encoded file and calls it the extract-file-name
 
-examples :-
 
+examples :-
 #+BEGIN_EXAMPLE
 uuencode maymap maymap > maymap.enc
 uudecode maymap.enc
@@ -32,24 +35,31 @@ uudecode maymap.enc
 - =ls -i= :: Lists files with their inode numbers
 - =echo *= :: Lists files, can be used if ls is corrupt/missing
 
+
 - =chtz (timezone eg GMT0BST)= :: Changes the timezone in =/etc/environment= file
 - =chlang (language eg En_GB)= :: Changes the language in =/etc/environment= file
+
 
 - =ar -v -t (archive file)= :: List contents of an archive
 - =ar -v -x (archive file)= :: Extracts the archive
 - =ar -v -t /usr/lib/libC-r.a= :: Lists contents of the =libC_r.a= library
 
+
 - =find /source -print | cpio -pdm /target= :: Copying directories using =cpio=, creates ~/target/source~ directory.
 
+
 - =dump -nTv (binary executable)= :: Displays the contents of an executable file
+
 
 - =dump -c= :: Displays string information
 - =dump -o= :: Displays object file headers
 - =dump -l= :: Displays line numbers
 - =dump -s= :: Displays the text section
 
+
 - =snap -ao /dev/rmt0= :: Create a snapshot onto tape
 - =snap -ad (directory)= :: Create a snapshot into a named directory other than the default (=/tmp/ibmsupt=)
+
 
 - =/usr/dt/bin/dtconfig -d= :: Disables desktop logins
 - =/usr/dt/bin/dtconfig -e= :: Enables desktop logins
@@ -59,6 +69,7 @@ uudecode maymap.enc
 
 - =lslicense= :: Displays number of current user licenses
 - =chlicense -u (number)= :: Changes the number of user licenses (=ftp=, =rexec= and =rsh= (without =-i= flag) do not need an AIX user license to be able to access the system.)
+
 
 - =oslevel= :: Returns operating system level
 
@@ -72,10 +83,13 @@ uudecode maymap.enc
 
 - =oslevel -l 4.3.3.0= :: Displays all filesets that are "downlevel"
 
+
 - =whence (program)= :: Returns full path of program
 - =whereis (program)= :: Returms full path of program
 
+
 - =what (program)= :: Displays identifying info from the executable like version number, when compiled.
+
 
 - =lslpp -L all= :: list all installed software
 - =lslpp -L (program set name)= :: Check if software installed
@@ -83,10 +97,13 @@ uudecode maymap.enc
 - =lslpp -ha= :: Lists installation history of filesets
 - =lslpp -w /usr/bin/swapon= :: Lists the fileset that the file belongs to
 
+
 - =lppchk -c= :: Checks file checksums against =SWVPD=
 - =lppchk -l= :: Checks symbolic links against =SWVPD=
 
+
 - =instfix -ik (fix number eg IX66617)= :: Checks id fix is installed
+
 
 example :-
 
@@ -95,24 +112,29 @@ instfix -ik 4330-02_AIX_ML
 #+END_EXAMPLE
 
 - =instfix -i | grep ML= :: Displays all ML's installed
-
 - =instfix -k IX38794 -d /dev/cd0= :: Installs a fix from cdrom
+
 
 - =/usr/sbin/install_assist= :: ~Smitty~ Installation Assistant
 
+
 - =/usr/sys/inst.images/sys.bundles= :: Software bundle files
+
 
 - =alt_disk_install -c hdisk1= :: Clones a running =rootvg= onto =hdisk1=
 - =alt_disk_install -w= :: Wakes up =alt vg=
 - =alt_disk_install -s= :: Sends =alt vg= to sleep!
 - =alt_disk_install -x= :: Removes =alt vg= from disk
 
+
 - =/usr/lpp/bosinst/blvset -d /dev/hdisk0 -p 4.2= :: Resets the pad string in the BLV to the correct AIX version. Needed if the migration option is missing when installing.
+
 
 - =installp -ad (device) (fileset) (level)= :: Install apply and commit fileset
 - =installp -pad (device) (fileset) (level)= :: Preview install
 - =installp -u (fileset)= :: Remove fileset
 - =installp -ld (device)= :: List all software on device
+
 
 example:-
 
@@ -126,23 +148,30 @@ installp -pad /dev/rmt0 X11.base 4.3.3.0
 
 - =/usr/share/lib/terminfo= :: Directory with all support terminal info files.
 
+
 - =tty= :: Displays what the tty/pty number of the terminal is.
+
 
 - =termdef= :: reports the =termtype= setup in =smit= for the =tty= port that =termdef= is run on.
 
+
 - =chdev -l (device eg tty1) -a term=vt100= :: Sets =tty= to a =vt100= terminal type
+
 
 - =penable tty0= :: adds ~getty~ line into =/etc/inittab= for =tty0= and starts =getty
 - =pdisable tty0= :: disables the ~getty~ line and disables =getty
 
+
 - =penable / pdisable -a= :: option is for all
+
 
 - =stty erase ^?= :: Set backspace key for =vt100= terminals
 - =stty erase ^H= :: Set backspace key for =wyse50= terminals
 
-- =lscons= :: Displays the console device
 
+- =lscons= :: Displays the console device
 - =chcons -a login=enable (device eg /dev/tty1)= :: Changes the console device
+
 
 - =lsdisp= :: Display adapter device information
 - =chdisp= :: Change default display used by LFT subsystem
@@ -157,14 +186,16 @@ done
 #+END_EXAMPLE
 
 - =portmir -t /dev/tty0= :: Mirror current terminal onto =/dev/tty0=
-- =portmir -o= :: Turns off port
+- =portmir -o= :: Turns off port mirroring
 
 * NETWORK
 
 - =host (ip or hostname)= :: Resolves a ~hostname~ / ip address
 
+
 - =hostname= :: Displays ~hostname~
 - =hostname (hostname)= :: Sets the hostname until next reboot
+
 
 - =lsdev -Cc if= :: Lists all available/defined network interfaces
 - =chdev -l (device name) -a hostname=(hostname)= :: Changes hostname permanently
@@ -185,27 +216,34 @@ ifconfig en0 inet 194.35.52.1 netmask 255.255.255.0 up
 
 - =ifconfig lo0 alias 195.60.60.1= :: Create alias ip address for loopback
 
+
 - =route (add/delete) (-net/-host) (destination) (gateway)= :: Adds or deletes routes to other networks or hosts, does not update the =ODM= database and will be lost at reboot.
 
 #+BEGIN_EXAMPLE
 route add -net 194.60.89.0 194.60.90.4
 #+END_EXAMPLE
 
-- =chdev -l inet0 -a "net,-hopcount,1,-netmask,255.255.255.0,207.156.168.0,10.0.15.254" (destination) ( gateway )= :: Adds route and adds entry into =ODM=, route survives a reboot,
+- =chdev -l inet0 -a "net,-hopcount,1,-netmask,255.255.255.0,207.156.168.0,10.0.15.254" (destination) (gateway)= :: Adds route and adds entry into =ODM=, route survives a reboot,
+
 
 - =route -rn= :: Display route table
 - =odmget -q "attribute=route" CuAt= ::	Displays routes in the =ODM=.
 
+
 - =lsattr -EHl inet0= :: Displays routes set in =ODM= and =hostname=
 - =odmget -q "name=inet0" CuAt= :: Displays routes set in =ODM= and =hostname=
+
 
 - =refresh -s inetd= :: Refresh =inetd= after changes to =inetd.conf=
 - =kill -1 (inetd PID)= :: Refresh =inetd= after changes to =inted.conf=
 
+
 - =netstat -i= :: Displays interface statistics
 - =entstat -d (ethernet adapter eg en0)= :: Displays ethernet statistics
 
+
 - =arp -a= :: Displays ip to mac address table from =arp= cache
+
 
 - =no -a= :: Displays network options use =-o= to set individual options or =-d= to set individual options to default.
 
@@ -216,8 +254,10 @@ no -o "ipforwarding=1"
 
 - =traceroute (name or ipaddress)= :: Displays all the hops from source to destination supplied.
 
+
 - =ping -R (hostname or ipaddress)= :: Same as =traceroute= except repeats.
 - =spray (hostname or ipaddress)= :: Send a stream of packets to a host
+
 
 - =stopsrc -g tcpip= :: Stops all running =TCP/IP= daemons
 - =/etc/tcp.clean= :: Stops all running =TCP/IP= daemons and removes all lock files
@@ -229,12 +269,22 @@ no -o "ipforwarding=1"
 - =exportfs -a= :: Exports all filesystems in =/etc/exports= file
 - =exportfs -u (filesystem)= :: Un-exports a filesystem
 
+
 - =mknfs= :: Configures and starts NFS services
 
+
 - =rmnfs= :: Stops and un-configures NFS services
+
+
 - =mknfsexp -d /directory= :: Creates an NFS export directory
+
+
 - =mknfsmnt= :: Creates an NFS mount directory
+
+
 - =mount hostname:/filesystem /mount-point= :: Mount an NFS filesystem
+
+
 - =nfso -a= :: Display NFS Options
 - =nfso -o option=value= :: Set an NFS Option
 
@@ -244,33 +294,46 @@ nfso -o nfs_use_reserved_port=1
 
 #+BEGIN_EXAMPLE
 # 1. Create directory to be exported
+#-----------------------------------
 mkdir -p /storage/enduser
 
 # 2. Export created directory
+#----------------------------
 mknfsexp -d /storage/enduser -t rw -r (nfs client ipaddress)	# Export directory with read-write and root
 
 cat /etc/exports	# Check expoeted directory properties
 
-# 3. Setu NFS Service
+# 3. Setup NFS Service
+#---------------------
 mknfs
 
 # 4. Check if export was successful and share is visible
+#-------------------------------------------------------
 exportfs	# Displays the exported directory properties
 showmoutn -e localhost	# Displays export list for localhost (everyone)
 
 # 5. Import directory on Linux
+#-----------------------------
 mount -t nfs (nfs server ip address):/storage/enduser /mnt/remote_storage/
 
 # 6. Check if mount is successful
+#--------------------------------
 mount 	# Display the mount points on Linux
 #+END_EXAMPLE
 
 * BACKUPS
 
 ** MKSYSB
+
 - =mkszfile -f= :: Creates =/image.data= file (4.x onwards)
 - =mkszfile -X= :: Creates =/fs.size= file (3.x)
+
+
 - =mksysb -i (device of file)= :: Creates a =mksysb= image
+
+#+BEGIN_EXAMPLE
+mksysb -i /dev/rmt0
+#+END_EXAMPLE
 
 =mksysb= does not save any raw data and will not backup a filesystem that is not mounted.
 
@@ -301,7 +364,8 @@ cpio -icdv < /dev/rmt0 "*resolve.conf"       # Restore a named file
 
 ** TAR ARCHIVE
 
-- =tar -cvf (filename or device) ("files or directories to archive")=
+- =tar -cvf (filename or device) ("files or directories to archive")= ::
+- tar -zcvf (filename or device) ("files or directories to archive") ::
 
 #+BEGIN_EXAMPLE
 tar -cvf /dev/rmt0 "/usr/*"
@@ -337,7 +401,7 @@ backup -0 -f /dev/rmt0 "/usr"        # -u option updates /etc/dumpdates file
 - =restore -qTvf (filename or device)= :: Lists archive
 - =restore -qvxf (filename or device)= :: Restores all
 - =restore -qvxf (filename or device) ("files or directories to restore")= :: (use =-d= for restore directories)
-- =restore -qvxf /dev/rmt0.1 /etc/passwd= :: Restore =/etc/passwd= file
+- =restore -qvxf /dev/rmt0.1 "/etc/passwd"= :: Restore =/etc/passwd= file
 - =restore -s4 -qTvf /dev/rmt0.1= :: Lists contents of a =mksysb= tape
 
 ** BACKUPS ACROSS A NETWORK
@@ -363,31 +427,26 @@ rsh remhost "dd ibs=64k obs=32k if=/dev/rmt0" | dd ibs=32k \ | cpio -icvt |
 To run the backup (=cpio=) on a remote machine (=remhost=) and backup to the local machines tape drive (=/dev/rmt0=)
 
 #+BEGIN_EXAMPLE
-rsh remhost "find /data -print | cpio -ocv | dd ibs=32k" \ | dd ibs=32k obs=64k of=/dev/rmt0 |
+rsh remhost "find /data -print | cpio -ocv | dd ibs=32k" \ | dd ibs=32k obs=64k of=/dev/rmt0
 #+END_EXAMPLE
 
 #+BEGIN_EXAMPLE
 tar cBf - .  | rsh remhost "dd ibs=512 obs=512 of=/dev/rmt0"
 #+END_EXAMPLE
+
 Same as above but using =tar= instead of =cpio=.
 
 * Copying diskettes and tape
 
 ** COPYING DISKETTES
 
-- =dd if=/dev/fd0 of=filename) bs=36b=
-
-#+BEGIN_EXAMPLE
-dd if=(filename) of=/dev/fd0 bs=36b conv=sync         # or flcopy
-#+END_EXAMPLE
+- =dd if=/dev/fd0 of=filename) bs=36b= ::
+- =dd if=(filename) of=/dev/fd0 bs=36b conv=sync= :: or flcopy
 
 ** COPYING TAPES
 
-- =dd if=/dev/rmt0 of=filename)=
-
-#+BEGIN_EXAMPLE
-dd if=(filename) of=/dev/rmt0        # or tcopy
-#+END_EXAMPLE
+- =dd if=/dev/rmt0 of=filename)= ::
+- =dd if=(filename) of=/dev/rmt0= ::  or tcopy
 
 * VI Commands
 
@@ -400,12 +459,18 @@ dd if=(filename) of=/dev/rmt0        # or tcopy
 - =lscfg -v= :: lists all installed devices in detail
 - =lscfg -vl (device name)= :: lists device details
 
+
 - =bootinfo -b= :: reports last device the system booted from =bootinfo -k= reports keyswitch position 1=secure, 2=service, 3=normal
+- =bootinfo -k= :: reports keyswitch position [1=secure, 2=service, 3=normal]
+
+
 - =bootinfo -r= :: reports amount of memory (/ by 1024)
 - =bootinfo -s (disk device)= :: reports size of disk drive
 - =bootinfo -T= :: reports type of machine ie rspc,rs6ksmp,rspc or chrp
 
+
 - =lsattr -El sys0 -a realmem= :: reports amount of useable memory
+
 
 - =mknod (device) c (major no) (minor no)= :: Creates a =/dev/= device file.
 
@@ -431,16 +496,20 @@ lsattr -EH -l sys0 -a modelname
 - =rmdev -l (device) -d= :: Delete the device
 - =rmdev -l (device) -SR= :: S stops device, R unconfigures child devices
 
+
 - =lsresource -l (device)= :: Displays bus resource attributes of a device.
+
 
 - =cfgmgr= :: Configures devices
 - =cfgmgr -i /dev/cd0= :: Configure devices and install drivers from =/dev/cd0= if required
 - =cfgmgr -S= :: Run in serial, used with a larger number of disks
 - =cfgmgr -l scsi0= :: Configure devices on adapter =scsi0= only
 
+
 - =diag= :: Run hardware diagnostic menu
 - =smitty diag= :: Run hardware diagnostic menu (7020-40P and 7248-43P machines cannot run diagnostics, use diagnostics in the SMS menus instead)
 - =diag -d (device)= :: Run diagnostics against a device.
+
 
 - =lsslot= :: Displays all hot swap slots
 - =lsslot -c pci= :: Lists all pci hot swap slots
@@ -458,11 +527,11 @@ mkdev -l pmc0        Configure Power Management
 * TAPE DRIVES
 
 #+BEGIN_EXAMPLE
-rmt0.x where x = A + B + C
+rmt0.x 			# where x = A + B + C
 
-A = density        0 = high      4 = low
-B = retension      0 = no        2 = yes
-C = rewind         0 = yes       1 = no
+# A = density        0 = high      4 = low
+# B = retension      0 = no        2 = yes
+# C = rewind         0 = yes       1 = no
 #+END_EXAMPLE
 
 - =tctl -f (tape device) fsf (No)= :: Skips forward (No) tape markers
@@ -471,10 +540,13 @@ C = rewind         0 = yes       1 = no
 - =tctl -f (tape device) offline= :: Eject the tape
 - =tctl -f (tape device) status= :: Show status of tape drive
 
+
 - =chdev -l rmt0 -a block_size=512= :: changes block size to 512 bytes (4mm=1024, 8mm=variable but 1024 recommended)
 - =dd if=/dev/rmt0 bs=128k count=1 | wc -c= :: Displays the block size of an unknow tape. Set block size to 0 first.
 
+
 - =bootinfo -e= :: answer of =1 = machine= can boot from a tape drive; answer of =0 = machine= CANNOT boot from tape drive
+
 
 - =diag -c -d (tape device)= :: Hardware reset a tape drive.
 
@@ -494,30 +566,44 @@ splp /dev/lp0
 
 - ~export $LPDEST=pqname~ :: Set default printer queue for login session
 
+
 - =lsvirprt= :: Lists/changes virtual printer attributes.
+
 
 - =lsallq= :: Displays all queues
 
+
 - =rmvirprt -q queuename -d queuedevice= :: Removes a virtual printer
 
+
 - =qpri -#(job No) -a(new priority)= :: Change a queue job priority.
+
+
 - =qhld -#(job No)= :: Put a hold on hold
 - =qhld -r #(job No)= :: Release a held job
 
+
 - =qchk -A= :: Status of jobs in queues
+
+
 - =lpstat= ::
 - =lpstat -p(queue)= :: Status of jobs in a named queue
+
 
 - =qcan -x (job No)= :: Cancel a job from a queue
 - =cancel (job No)= ::
 
+
 - =enq -U -P(queue)= :: Enable a queue
 - =enable (queue)= ::
+
 
 - =enq -D -P(queue)= :: Disable a queue
 - =disable (queue)= ::
 
+
 - =qmov -m(new queue) -#(job No)= :: Move a job to another queue
+
 
 - =startsrc -s qdaemon= :: Start qdaemon sub-system
 - =lssrc -s qdaemon= :: List status of qdaemon sub-system
@@ -532,18 +618,25 @@ splp /dev/lp0
 - =lspv -p (pv)= :: Lists the physical partition usage for that =PV=
 - =lspv -M (pv)= :: Lists the PP allocation table for that =PV=.
 
+
 If the =PV= state is "missing" but the disk is okay, use =varyonvg vg= to change
 the state of the =PV= to "active".
 
+
 - =chdev -l (pv) -a pv=yes= :: Makes a new hdisk a pysical volume.
+
+
 - =chpv -v r (pv)= :: Removes a disk from the system.
 - =chpv -v a (pv)= :: Adds the removed disk back into the system.
 - =chpv -a y (pv)= :: Changes pv allocatable state to =YES=
 - =chpv -a n (pv)= :: Changes pv allocatable state to =NO=
 
+
 - =migratepv (old pv) (new pv)= :: Moves all =LV='s from one =PV= to another =PV=, both =PV='s must be in the same volume group.
 
+
 =migratepv= cannot migrate striped logical volumes, use =cplv= and =rmlv=.
+
 
 - =replacepv (old pv) (new pv)= :: (4.3.3 onwards)
 
@@ -555,13 +648,18 @@ the state of the =PV= to "active".
 - =lsvg -p (vg)= :: Lists all physical volumes in the volume group
 - =lsvg -o= :: Lists all varied on volume groups
 
+
 - =varyonvg (vg)= :: Vary On a volume group
 - =varyonvg -f (vg)= :: Forces the varyon process
 - =varyonvg -s (vg)= :: Vary on a =VG= in maintenance mode. =LV= commands can be used on =VG=, but =LV=,s cannot be opened for I/O.
+
+
 - =varyoffvg (vg)= :: Vary Off a volume group
+
 
 - =synclvodm (vg)= :: Tries to resync =VGDA=, =LV= control blocks and =ODM=.
 - =synclvodm -v (vg)= :: Rebuilds the =LVCB=. (the =vg= needs to be varied on before running =synclvodm=)
+
 
 - =mkvg -y(vg) -s(PP size) (pv)= :: Create a volume group
 
@@ -574,9 +672,12 @@ mkvg -y datavg -s 4 hdisk1
 - =reducevg (vg) (PVID)= :: Removes the =PVID= disk reference from the =VGDA= when a disk has vanished without the =reducevg (vg) (pv)= command being run first.
 - =reducevg -df (vg) (pv)= :: Deletes all =LV='s from the =VG= and removes the =VG= from the disk. If the last disk in the =VG= then the =VG= is deleted.
 
+
 - =extendvg (vg) (new pv)= :: Adds another =PV= into a =VG=.
 
+
 - =exportvg (vg)= :: Exports the volume group, removes the =VG= entries and removes all FS entries from =/etc/filesystems= but leaves the mount points.
+
 
 Note : Cannot export a =VG= if it has active paging space, turn off paging, reboot before exporting =VG=. Exporting removes entries from filesystems file but does not remove the mount points.
 
@@ -600,6 +701,7 @@ Note : Cannot export a =VG= if it has active paging space, turn off paging, rebo
 - =lslv -l (lv)= :: Lists the physical volume which the =LV= is on
 - =lsattr -EHl (lv)= :: Displays more logical volume details
 
+
 - =mklv (vg) (No of PP's) (pv Name optional)= :: Create a logical volume
 - =mklv -y (lv) (PP's) (pv name optional)= :: Creates a named logical volume (use =-t jfs2= when creating an =LV= for a =JFS2= filesystem)
 
@@ -610,17 +712,22 @@ Note : Cannot export a =VG= if it has active paging space, turn off paging, rebo
 - =extendlv (lv) (extra No of PP's)= :: Increase the size of an =LV=
 - =rmlv (lv)= :: Remove a logical volume
 
+
 - =cplv -v (vg to copy to) -y (new lv) (lv)= :: Copy an =LV= to a new =LV=
+
 
 If copying a filesystem =LV=, umount the filesystem before copying, otherwise you will have to =fsck= the the new =LV= before the filesystem can be mounted.
 
+
 If copying a striped =LV= to an =LV= that is already created, and the stripe size is different (or not even striped), then these new parameters are maintained when the data is copied to the new =LV=.
+
 
 - =cplv -e (new lv) (old lv)= :: Copy to an existing =LV= (new =LV= must have type as copy use =chlv -t copy (new lv)= to change)
 
-- =mklv/extendlv= ::
+
+- =mklv/extendlv -a= :: = PP allocation policy
+
 #+BEGIN_EXAMPLE
--a = PP alocation policy
 -am = middle
 -ac = center
 -ae = edge
@@ -630,9 +737,12 @@ If copying a striped =LV= to an =LV= that is already created, and the stripe siz
 
 - =migratepv -l (lv) (old pv) (new pv)= :: Move a logical volume between physical volumes. Both physical volumes must be in the same volume group!
 
+
 - =mklv -y (lv) -t jfslog (vg) (No of PP's) (pv Name optional)= :: Creates a =JFSlog= logical volume.
 
+
 - =logform (/dev/lv)= :: Initialises an =LV= for use as an =JFSlog=
+
 
 - =getlvcb -AT (lv)= :: Displays Logical Volume Control Block information
 
@@ -642,30 +752,40 @@ If copying a striped =LV= to an =LV= that is already created, and the stripe siz
 - =lsfs -q (fs)= :: Lists the file system details
 - =lsjfs= :: Displays data about all filesystems in =CSV= style format
 
+
 - =mount= :: Lists all the mounted filesystems
 - =mount (fs or lv)= :: Mounts a named filesystem
 - =mount -a= :: Mounts all filesystems
 - =mount all= ::
 
+
 - =mount -r -v cdrfs /dev/cd0 /cdrom= :: mounts =cd0= drive over =/cdrom=
+
 
 - =crfs -v jfs -d(lv) -m(mount point) -A yes= :: Will create a file system on the whole of the logical volume, adds entry into =/etc/filesystems= and will create mount point directory if it does not exist. (use =-v jfs2= for =JFS2= filesystems)
 
+
 - =crfs -v jfs -g(vg) -m(mount point) -a size=(size of fs) -A yes= :: Will create a logical volume on the volume group and create the file system on the logical volume. All at the size stated. Will add entry into =/etc/filesystems= and will create the mount point directory if it does not exist.
+
 
 Use attribute "-a log=/dev/log01" to specify a =jfslog= devices.
 
+
 Use attrubute "-a bf=true" for a large file enabled filesystem.
+
 
 - =chfs -A yes (fs)= :: Change file system to Auto mount in =/etc/filesystems=
 - =chfs -a size=(new fs size)(fs)= :: Change file system size
 - =chfs -m (new-mount-point) (fs)= :: Change the file system mount point.
 
+
 - =rmfs (fs)= :: Removes the file system and will also remove the =LV= if there are no onther file systems on it.
+
 
 - =defrag -q (fs)= :: Reports the fragment status of the file system.
 - =defragfs -r (fs)= :: Runs in report only defrag mode (no action).
 - =defragfs (fs)= :: Defragments a file system.
+
 
 - =fsck (fs)= :: Verify a file system, the file system must be unmounted!
 - =fsck (-y or -n) (fs)= :: Pre-answer questions either =yes= or =no=!
@@ -675,16 +795,21 @@ Use attrubute "-a bf=true" for a large file enabled filesystem.
 
 - =mklv -y (lv) -c(copies 2 or 3) (vg) (No of PP's) (PV Name optional)= :: Creates a mirrored named logical volume.
 
+
 - =mklvcopy -s n (lv) (copies 2 or 3) (pv)= :: Creates a copy of a logical volume onto another physical volume. The physical volume *MUST* be in the same volume group as the orginal logical volume!
+
 
 - =rmlvcopy (lv) (copies 1 or 2)= :: Removes logical volume copies.
 - =rmlvcopy (lv) (copies 1 or 2) (pv)= :: From this =pv= only!
+
 
 - =syncvg -p (pv)= :: Synchronize logical partion copies
 - =syncvg -l (lv)= ::
 - =syncvg -v (vg)= ::
 
+
 - =mirrorvg (vg) (pv)= :: Mirrors the all the logical volumes in a volume group onto a new physical volume. New physical volume must already be part of the volume group.
+
 
 - ~chfs -a splitcopy=/backup -a copy=2 /data1~ :: Splits off a copy of a 3 way mirror and mount read only for use as an offline backup.
 
@@ -692,23 +817,32 @@ Use attrubute "-a bf=true" for a large file enabled filesystem.
 
 Mirroring does not work with the =BLV= as it is not a true logical volume, =bosboot= must be run against the other disk after mirroring the =rootvg=.
 
+
 - =bootlist -m (normal or service) -o= ::  displays =bootlist=
 - =bootlist -m (normal or service) (list of devices)= :: change =bootlist=
+
 
 - =bootinfo -b= :: Identifies the bootable disk
 - =bootinfo -t= :: Specifies type of boot
 
+
 - =bosboot -a -d (/dev/pv)= :: Creates a complete boot image on a physical volume.
+
 
 - =mkboot -c -d (/dev/pv)= :: Zero's out the boot records on the physical volume.
 
+
 - =savebase -d (/dev/pv)= :: Saves customised =ODM= info onto the boot device.
+
 
 - =lslv -m hd5= :: Find out which disk the =BLV= is on.
 
+
 - =bootinfo -y= :: Displays which kernel can be used, 32 or 64 bit
 
+
 - =genkex= :: Reports all loaded kernel extensions.
+
 
 - =lsdev -Cc processor= :: Lists all processors
 - =lsattr -EHl proc0= :: Displays attributes of processor 0. =AIX 5.1L= will display processor clock frequency.
@@ -725,12 +859,16 @@ Mirroring does not work with the =BLV= as it is not a true logical volume, =bosb
 - =sysdumpdev -e= :: Estimates dumpsize of the current system in bytes.
 - =sysdumpdev -L= :: Displays information about the previous dump.
 
+
 - =sysdumpstart -p= :: Starts a dump and writes to the primary dump device.
 - =sysdumpstart -s= :: Starts a dump and writes to the secondary dump device.
 
+
 (MCA machine can also dump if key is in service position and the reset button is pressed)
 
+
 - =sysdumpdev -p (dump device) -P= :: Sets the default dump device, permanently
+
 
 Analyse dump file :-
 
@@ -757,7 +895,6 @@ mkps -s(No of PP's) -n -a (vg) (pv)
 # -a = activate/swapon at reboot
 #+END_EXAMPLE
 
-
 - =mklv -b n -t paging -y hd6 (vg) (No of PP's) (pv)= :: Creates paging space using the =mklv= command.
 
 
@@ -771,7 +908,9 @@ mkps -s(No of PP's) -n -a (vg) (pv)
 
 - =rmps (ps)= :: Remove paging space. PS must have been turned off and then the system rebooted before it can be removed.
 
+
 Note : Need to change the swapon entry in =/sbin/rc.boot= script if you are changing the default paging space from =/dev/hd6=. You also need to do a =bosboot -a -d /dev/hdiskx= before the reboot.
+
 
 - =/etc/swapspaces= :: File that lists all paging space devices that are =activated= / =swapon= during reboot.
 
@@ -810,6 +949,7 @@ Note : Need to change the swapon entry in =/sbin/rc.boot= script if you are chan
 - =/var/adm/cron/atjobs= :: Directory containing users at entries.
 
 * SECURITY
+
 - =nulladm /var/adm/wtmp= :: To recreate/clear down the =wtmp= file.
 
 
@@ -826,7 +966,6 @@ Where a is  (4 SUID) + (2 SGID)  + (1 SVTX)
       d is  (4 read) + (2 write) + (1 execute)  permissions for others
 #+END_EXAMPLE
 
-
 #+BEGIN_EXAMPLE
  -rwxrwxrwx   -rwxrwxrwx   -rwxrwxrwx
   |||             |||             |||
@@ -837,7 +976,6 @@ Where a is  (4 SUID) + (2 SGID)  + (1 SVTX)
  -rwSrwxrwx = SUID   -rwxrwSrwx = SGID   drwxrwxrwt = SVTX
 #+END_EXAMPLE
 
-
 - =chown (new owner) (filename)= :: Changes file/directory owners
 - =chgrp (new group) (filename)= :: Changes file/directory groups
 
@@ -847,7 +985,6 @@ Where a is  (4 SUID) + (2 SGID)  + (1 SVTX)
 
 - =umask= :: Displays =umask= settings
 - =umask abc= :: Changes users =umask= settings
-
 
 #+BEGIN_EXAMPLE
 where (7 - a = new file read permissions)
@@ -879,6 +1016,7 @@ eg umask 022 = new file permissions of 755 = read write and execute for owner
 - =rmgroup (group)= :: Removes a group
 
 * USERS / ENVIRONMENT
+
 - =passwd -f= :: Change current users gecos (user description)
 - =passwd -s= :: Change current users shell
 
@@ -951,6 +1089,7 @@ eg umask 022 = new file permissions of 755 = read write and execute for owner
 - =su (user)= :: Switch to new user, current environment is propated to the new shell.
 
 * REMOTE USERS
+
 - =ruser -a -f (user)= :: Adds entry into =/etc/ftpusers= file
 - =ruser -a -p (host)= :: Adds entry into =/etc/host.lpd= file
 - =ruser -a -r (host)= :: Adds entry into =/etc/hosts.equiv= file
@@ -971,6 +1110,7 @@ eg umask 022 = new file permissions of 755 = read write and execute for owner
 - =ruser -X -R= :: Deletes all entries in =/etc/hosts.equiv= file
 
 * INITTAB
+
 - =telinit S= :: Switches to single user mode.
 - =telinit 2= :: Switches to multi user mode.
 - =telinit q= :: Re-examines =/etc/inittab=
@@ -991,6 +1131,7 @@ chitab "tty1:2:respawn:/usr/bin/getty /dev/tty1"
 #+END_EXAMPLE
 
 * ODM
+
 - =odmget -q "name=lp1" CuDv |more= :: Gets =lp1= info from pre-defined database.
 
 
@@ -1011,6 +1152,7 @@ chitab "tty1:2:respawn:/usr/bin/getty /dev/tty1"
 - =odmdrop= ::
 
 * ERROR LOGGING / LOGS
+
 - =/usr/lib/errdemon -l= :: Displays =errorlog= attributes.
 - =/usr/lib/errdemon= :: Starts error logging.
 - =/usr/lib/errstop= :: Stops error logging.
@@ -1045,11 +1187,12 @@ Note: The =errclear= command will delete all entries older than the numbers of d
 - =cat /tmp/boot.log | alot -q -t (type)= :: Copies contects of a file to a log
 
 * PERFORMANCE MONITORING / TUNING
+
 - =vmstat (drive) (interval) (count)= :: Reports virtual memory statistics.
+
 #+BEGIN_EXAMPLE
 vmstat hdisk0 5 20
 #+END_EXAMPLE
-
 
 - =vmstat -s= :: Diplays number of paging events since system start.
 - =vmstat -f= :: Diplays number of forks since system start.
@@ -1069,6 +1212,7 @@ wa  - Waiting on I/O
 #+END_EXAMPLE
 
 - =iostat (drive) (interval) (count)= :: Reports i/o and cpu statistics.
+
 #+BEGIN_EXAMPLE
 iostat hdisk0 5 20
 #+END_EXAMPLE
@@ -1107,6 +1251,7 @@ pg space - The actual use of paging space (4k pages)
 *** TODO copy from bitbucket repo
 
 * DOS DISKETTES
+
 - =dosdir= :: Reads directory listing of a diskette
 - =dosdir (directory)= :: Reads directory listing of a named directory
 
@@ -1126,7 +1271,7 @@ pg space - The actual use of paging space (4k pages)
 - =dosformat= :: Formats the diskette
 
 * SENDMAIL
-** TODO Org mode formattign for "SENDMAIL"
+
 - =sendmail -bi= :: Creates new aliase db from =/etc/aliase= file.
 - =newaliases= ::
 
