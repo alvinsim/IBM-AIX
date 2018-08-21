@@ -6,12 +6,12 @@
 #+SEQ_TODO: TODO(t) | DONE(d)
 #+OPTION: 	H:3 num:nil toc:t \n:nil ::t |:t ^:t -:t f:t ^:{} _:{} *:t d:(HIDE) showall tasks:todo
 
-* Backlog [0%]
-** TODO Sync with command crib website - [[http://www.unixguide.net/ibm/ibmcribsheet.shtml]]
-** TODO Sync with my own aix cheat sheet - [[https://bitbucket.org/alvinsim/ibm-aix-cheats]]
+* Backlog [100%]
+** DONE Sync with command crib website - [[http://www.unixguide.net/ibm/ibmcribsheet.shtml]]
+** DONE Sync with my own aix cheat sheet - [[https://bitbucket.org/alvinsim/ibm-aix-cheats]]
 	 - Start from VMM Tuning
-** TODO look-up how examples are to be displayed
-** TODO Add additional spacing in between lists
+** DONE look-up how examples are to be displayed
+** DONE Add additional spacing in between lists
 
 * MISCELLANEOUS
 
