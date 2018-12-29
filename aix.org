@@ -6,9 +6,9 @@
 #+SEQ_TODO: TODO(t) | DONE(d)
 #+OPTION: 	H:3 num:nil toc:t \n:nil ::t |:t ^:t -:t f:t ^:{} _:{} *:t d:(HIDE) showall tasks:todo
 
-* Backlog [100%]
+* Backlog [75%]
 ** DONE Sync with command crib website - [[http://www.unixguide.net/ibm/ibmcribsheet.shtml]]
-** DONE Sync with my own aix cheat sheet - [[https://bitbucket.org/alvinsim/ibm-aix-cheats]]
+** TODO Sync with my own aix cheat sheet - [[https://bitbucket.org/alvinsim/ibm-aix-cheats]]
 	 - Start from VMM Tuning
 ** DONE look-up how examples are to be displayed
 ** DONE Add additional spacing in between lists
@@ -22,14 +22,16 @@
 
 
 - =uuencode (infile) (extract-file-name) > (output file)= :: Converts a binary file to an ASCII file for transfer by modem or email
+
+
 - =uudecode (encoded file)= :: Extracts a binary file from encoded file and calls it the extract-file-name
 
-
-examples :-
+Examples :-
 #+BEGIN_EXAMPLE
 uuencode maymap maymap > maymap.enc
 uudecode maymap.enc
 #+END_EXAMPLE
+
 
 - =od -c /tmp= :: Displays contents of the =/tmp= directory file
 - =ls -i= :: Lists files with their inode numbers
@@ -105,7 +107,7 @@ uudecode maymap.enc
 - =instfix -ik (fix number eg IX66617)= :: Checks id fix is installed
 
 
-example :-
+Example :-
 
 #+BEGIN_EXAMPLE
 instfix -ik 4330-02_AIX_ML
@@ -136,7 +138,7 @@ instfix -ik 4330-02_AIX_ML
 - =installp -ld (device)= :: List all software on device
 
 
-example:-
+Example:-
 
 #+BEGIN_EXAMPLE
 installp -pad /dev/rmt0 X11.base 4.3.3.0
@@ -198,6 +200,8 @@ done
 
 
 - =lsdev -Cc if= :: Lists all available/defined network interfaces
+
+
 - =chdev -l (device name) -a hostname=(hostname)= :: Changes hostname permanently
 
 #+BEGIN_EXAMPLE
@@ -345,7 +349,7 @@ mksysb -i /dev/rmt0
 
 ** CPIO ARCHIVE
 
-- =find (filesystem) -print | cpio -ocv > (filename or device)=
+- =find (filesystem) -print | cpio -ocv > (filename or device)= ::
 
 #+BEGIN_EXAMPLE
 find ./usr/ -print | cpio -ocv > /dev/rmt0
@@ -365,7 +369,7 @@ cpio -icdv < /dev/rmt0 "*resolve.conf"       # Restore a named file
 ** TAR ARCHIVE
 
 - =tar -cvf (filename or device) ("files or directories to archive")= ::
-- tar -zcvf (filename or device) ("files or directories to archive") ::
+- =tar -zcvf (filename or device) ("files or directories to archive")= ::
 
 #+BEGIN_EXAMPLE
 tar -cvf /dev/rmt0 "/usr/*"
@@ -480,6 +484,8 @@ mknod /dev/null1 c 2 3
 
 - =lsdev -C= :: lists all customised devices ie installed
 - =lsdev -P= :: lists all pre-defined devices ie supported
+
+
 - =chdev -l (device) -a (attribute)=(new value)= :: Change a device attribute
 
 #+BEGIN_EXAMPLE
@@ -519,10 +525,11 @@ lsattr -EH -l sys0 -a modelname
 
 ** Power Management (PCI machines)
 
-pmctrl -a            Displays the Power Management state
+- =pmctrl -a= :: Displays the Power Management state
 
-rmdev -l pmc0        Unconfigure Power Management
-mkdev -l pmc0        Configure Power Management
+
+- =rmdev -l pmc0= :: Unconfigure Power Management
+- =mkdev -l pmc0= :: Configure Power Management
 
 * TAPE DRIVES
 
@@ -555,6 +562,8 @@ diag -c -d rmt0
 #+END_EXAMPLE
 
 - =tapechk (No of files)= :: Checks Number of files on tape.
+
+
 - =< /dev/rmt0= :: Rewinds the tape
 
 * PRINTERS / PRINT QUEUES
@@ -684,14 +693,17 @@ Note : Cannot export a =VG= if it has active paging space, turn off paging, rebo
 - =chvg -a y (vg)= :: Auto Vary On a volume group at system start.
 - =chvg -u (vg)= :: Unlocks a locked volume group.
 
+
 - =lqueryvg -Atp (pv)= :: Details volume group info for the hard disk.
+
 
 - =importvg -y (vg name) (pv)= :: Import a volume group from a disk.
 - =importvg (pv)= :: Same as above but =VG= will be called =vg00= etc.
 
-4.3 onwards, =importvg= will automatically =varyon= the =VG=.
+AIX 4.3 onwards, =importvg= will automatically =varyon= the =VG=.
 
 - =chvg -Q (y/n) (vg name)= :: Turns on/off Quorum checking on a =VG=.
+
 
 - =reorgvg (vg) (lv)= :: Reorganised a fragmented =LV=, must state an =LV= at the command line else the first =LV= in the =VG= is picked. Does not reorg the =PP='s of striped =LV='s.
 
@@ -725,15 +737,8 @@ If copying a striped =LV= to an =LV= that is already created, and the stripe siz
 - =cplv -e (new lv) (old lv)= :: Copy to an existing =LV= (new =LV= must have type as copy use =chlv -t copy (new lv)= to change)
 
 
-- =mklv/extendlv -a= :: = PP allocation policy
+- =mklv/extendlv -a= :: = PP allocation policy [ =-am= = middle; =-ac= = cemter; =-ac= = center; =-ae= = edge; =-aie= = inner edge; =-aim= = inner middle ]
 
-#+BEGIN_EXAMPLE
--am = middle
--ac = center
--ae = edge
--aie = inner edge
--aim = inner middle
-#+END_EXAMPLE
 
 - =migratepv -l (lv) (old pv) (new pv)= :: Move a logical volume between physical volumes. Both physical volumes must be in the same volume group!
 
@@ -1000,8 +1005,8 @@ eg umask 022 = new file permissions of 755 = read write and execute for owner
 
 
 - =passwd= :: Change current user password
-- passwd -f :: Change current users gecos (user description)
-- passwd -s :: Change current users shell
+- =passwd -f= :: Change current users gecos (user description)
+- =passwd -s= :: Change current users shell
 
 
 - =pwdadm (username)= :: Change a users password
@@ -1045,8 +1050,8 @@ eg umask 022 = new file permissions of 755 = read write and execute for owner
 - =uptime= :: Displays number of users logged in, time since last reboot, and the machine load averages.
 
 
-- lslicense :: Displays number of current user licensese
-- chlicense -u (number) :: Changes the number of user licenses
+- =lslicense= :: Displays number of current user licensese
+- =chlicense -u (number)= :: Changes the number of user licenses
 
 
 - =lsuser ALL= :: Lists all users details
@@ -1069,7 +1074,7 @@ eg umask 022 = new file permissions of 755 = read write and execute for owner
 
 
 - =fuser -u (logical volume)= :: Displays processes using the files in that =LV=
-- fuser -v /dev/lvo2 :: Displays processes using the file system and the output is similar to the standard ps command
+- =fuser -v /dev/lvo2= :: Displays processes using the file system and the output is similar to the standard ps command
 - =fuser -k /dev/lv02= :: Will send a kill signal to all processes using =/dev/lv02=
 
 
@@ -1132,12 +1137,12 @@ chitab "tty1:2:respawn:/usr/bin/getty /dev/tty1"
 
 * ODM
 
-- =odmget -q "name=lp1" CuDv |more= :: Gets =lp1= info from pre-defined database.
+- =odmget -q "name=lp1" CuDv | more= :: Gets =lp1= info from pre-defined database.
 
 
-- =odmget -q "name=lp1" CuAt |more= :: Gets =lp1= info from customised database.
+- =odmget -q "name=lp1" CuAt | more= :: Gets =lp1= info from customised database.
 
-** TODO to fix special characters when exporting
+
 - =odmdelete -o CuAt -q "name=lp"= :: Deletes lp1 info from customised db.
 
 
@@ -1173,8 +1178,7 @@ Note: =errorlog= classes are ~H=Hardware S=Software O=Information V=Undetermined
 Note: The =errclear= command will delete all entries older than the numbers of days specified in the days paramenter. To delete ALL entries used =0=.
 
 
-** TODO to fix special characters when exporting
-- =errlogger "message up to 230 chrs"= :: Enters an operator notifaction message into the =errorlog=.
+- =errlogger "/message up to 230 chrs/"= :: Enters an operator notifaction message into the =errorlog=.
 
 
 - =alog -L= :: Lists all logs define in the =alog= db
@@ -1290,6 +1294,54 @@ pg space - The actual use of paging space (4k pages)
 - =kill -l (sendmail PID)= ::
 
 
-** TODO to fix special characters when exporting
 - =stopsrc -s sendmail= :: Stops the =sendmail= daemon
 - =startsrc -s sendmail "-bd -q30"= :: Starts the =sendmail= daemon
+
+* SP / PSSP
+
+- =dsh (command)= :: Runs the command on all the nodes
+
+
+- =Efence= :: Displays which node are currently fenced
+- =Efence (node number)= :: Fences the node
+
+
+- =Eunfence (node number)= :: Unfence the node
+
+
+- =Estart= :: Starts the switch
+
+
+- =spmon -q= :: Starts SP monitor in GUI
+- =spmon -d -G= :: Diag info, lists LED and switch info for all nodes
+- =spmon -L frame1/node3= :: Displays LED for node 3 in frame 1
+
+
+- =spmon -p off frame1/node3= :: Powers off the node
+- =spmon -p on frame1/node3= :: Powers on the node
+
+
+- =spled= :: Displays all the nodes LED's in an updating GUI
+
+
+- =s1term -w (frame number) (node number)= :: Opens serial terminal (read and write)
+- =s1term (frame number) (node number)= :: Opens serial terminal (read only)
+
+Example:-
+
+#+BEGIN_EXAMPLE
+s1term 1 1	# Opens a serial terminal to console port on frame 1 node 1 which is read only. When rebooting a node use read only
+#+END_EXAMPLE
+
+
+- =splstdata -e= :: Lists site environment database information
+
+#+BEGIN_EXAMPLE
+	-d	Displays df command from each node
+	-n	Lists node configuration
+	-h	Displays lscfg command from each node
+	-s	Lists switch node information
+	-b	Lists boot/installation information
+	-a	Lists LAN database information
+	-i	Displays netstat -in command from each node
+#+END_EXAMPLE
