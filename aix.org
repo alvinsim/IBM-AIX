@@ -450,7 +450,7 @@ Same as above but using =tar= instead of =cpio=.
 ** COPYING TAPES
 
 - =dd if=/dev/rmt0 of=filename)= ::
-- =dd if=(filename) of=/dev/rmt0= ::  or tcopy
+- =dd if=(filename) of=/dev/rmt0= ::  or recopy
 
 * VI Commands
 
@@ -567,6 +567,7 @@ diag -c -d rmt0
 - =< /dev/rmt0= :: Rewinds the tape
 
 * PRINTERS / PRINT QUEUES
+
 - =splp (device)= :: Displays/changes printer driver settings
 
 #+BEGIN_EXAMPLE
@@ -617,6 +618,140 @@ splp /dev/lp0
 - =startsrc -s qdaemon= :: Start qdaemon sub-system
 - =lssrc -s qdaemon= :: List status of qdaemon sub-system
 - =stop -s qdaemon= :: Stop qdaemon sub-system
+
+* FILE & DIRECTORY MANAGEMENT
+
+- =ls -l= :: Long directory listing of files
+- =ls -t= :: Sort files by modification time (newest to oldest)
+- =ls -rt= :: Sort files by modification time (oldest to newest)
+- =ls -ls= :: Long listing by Size (largest to smallest)
+- =ls -lrs= :: Long listing by Size (smallest to largest)
+- =ls -LR= :: Long listing recursively
+
+
+- =cp -f (source file) (target file/directory)= :: Force removal of existing target file(s) even if it is not writable
+- =cp -i (source file) (target file/directory)= :: Prompt for confirmation before attempting to replace any file(s)
+- =cp -b (source file) (target file/directory)= :: Make a backup of any file(s) that would be replaced
+
+
+- =mkdir -p /directory1/directory1_1/directory1_2= :: Make nested sub-directories
+
+
+- =find . -size 0= :: Finds files with size 0
+- =find . -empty= :: Finds files with size 0
+- =find . -size -26c -size +23c= :: Finds files with size 24 or 25 bytes
+- =find . -empty -exec rm '{}' \;= :: Removes all empty files in a directory tree
+- =find . -name "*.htm" -exec mv '{}' '{}l' \;= :: Renames all =.htm= files to =.html= files
+- =find . mtime -2 -type f exec ls -l '{}' \;= :: Long listing of files which were modified within the last two days
+- =find . -daystart -mtime -2 -type -f ls -l '{}' \;= :: Long listing of files modified within the last two days considering days as calendar days
+- =find . -mmin -600 -min +60 -type f -exec ls -l '{}' \;= :: Long listing of files modified within one hour (60 minutes) and 10 hours (600 minutes)
+
+
+- =file (file/directory)= :: Displays information of the file/directory's data type
+
+* COMPRESSION
+
+- =gzip (file/directory)= :: Compresses the file/directory using =gzip=
+- =gzip -d (file/directory)= :: De-compresses (extracts) the file/directory
+- =gzip -N (file/directory)= :: Compresses the file/directory using =gzip= and forces the name and timestamp to be preserved
+- =gzip -l (file/directory)= :: Displays information about the compressed file/directory
+
+* WILE CARD PATTERNS
+
+- =?= :: Matches any single character
+- =*= :: Matches any string, including empty string
+- =[= :: Introduces a character class (is a non-empty string terminated by a =']'=)
+
+* SYSTEM CONFIGURATION
+
+- =prtconf= :: List the system's configuration
+
+
+- =instfix -i | grep AIX_ML= :: List AIX maintenance levels
+
+
+- =oslevel -r= :: List AIX version, release and maintenance levels
+
+
+- =bindprocessor -q= :: To view all processors (logical/physical)
+- =bindprocessor -s 0= :: To view the physical processors
+- =bindprocessor -s 1= :: To view the SMT enabled processors
+
+* PROCESS TERMINATION SIGNALS
+
+- =SIGQUIT= :: Quit
+- =SIGILL= :: Invalid instruction
+- =SIGTRAP= :: Trace trap
+- =SIGIOT= :: End process
+- =SIGEMT= :: EMT instruction
+- =SIGFPE= :: Arithmetic exception, integer divided by 0, or floating-point exception
+- =SIGBUS= :: Specification exception
+- =SIGSEGV= :: Segmentation violation
+- =SIGSYS= :: Parameter not valid to subroutine
+
+
+- =ulimit -c= :: Check the soft limit of the core file size
+- =ulimt -c <val>= :: Changes the soft limit of the core file size
+
+
+Edit the =/etc/security/limits= file and change the =<value>= for the soft and hard core size.
+
+Add the following to =/etc/profile= to set soft limit
+
+#+BEGIN_EXAMPLE
+ulimit -S -c <value> /dev/null 2>&1
+#+END_EXAMPLE
+
+
+- =chuser attribute=value username= ::
+	Set the soft or hard limits for a user.
+
+	Attributes:
+		- =core= :: Size of the soft limit
+		- =core_hard= :: Size of the hard limit
+		- =core_path= :: Core file directory path enable/disable
+		- =core_pathname= :: Directory to generate core files
+
+
+- =chdev -l sys0 -a fullcore=true= :: Enable full core dump
+
+
+- =dbx exe core= :: Examining the core file
+
+
+- =procstact= :: Prints a stack trace of the process
+- =procflags= :: Prints pending and held signals for the process
+- =procsig= :: Prints signal actions and handlers for the process
+- =procfiles= :: Reports =fstat= and =fcntl= information for all open files in each process
+- =procwdx= :: Prints the current working directory of the process IDs
+- =procrun= :: Stop and run the stopped process
+- =proctree= :: Prints the process trees containing the process IDs (PIDs) or users, with child processes indented from their respective parent processes
+
+
+- =trus= ::
+	Produces a trace of the system calls it performs, the signals it receives and the machine faults it incurs. By default, user-level functions are not traced.
+
+	Options:
+		- =-p= :: Provides the PID
+		- =-u [!] [LibraryName [...]::[!]FunctionName [...]]= :: Traces dynamically loaded user-level function calls from user libraries
+		- =-a= :: Shows the argument strings passed in each =exec()= system call
+		- =-f= :: Follows all children created by =fork()= or =vfork()= and includes their signals, faults and system calls in the trace output
+		- =-m [!] Fault= :: Traces the listed machine faults in the process
+		- =-s [!] Signal= :: Permits listing signals to trace or exclude
+
+
+- =ps -fp <pid>= :: Check for hangs from CPU usage
+- =ps -mp <pid> -o THREAD= :: Check the time field
+
+
+- =ps gv | head -n l; ps -gv | egrep -v "RSS" | sort +6b -7 -n -r= ::
+	- =RSS= :: Amount of RAM used in KB for text and data segments per process
+	- =%MEM= :: Amount of RSS/Total RAM
+	- =TRS= :: Amount of RAM used for text segment of a process in KB
+	- =SIZE= :: Actual amount of paging space allocated for this process (text and data)
+
+
+- =svmon -P <pid> -m -r -i <interval>= :: Reports complete process memory utilization
 
 * FILE SYSTEMS
 ** Physical Volumes (PV's)
@@ -817,7 +952,6 @@ Use attrubute "-a bf=true" for a large file enabled filesystem.
 
 
 - ~chfs -a splitcopy=/backup -a copy=2 /data1~ :: Splits off a copy of a 3 way mirror and mount read only for use as an offline backup.
-
 * BOOT LOGICAL VOLUME (BLV) / PROCESSORS / KERNEL
 
 Mirroring does not work with the =BLV= as it is not a true logical volume, =bosboot= must be run against the other disk after mirroring the =rootvg=.
@@ -969,9 +1103,7 @@ Where a is  (4 SUID) + (2 SGID)  + (1 SVTX)
       b is  (4 read) + (2 write) + (1 execute)  permissions for owner
       c is  (4 read) + (2 write) + (1 execute)  permissions for group
       d is  (4 read) + (2 write) + (1 execute)  permissions for others
-#+END_EXAMPLE
 
-#+BEGIN_EXAMPLE
  -rwxrwxrwx   -rwxrwxrwx   -rwxrwxrwx
   |||             |||             |||
    -               -               -
@@ -1236,7 +1368,7 @@ odio/s  - The number of non-paging disk I/O per second
 #+END_EXAMPLE
 
 
-- svmon -G ::
+- =svmon -G= ::
 
 #+BEGIN_EXAMPLE
 inuse    - Pages in RAM Used by processes plus the number of persistent pages that belonged to a terminal process and is still resident in RAM
@@ -1245,7 +1377,7 @@ pin      - The number of pages pinned in physical memory (RAM) which cannot be p
 pg space - The actual use of paging space (4k pages)
 #+END_EXAMPLE
 
-- svmon -P | grep -p <pid> ::
+- =svmon -P | grep -p <pid>= ::
 
 
 - =/usr/samples/kernel/vmtune= :: Displays "Virtual Memory Manager" settings
@@ -1253,6 +1385,7 @@ pg space - The actual use of paging space (4k pages)
 * VMM Tuning
 ** TODO Org mode formatting for "VMM Tuning"
 *** TODO copy from bitbucket repo
+
 
 * DOS DISKETTES
 
