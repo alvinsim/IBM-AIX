@@ -4,7 +4,7 @@
 #+LANGUAGE: en
 #+STARTUP: 	align fold nodlechek hidestarts oddeven intestate
 #+SEQ_TODO: TODO(t) | DONE(d)
-#+OPTION: 	H:3 num:nil toc:t \n:nil ::t |:t ^:t -:t f:t ^:{} _:{} *:t d:(HIDE) showall tasks:todo
+#+OPTION: 	H:3 num:nil toc:t \n:nil ::t |:t ^:t -:t f:t ^:{} _:{} *:t d:(HIDE) todo:nil showall tasks:todo
 
 * Backlog [75%]
 ** DONE Sync with command crib website - [[http://www.unixguide.net/ibm/ibmcribsheet.shtml]]
@@ -445,16 +445,16 @@ Same as above but using =tar= instead of =cpio=.
 ** COPYING DISKETTES
 
 - =dd if=/dev/fd0 of=filename) bs=36b= ::
-- =dd if=(filename) of=/dev/fd0 bs=36b conv=sync= :: or flcopy
+- =dd if=(filename) of=/dev/fd0 bs=36b conv=sync= :: or =flcopy=
 
 ** COPYING TAPES
 
 - =dd if=/dev/rmt0 of=filename)= ::
-- =dd if=(filename) of=/dev/rmt0= ::  or recopy
+- =dd if=(filename) of=/dev/rmt0= :: or =recopy=
 
 * VI Commands
 
-- =:g/xxx/s//yyy/= :: global change where xxx is to be changed by yyy
+- =:g/xxx/s//yyy/= :: global change where =xxx= is to be changed by =yyy=
 - =sed 's(ctrl v ctrl m)g//g' old.filename > new.filename= :: Strips out =^M= characters from ascii files that have been transferred as binary. To enter crontrol characters type =ctrl-v= then =ctrl-?= where ? is whatever =ctrl= character you need.
 
 * DEVICES
@@ -533,9 +533,9 @@ lsattr -EH -l sys0 -a modelname
 
 * TAPE DRIVES
 
-#+BEGIN_EXAMPLE
-rmt0.x 			# where x = A + B + C
+- =rmt0.x= :: where =x = A + B + C=
 
+#+BEGIN_EXAMPLE
 # A = density        0 = high      4 = low
 # B = retension      0 = no        2 = yes
 # C = rewind         0 = yes       1 = no
@@ -703,9 +703,7 @@ ulimit -S -c <value> /dev/null 2>&1
 #+END_EXAMPLE
 
 
-- =chuser attribute=value username= ::
-	Set the soft or hard limits for a user.
-
+- =chuser attribute=value username= :: Set the soft or hard limits for a user.
 	Attributes:
 		- =core= :: Size of the soft limit
 		- =core_hard= :: Size of the hard limit
@@ -728,9 +726,7 @@ ulimit -S -c <value> /dev/null 2>&1
 - =proctree= :: Prints the process trees containing the process IDs (PIDs) or users, with child processes indented from their respective parent processes
 
 
-- =trus= ::
-	Produces a trace of the system calls it performs, the signals it receives and the machine faults it incurs. By default, user-level functions are not traced.
-
+- =trus= :: Produces a trace of the system calls it performs, the signals it receives and the machine faults it incurs. By default, user-level functions are not traced.
 	Options:
 		- =-p= :: Provides the PID
 		- =-u [!] [LibraryName [...]::[!]FunctionName [...]]= :: Traces dynamically loaded user-level function calls from user libraries
@@ -872,7 +868,12 @@ If copying a striped =LV= to an =LV= that is already created, and the stripe siz
 - =cplv -e (new lv) (old lv)= :: Copy to an existing =LV= (new =LV= must have type as copy use =chlv -t copy (new lv)= to change)
 
 
-- =mklv/extendlv -a= :: = PP allocation policy [ =-am= = middle; =-ac= = cemter; =-ac= = center; =-ae= = edge; =-aie= = inner edge; =-aim= = inner middle ]
+- =mklv/extendlv -a= :: = PP allocation policy
+	- =-am= :: middle
+	- =-ac= :: center
+	- =-ae= :: edge
+	- =-aie= :: inner edge
+	- =-aim= :: inner middle
 
 
 - =migratepv -l (lv) (old pv) (new pv)= :: Move a logical volume between physical volumes. Both physical volumes must be in the same volume group!
@@ -1215,12 +1216,10 @@ eg umask 022 = new file permissions of 755 = read write and execute for owner
 
 
 - =chlang (language)= :: Changes the language settings for system or user.
+	- =En_GB= :: PC850 code pages
+	- =en_GB= :: ISO8859 code pages (Great Britain)
+	- =C= :: posix
 
-#+BEGIN_EXAMPLE
-         En_GB   = PC850 code pages
-         en_GB   = ISO8859 code pages (Great Britain)
-           C     = posix
-#+END_EXAMPLE
 
 - =su - (user)= :: Switch to new user and change to the new users environment.
 - =su (user)= :: Switch to new user, current environment is propated to the new shell.
@@ -1333,19 +1332,17 @@ vmstat hdisk0 5 20
 - =vmstat -s= :: Diplays number of paging events since system start.
 - =vmstat -f= :: Diplays number of forks since system start.
 - =vmstat -i= :: Diplays number of interupts by device since system start.
+	- =avm= :: amount of active virtual memory (in 4k pages) excluding file pages
+	- =fre= :: size of memory in the free list
+	- =pi= :: pages paged in from paging space
+	- =po= :: pages paged out of paging space
+	- =r= :: average number of runnable kernel threads over the timing interval specified
+	- =b= :: average number of kernel threads  that are in the virtual memory waiting quever over the timing
+	- =us= :: User time
+	- =sy= :: System time
+	- =id= :: Idle time
+	- =wa= :: Waiting on I/O
 
-#+BEGIN_EXAMPLE
-avm - amount of active virtual memory (in 4k pages) excluding file pages
-fre - size of memory in the free list
-pi  - pages paged in from paging space
-po  - pages paged out of paging space
-r   - average number of runnable kernel threads over the timing interval specified
-b   - average number of kernel threads that are in the virtual memory waiting quever over the timing
-us  - User time
-sy  - System time
-id  - Idle time
-wa  - Waiting on I/O
-#+END_EXAMPLE
 
 - =iostat (drive) (interval) (count)= :: Reports i/o and cpu statistics.
 
@@ -1359,29 +1356,25 @@ iostat hdisk0 5 20
 
 
 - =sar -u -P ALL 10 10= :: Displays =%usr= =%sys= =%wio= =%idle= for all processors
-
-#+BEGIN_EXAMPLE
-cycle/s - The number of page replacement cycles per second
-fault/s - The number of page faults per second
-slot/s  - The number of free pages on the paging spaces
-odio/s  - The number of non-paging disk I/O per second
-#+END_EXAMPLE
+	- cycle/s :: The number of page replacement cycles per second
+	- fault/s :: The number of page faults per second
+	- slot/s :: The number of free pages on the paging spaces
+	- odio/s :: The number of non-paging disk I/O per second
 
 
 - =svmon -G= ::
+	- =inuse= :: Pages in RAM used by processes plus the number of persistent pages that belonged to a terminal process and is still resident in RAM
+	- =free= :: The amount of pages on the free list
+	- =pin= :: The number of pages pinned in physical memory (RAM) which cannot be paged out
+	- =pg space= :: The actual use of paging space (4k pages
 
-#+BEGIN_EXAMPLE
-inuse    - Pages in RAM Used by processes plus the number of persistent pages that belonged to a terminal process and is still resident in RAM
-free     - The amount of pages on the free list
-pin      - The number of pages pinned in physical memory (RAM) which cannot be paged out
-pg space - The actual use of paging space (4k pages)
-#+END_EXAMPLE
 
 - =svmon -P | grep -p <pid>= ::
 
 
 - =/usr/samples/kernel/vmtune= :: Displays "Virtual Memory Manager" settings
 
+*
 * VMM Tuning
 ** TODO Org mode formatting for "VMM Tuning"
 *** TODO copy from bitbucket repo
@@ -1468,13 +1461,10 @@ s1term 1 1	# Opens a serial terminal to console port on frame 1 node 1 which is 
 
 
 - =splstdata -e= :: Lists site environment database information
-
-#+BEGIN_EXAMPLE
-	-d	Displays df command from each node
-	-n	Lists node configuration
-	-h	Displays lscfg command from each node
-	-s	Lists switch node information
-	-b	Lists boot/installation information
-	-a	Lists LAN database information
-	-i	Displays netstat -in command from each node
-#+END_EXAMPLE
+	- =-d= :: Displays =df= command from each node
+	- =-n= :: Lists node configuration
+	- =-h= :: Displays =lscfg= command from each node
+	- =-s= :: Lists switch node information
+	- =-b= :: Lists boot/installation information
+	- =-a= :: Lists LAN database informtion
+	- =-i= :: Displays =netstat -in= command from each node
