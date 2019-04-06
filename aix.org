@@ -1020,6 +1020,31 @@ echo "stat\n status\n t -m" | crash /var/adm/ras/vmcore.0
 
 * PAGING SPACE (PS's)
 
+3 modes of paging space allocation:
+- Deferred page space allocation
+	- Allocation of page space is delayed until the time that it is necessary to page it out.
+- Late page space allocation
+	- Causes paging disk blocks not to be allocated until its corresponding pages in RAM are touched.
+	- For environments where optimum performance is more than reliability.
+- Early page space allocation
+	- Used if you want to make certain that processes will not be killed because of low paging conditions.
+	- Pre-allocates paging space.
+	- Used in environments where reliability rules.
+	- To turn on, set =PSALLOC=early=
+
+#+BEGIN_EXAMPLE
+vmo -a | grep def
+# defps = 1			Deferred page space allocation set
+# defps = 0			Late page space allocation
+#+END_EXAMPLE
+
+To add additional paging space
+- The size should be the same
+
+Estimate paging space size
+- If "Real Memory" is 4GB, paging space size should be same with real memory.
+- If "Real Memory" is between 4GB and 32 GB, paging space should be half of it.
+
 - =lsps -a= :: Lists out all paging space
 - =lsps -s= :: Displays total paging and total useage
 - =lsps (ps)= ::
@@ -1376,9 +1401,57 @@ iostat hdisk0 5 20
 
 *
 * VMM Tuning
-** TODO Org mode formatting for "VMM Tuning"
-*** TODO copy from bitbucket repo
 
+=lrud= is the kernel process that is responsible to steal memory when required.
+
+The VMM classifies memory into two types: computational and non-computational. Computational memory includes working storage segments and application text segments. Non-computational refers to File System Cache (JFS, JFS2, NFS, etc).
+
+The file system cache is tracked by the kernel by the kernel parameter numperm. The size of the client segment usage is tracked by the kernel parameter =numclient=.
+
+Page fault is considered to be a new page fault or a re-page fault. A re-page fault occurs when a page that have been referenced recently is referenced again and is not found in memory because the page has been replaced. The VMM maintains a re-page history buffer and maintains two counters that estimate computational-memory repaging and file-memory repaging. The re-paging rates are multiplied by 90% each time the page-replacement algorithm runs.
+
+#+BEGIN_EXAMPLE
+# This prevents the lrud from running unnecessarily.
+# The value should be greater than numclient%. Typical setting is 90%.
+maxperm%=maxclient%			# A high value
+
+# This ensures that the setting for lru_file_repage isn't overridden, and should be less
+# than numperm%. Typical settings base on total system memory:
+# a) 32G or less -> minperm%=5%
+# b) > 32G and <= 64G -> minperm%=10%
+# c) > 64G -> minperm%=20%
+minperm%=<A low value>
+
+strict_maxperm=0			# default
+strict_maxclient=1		# default
+lru_file_repage=0			# default 1
+#+END_EXAMPLE
+
+1. If file pages (=numperm%=) is more than =maxperm%=, page replacement would only steal file pages.
+2. If file pages (=numperm%=) is lesser than =minperm%=, it would steal both file and computational pages, whichever is least recently used pages.
+3. If file pages (=numperm%=) is between =minperm%= and =maxperm%=, it would steal file pages if the amount of file repages is lesser than the computational pages when the =lru_file_repage= is '1'. Otherwise, it will only target file pages.
+
+Computational pages contains:
+- process data
+- stack
+- shared memory
+- kernel data
+
+File pages contains:
+- client pages
+	- Cached data for non-JFS file systems (JFS2, NFS, etc.)
+- non-client pages
+	- Cached data for JFS file system.
+
+When computational pages are paged out, they are paged to paging space and not file systems.
+
+When the process exists, the system releases all of its private working storage pages - pages for the data of a process and stack. Pages for shared memory regions are not released until the shared memory region is deleted.
+
+=lru_file_repage= indicates whether to steal file or computational pages. If set to '0', VMM will try to steal only file pages instead of computational pages. Unless =numperm%= is greater than =maxperm%= or lesser than =minperm%=.
+
+If =strict_maxperm= is '1', it would place a hard limit on the amount of memory that could be used for persistent file caching. This is no longer necessary because =lru_file_repage= is sufficient.
+
+If number of pages in the free list is below the =minfree= parameter, VMM starts to steal pages to add to the free list, which is not good. This process continues until the free list has at least the number of pages in the =maxfree= parameter.
 
 * DOS DISKETTES
 
